@@ -6,16 +6,18 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:25:08 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/08 13:25:20 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:26:25 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	strlen(const char *s);
-{
-    size_t	len;
+#include "libft.h"
 
-    len = 0;
-    while (s[len])
-        len++;
-    return (len);
+size_t	ft_strlen(const char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }
