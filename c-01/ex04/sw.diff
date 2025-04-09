@@ -1,0 +1,24 @@
+4c4
+< /*   ft_ultimate_div_mod.c                              :+:      :+:    :+:   */
+---
+> /*   ft_ultimate_div_mod_test.c                         :+:      :+:    :+:   */
+9c9
+< /*   Updated: 2025/02/24 19:40:09 by maaugust         ###   ########.fr       */
+---
+> /*   Updated: 2025/02/24 19:41:01 by maaugust         ###   ########.fr       */
+12a13,14
+> #include <stdio.h>
+> 
+26a29,40
+> }
+> 
+> int	main(void)
+> {
+> 	int	a;
+> 	int	b;
+> 
+> 	a = 9;
+> 	b = 2;
+> 	printf("Before -> a = %d, b = %d\n", a, b);
+> 	ft_ultimate_div_mod(&a, &b);
+> 	printf("After -> a = %d, b = %d\n", a, b);
