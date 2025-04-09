@@ -6,8 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:30:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/08 13:30:40 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:57:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+int	ft_toupper(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		c -= 'a' - 'A';
+	return (c);
+}

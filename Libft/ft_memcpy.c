@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:25:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/09 17:05:57 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:00:57 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	unsigned char		*dstPtr;
-	const unsigned char	*srcPtr;
+	unsigned char		*dst_ptr;
+	const unsigned char	*src_ptr;
 
-	dstPtr = dest;
-	srcPtr = src;
-	if (!dstPtr && !srcPtr)
+	dst_ptr = dest;
+	src_ptr = src;
+	if (!dst_ptr && !src_ptr)
 		return (NULL);
 	while (n-- > 0)
-		dstPtr[n] = srcPtr[n];
+		dst_ptr[n] = src_ptr[n];
 	return (dest);
 }
