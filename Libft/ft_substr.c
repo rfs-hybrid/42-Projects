@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:32:39 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 14:40:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:30:34 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*sub;
 	size_t	i;
 
-	sub = (char *)malloc(sizeof(char) * (len + 1));
+	sub = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!sub)
 		return (NULL);
 	i = 0;
@@ -29,6 +29,5 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 			i++;
 		}
 	}
-	*(sub + i) = '\0';
 	return (sub);
 }
