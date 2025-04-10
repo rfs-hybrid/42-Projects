@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:25:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/09 16:53:26 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:40:02 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	*ft_memset(void *s, int c, size_t n)
 
 	ptr = s;
 	while (n-- > 0)
-		ptr[n] = c;
+		*(ptr + n) = c;
 	return (s);
 }

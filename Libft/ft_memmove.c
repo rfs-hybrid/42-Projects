@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:26:01 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/09 19:01:25 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:41:06 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	if (dst_ptr > src_ptr)
 	{
 		while (n-- > 0)
-			dst_ptr[n] = src_ptr[n];
+			*(dst_ptr + n) = *(src_ptr + n);
 	}
 	else
 	{
 		i = 0;
 		while (i < n)
 		{
-			dst_ptr[i] = src_ptr[i];
+			*(dst_ptr + i) = *(src_ptr + i);
 			i++;
 		}
 	}

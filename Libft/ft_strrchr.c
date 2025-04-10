@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:31:06 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/09 18:59:53 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:46:10 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*ft_strrchr(const char *s, int c)
 	i = 0;
 	while (i <= len)
 	{
-		if (s[i] == c)
-			ptr = (char *) s + i;
+		if (*(s + i) == c)
+			ptr = (char *)(s + i);
 		i++;
 	}
 	return (ptr);

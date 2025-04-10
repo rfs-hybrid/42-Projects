@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:26:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/09 19:02:14 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:41:38 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	if (size > 0)
 	{
 		i = 0;
-		while (i < size - 1 && src[i])
+		while (i < size - 1 && *(src + i))
 		{
-			dst[i] = src[i];
+			*(dst + i) = *(src + i);
 			i++;
 		}
-		dst[i] = '\0';
+		*(dst + i) = '\0';
 	}
 	return (src_len);
 }
