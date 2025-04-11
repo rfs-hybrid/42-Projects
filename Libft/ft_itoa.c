@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:34:24 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 18:46:47 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:17:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,20 @@ size_t	count_digits(int n)
 char	*store_number(char *str, int n, size_t len)
 {
 	size_t	i;
+	size_t	max;
 
 	i = 0;
+	max = len;
 	if (n < 0)
 	{
 		*str = '-';
 		n *= -1;
-		while (i < len - 1)
-		{
-			*(str + (len - 1 - i++)) = n % 10 + '0';
-			n /= 10;
-		}
+		max--;
 	}
-	else
+	while (i < max)
 	{
-		while (i < len)
-		{
-			*(str + (len - 1 - i++)) = n % 10 + '0';
-			n /= 10;
-		}
+		*(str + (len - 1 - i++)) = n % 10 + '0';
+		n /= 10;
 	}
 	return (str);
 }
