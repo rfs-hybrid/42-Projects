@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:31:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 11:46:50 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:41:37 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if (*(ptr + i) == c)
+		if (*(ptr + i) == (char)c)
 			return ((char *)(ptr + i));
 		i++;
 	}
