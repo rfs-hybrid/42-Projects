@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 17:38:44 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:26:03 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**ft_split(char const *s, char c)
 	size_t	j;
 
 	n_words = count_words(s, c);
-	split = (char **) ft_calloc(n_words + 1, sizeof(char *) );
+	split = (char **)ft_calloc(n_words + 1, sizeof(char *));
 	if (!split || !s)
 		return (NULL);
 	i = 0;
