@@ -6,8 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:35:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/08 13:36:49 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:16:56 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
+void	ft_putchar_fd(char c, int fd)
+{
+	write (fd, &c, 1);
+}
