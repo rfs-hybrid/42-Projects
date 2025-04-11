@@ -6,13 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 14:26:03 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:12:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	count_words(const char *s, char c)
+static size_t	count_words(const char *s, char c)
 {
 	size_t	n_words;
 	size_t	i;
@@ -33,13 +33,23 @@ size_t	count_words(const char *s, char c)
 	return (n_words);
 }
 
-char	*separate_string(const char *s, char c)
+static size_t	word_length(const char *s, char c)
+{
+	size_t	len;
+
+	len = 0;
+	while (*(s + len) && *(s + len) != c)
+		len++;
+	return (len);
+}
+
+static char	*separate_string(const char *s, char c)
 {
 	char	*word;
 	size_t	i;
 
 	i = 0;
-	word = (char *) ft_calloc(ft_strlen(s) + 1, sizeof(char));
+	word = (char *) ft_calloc(word_length(s, c) + 1, sizeof(char));
 	if (!word)
 		return (NULL);
 	while (*(s + i) && *(s + i) != c)
