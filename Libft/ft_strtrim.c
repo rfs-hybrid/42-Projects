@@ -6,13 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:35 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 15:50:55 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:17:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	isset(char c, char const *set)
+static int	isset(char c, char const *set)
 {
 	size_t	i;
 
@@ -33,8 +33,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	start;
 	size_t	end;
 
-	if (!(*set))
-		return ((char *)s1);
 	len = ft_strlen(s1);
 	start = 0;
 	while (s1[start] && isset(s1[start], set) && start < len)

@@ -6,13 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:34:24 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 14:17:51 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:12:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	count_digits(int n)
+static size_t	count_digits(int n)
 {
 	size_t	n_digits;
 
@@ -27,7 +27,7 @@ size_t	count_digits(int n)
 	return (n_digits);
 }
 
-char	*store_number(char *str, int n, size_t len)
+static char	*store_number(char *str, int n, size_t len)
 {
 	size_t	i;
 	size_t	max;
