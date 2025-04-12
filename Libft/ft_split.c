@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 18:01:59 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:47:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ static char	*separate_string(const char *s, char c)
 
 static char	**free_memory(char **split, size_t n)
 {
-	if (n)
-	{
-		while (n-- > 0)
-			free(split[n]);
-	}
+	while (n-- > 0)
+		free(split[n]);
 	free(split);
 	return (NULL);
 }
@@ -76,11 +73,11 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (*(s + i) && j < count_words(s, c))
+	while (j < count_words(s, c))
 	{
-		while (*(s + i) && *(s + i) == c)
+		while (*(s + i) == c)
 			i++;
-		if (*(s + i) && *(s + i) != c)
+		if (*(s + i))
 		{
 			*(split + j) = separate_string(s + i, c);
 			if (!(*(split + j)))
