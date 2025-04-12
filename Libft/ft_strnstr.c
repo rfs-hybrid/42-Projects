@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:31:42 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 15:47:24 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:12:50 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	i;
 	size_t	j;
 
+	if (!big && !len)
+		return (NULL);
 	if (!(*little) || big == little)
 		return ((char *)big);
 	i = 0;

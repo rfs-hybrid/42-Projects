@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:36:59 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 15:14:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:03:12 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ void	ft_putstr_fd(char *s, int fd)
 	size_t	i;
 
 	i = 0;
-	while (*(s + i))
-		ft_putchar_fd(*(s + i++), fd);
+	if (s)
+	{
+		while (*(s + i))
+			ft_putchar_fd(*(s + i++), fd);
+	}
 }

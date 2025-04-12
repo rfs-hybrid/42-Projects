@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:32:39 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 16:10:31 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:19:59 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*sub;
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	sub = allocate_memory(s, start, len);
 	if (!sub)
 		return (NULL);

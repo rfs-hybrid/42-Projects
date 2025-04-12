@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:34:50 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 14:02:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:15:09 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	size_t	len;
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	len = ft_strlen(s);
 	str = (char *)ft_calloc(len + 1, sizeof(char));
 	if (!str)

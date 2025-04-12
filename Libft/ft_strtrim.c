@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:35 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/11 16:17:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:17:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	start;
 	size_t	end;
 
+	if (!s1)
+		return (NULL);
 	len = ft_strlen(s1);
 	start = 0;
 	while (s1[start] && isset(s1[start], set) && start < len)
