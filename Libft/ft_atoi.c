@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:31:52 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 13:58:24 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/14 19:05:52 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int	ft_atoi(const char *nptr)
 		i++;
 	}
 	while (ft_isdigit(*(nptr + i)))
-	{
-		res = res * 10 + ((*(nptr + i)) - '0');
-		i++;
-	}
+		res = res * 10 + ((*(nptr + i++)) - '0');
 	return (res * sign);
 }

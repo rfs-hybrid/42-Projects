@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/14 18:24:07 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/14 20:15:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	*add_string(const char *s, char c)
 {
 	char	*word;
 	size_t	len;
-	size_t	i;
 
 	len = 0;
 	while (*(s + len) && *(s + len) != c)
@@ -45,12 +44,7 @@ static char	*add_string(const char *s, char c)
 	word = (char *) ft_calloc(len + 1, sizeof(char));
 	if (!word)
 		return (NULL);
-	i = 0;
-	while (*(s + i) && *(s + i) != c)
-	{
-		*(word + i) = *(s + i);
-		i++;
-	}
+	ft_memmove(word, s, len);
 	return (word);
 }
 
