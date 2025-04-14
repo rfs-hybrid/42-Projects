@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:26:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 11:41:38 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:00:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	size_t	i;
 
 	src_len = ft_strlen(src);
-	while (src[src_len])
-		src_len++;
 	if (size > 0)
 	{
 		i = 0;
