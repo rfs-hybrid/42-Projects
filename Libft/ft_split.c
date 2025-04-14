@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:33:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/12 18:13:44 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:24:07 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	count_words(const char *s, char c)
 	return (n_words);
 }
 
-static char	*separate_string(const char *s, char c)
+static char	*add_string(const char *s, char c)
 {
 	char	*word;
 	size_t	len;
@@ -79,7 +79,7 @@ char	**ft_split(char const *s, char c)
 	{
 		while (*(s + i) == c && *(s + i + 1))
 			i++;
-		*(split + j) = separate_string(s + i, c);
+		*(split + j) = add_string(s + i, c);
 		if (!(*(split + j)))
 			return (free_memory(split, j));
 		j++;
