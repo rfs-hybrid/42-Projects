@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:41:06 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/14 17:52:07 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/14 18:18:29 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 			tmp = ft_lstlast(tmp);
 			tmp->next = new;
 		}
-		else if (new)
+		else
 			*lst = new;
 	}
 }
