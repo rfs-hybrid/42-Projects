@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:42:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/12 20:38:22 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:49:24 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,17 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!del && !lst)
 		return (NULL);
-
-	
+	map = NULL;
+	while (lst)
+	{
+		tmp = ft_lstnew(f(lst->content));
+		if (!tmp)
+		{
+			ft_lstclear(&map, del);
+			break ;
+		}
+		ft_lstadd_back(&map, tmp);
+		lst = lst->next;
+	}
+	return (map);
 }
