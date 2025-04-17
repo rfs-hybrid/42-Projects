@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:32:04 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/10 14:13:45 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/17 19:06:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	*ft_calloc(size_t nmemb, size_t size)
 {
 	unsigned char	*arr;
 
+	if (size && nmemb > SIZE_MAX / size)
+		return (NULL);
 	arr = (unsigned char *)malloc(sizeof(unsigned char) * (nmemb * size));
 	if (!arr)
 		return (NULL);
