@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:13:50 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/22 13:55:19 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:33:58 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,12 @@
 
 # include "../libft/libft.h"
 # include <stdarg.h>
-# include <stdio.h>
-# include <limits.h>
 
-typedef struct s_flags
-{
-	unsigned char	minus;
-	unsigned char	plus;
-	unsigned char	space;
-	unsigned char	hash;
-	unsigned char	zero;
-}	t_flags;
+# define HEX_LOWER		"0123456789abcdef"
+# define HEX_UPPER		"0123456789ABCDEF"
+# define HEX_LEN		16
+# define DEC_LEN		10
+# define INT_MIN_VAL	-2147483648
 
 int	ft_printf(const char *s, ...);
 int	ft_putchar_cnt(char c);

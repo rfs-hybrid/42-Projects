@@ -3,20 +3,20 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 AR = ar rcs
+FILES =	ft_printf.c ft_putchar_cnt.c ft_putstr_cnt.c ft_putptr_cnt.c \
+		ft_putnbr_cnt.c ft_putunbr_cnt.c ft_puthex_cnt.c ft_putnbr_base.c
 SRCDIR = ./srcs
 OBJDIR = ./objs
 INCDIR = ./includes
 LIBFTDIR = ./libft
 LIBFT =	$(LIBFTDIR)/libft.a
-SRC =	$(SRCDIR)/ft_printf.c $(SRCDIR)/ft_putchar_cnt.c $(SRCDIR)/ft_putstr_cnt.c \
-		$(SRCDIR)/ft_putptr_cnt.c $(SRCDIR)/ft_putnbr_cnt.c $(SRCDIR)/ft_putunbr_cnt.c \
-		$(SRCDIR)/ft_puthex_cnt.c $(SRCDIR)/ft_putnbr_base.c
-OBJ = $(SRC:%.c=%.o)
+SRC = $(addprefix $(SRCDIR)/, $(FILES))
+OBJ = $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
-%.o: %.c $(INCDIR)/ft_printf.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
 
-all: $(LIBFT) $(NAME) $(OBJDIR)
+all: $(LIBFT) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJ)
 	cp $(LIBFT) $(NAME)
@@ -27,7 +27,6 @@ $(LIBFT):
 
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
-	mv $(OBJ) $(OBJDIR)
 
 clean:
 	make -C $(LIBFTDIR) clean
