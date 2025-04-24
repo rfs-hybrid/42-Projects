@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:50:22 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/21 15:59:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:30:55 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define LIBFT_H
 
 # include <unistd.h>
-# include <stdint.h>
 # include <stdlib.h>
+# include <stdint.h>
 
 typedef struct s_list
 {

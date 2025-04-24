@@ -6,14 +6,14 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:13:50 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/24 14:33:58 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/24 15:35:24 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 # include <stdarg.h>
 
 # define HEX_LOWER		"0123456789abcdef"
