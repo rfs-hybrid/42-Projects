@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:39:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/12 15:25:29 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:03:42 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,32 +64,3 @@ char	*get_next_line(int fd)
 	}
 	return (new_line);
 }
-
-// #include <fcntl.h>
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*next_line;
-
-// 	fd = open("read_error.txt", O_RDONLY);
-// 	if (fd < 0)
-// 			return (-1);
-// 	next_line = get_next_line(fd);
-// 	// while (next_line)
-// 	// {
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(-1);
-// 	// }
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd);
-// 	// }
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	next_line = get_next_line(fd);
-// 	// }
-// 	printf("%s", next_line);
-// 	free(next_line);
-// 	return (0);
-// }
