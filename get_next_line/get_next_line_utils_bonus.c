@@ -6,11 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:39:26 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/12 15:14:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:38:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
