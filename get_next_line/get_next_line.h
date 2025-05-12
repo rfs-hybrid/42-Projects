@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/12 15:11:30 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:16:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*ft_str_realloc(char *str, size_t size);
 
