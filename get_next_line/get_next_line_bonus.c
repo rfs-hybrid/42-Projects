@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:39:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/12 16:03:49 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:08:52 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static ssize_t	read_line(int fd, char *buffer, char **new_line)
 {
 	ssize_t	n_bytes;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= FD_SIZE || BUFFER_SIZE <= 0)
 		return (0);
 	if (!*buffer)
 	{
