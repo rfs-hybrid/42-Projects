@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:10:41 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/23 13:05:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:05:56 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ int	ft_putnbr_cnt(int n)
 {
 	int		cnt;
 
-	if (n == INT_MIN_VAL)
+	if (n == -2147483648)
 		return (ft_putstr_cnt("-2147483648"));
 	cnt = 0;
 	if (n < 0)
-	{
 		cnt += ft_putchar_cnt('-');
-		n *= -1;
-	}
-	cnt += ft_putnbr_base(n, HEX_LOWER, DEC_LEN);
+	n *= (n > 0) - (n < 0);
+	cnt += ft_putnbr_base(n, "0123456789", 10);
 	return (cnt);
 }

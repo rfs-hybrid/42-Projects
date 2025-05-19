@@ -1,31 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_cnt.c                                    :+:      :+:    :+:   */
+/*   ft_putchar_cnt.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 18:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/21 18:37:16 by maaugust         ###   ########.fr       */
+/*   Created: 2025/04/18 18:07:18 by maaugust          #+#    #+#             */
+/*   Updated: 2025/05/19 19:23:09 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_putstr_cnt(char *s)
+int	ft_putchar_cnt(char c, t_flags *flags)
 {
 	int	cnt;
 
-	cnt = 0;
-	if (s)
+	cnt = 1;
+	if (flags->minus)
 	{
-		while (*(s + cnt))
-			ft_putchar_fd(*(s + cnt++), 1);
+		ft_putchar_fd(c, 1);
+		while (cnt++ < flags->width)
+			ft_putchar_fd(' ', 1);
 	}
 	else
 	{
-		ft_putstr_fd("(null)", 1);
-		cnt = 6;
+		while (cnt++ < flags->width)
+			ft_putchar_fd(' ', 1);
+		ft_putchar_fd(c, 1);
 	}
+	cnt--;
+	reset_flags(flags);
 	return (cnt);
 }

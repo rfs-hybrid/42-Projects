@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 16:39:12 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/23 12:45:32 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:00:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	ft_putunbr_cnt(unsigned int n)
 {
-	return (ft_putnbr_base(n, HEX_LOWER, DEC_LEN));
+	return (ft_putnbr_base(n, "0123456789", 10));
 }

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:11:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/24 14:34:27 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:56:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,24 @@ int	ft_printf(const char *s, ...)
 
 	total = 0;
 	if (!s)
-		return (total);
+		return (-1);
 	va_start(args, s);
 	total = ft_parse_string(s, args);
 	va_end(args);
 	return (total);
 }
+
+// int	main(void)
+// {
+// 	long n = LONG_MIN;
+// 	// char *str;
+// 	int		res1;
+// 	int		res2;
+
+// 	// str = NULL;
+// 	res1 = printf("printf1 == %lx done\n", n);
+// 	res2 = ft_printf("printf2 == %x done\n", n);
+// 	printf("res1 == %d\n", res1);
+// 	printf("res2 == %d\n", res2);
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:13:50 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/24 15:35:24 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/19 15:51:38 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 
 # include "../libft/includes/libft.h"
 # include <stdarg.h>
-
-# define HEX_LOWER		"0123456789abcdef"
-# define HEX_UPPER		"0123456789ABCDEF"
-# define HEX_LEN		16
-# define DEC_LEN		10
-# define INT_MIN_VAL	-2147483648
+# include <stdio.h>
+# include <limits.h>
 
 int	ft_printf(const char *s, ...);
 int	ft_putchar_cnt(char c);

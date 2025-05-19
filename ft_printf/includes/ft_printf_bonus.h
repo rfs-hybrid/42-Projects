@@ -6,41 +6,38 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:01:09 by maaugust          #+#    #+#             */
-/*   Updated: 2025/04/23 13:09:22 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:38:44 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 
-# include "../libft/libft.h"
+# include "../libft/includes/libft.h"
 # include <stdarg.h>
-
-# define HEX_LOWER	"0123456789abcdef"
-# define HEX_UPPER	"0123456789ABCDEF"
-# define HEX_LEN	16
-# define DEC_LEN	10
-# define INT_MIN_VAL	-2147483648
+# include <stdbool.h>
 
 typedef struct s_flags
 {
-	unsigned char	minus;
-	unsigned char	plus;
-	unsigned char	space;
-	unsigned char	hash;
-	unsigned char	zero;
-	unsigned char	dot;
-	unsigned char	star;
-	size_t			width;
+	bool	minus;
+	bool	plus;
+	bool	space;
+	bool	hash;
+	bool	zero;
+	int		width;
+	int		prec;
 }	t_flags;
 
-int	ft_printf(const char *s, ...);
-int	ft_putchar_cnt(char c);
-int	ft_putstr_cnt(char *s);
-int	ft_putptr_cnt(void *s);
-int	ft_putnbr_cnt(int n);
-int	ft_putunbr_cnt(unsigned int n);
-int	ft_puthex_cnt(unsigned int nbr, char c);
-int	ft_putnbr_base(unsigned long long nbr, char *base, size_t len);
+int		ft_printf(const char *s, ...);
+int		ft_putchar_cnt(char c, t_flags *flags);
+int		ft_putstr_cnt(char *s, t_flags *flags);
+int		ft_putptr_cnt(void *s, t_flags *flags);
+int		ft_putnbr_cnt(int n, t_flags *flags);
+int		ft_putunbr_cnt(unsigned int n, t_flags *flags);
+int		ft_puthex_cnt(long nbr, t_flags *flags, char c);
+char	*ft_utoa_base(unsigned long nbr, char *base, size_t base_len);
+void	reset_flags(t_flags *flags);
+void	update_flags(const char *s, t_flags *flags);
+bool	is_specifier(char c);
 
 #endif
