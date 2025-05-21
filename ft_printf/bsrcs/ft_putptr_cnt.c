@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 14:20:08 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/19 19:37:10 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:41:55 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ft_putptr_cnt(void *s, t_flags *flags)
 	tmp = ft_utoa_base(addr, "0123456789abcdef", 16);
 	str = ft_strjoin("0x", tmp);
 	free(tmp);
+	if (!str)
+		return (-1);
 	cnt = ft_putstr_cnt(str, flags);
-	free(str);
-	return (cnt);
+	return (free(str), cnt);
 }

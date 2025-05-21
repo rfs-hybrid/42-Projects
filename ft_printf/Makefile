@@ -4,10 +4,12 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 AR = ar rcs
 
-FILES =	ft_printf.c ft_putchar_cnt.c ft_putstr_cnt.c ft_putptr_cnt.c \
-		ft_putnbr_cnt.c ft_putunbr_cnt.c ft_puthex_cnt.c ft_putnbr_base.c
-BFILES = ft_printf.c ft_putchar_cnt.c ft_putstr_cnt.c ft_putptr_cnt.c \
-		 ft_putnbr_cnt.c ft_putunbr_cnt.c ft_puthex_cnt.c ft_flags_utils.c ft_utoa_base.c
+FILES =	ft_printf.c ft_putchar_cnt.c ft_putstr_cnt.c \
+		ft_putptr_cnt.c ft_putnbr_cnt.c ft_putunbr_cnt.c \
+		ft_puthex_cnt.c ft_putnbr_base.c
+BFILES = ft_printf.c ft_putchar_cnt.c ft_putstr_cnt.c \
+		 ft_putptr_cnt.c ft_putnbr_cnt.c ft_putunbr_cnt.c \
+		 ft_puthex_cnt.c ft_flags_utils.c ft_utoa_base.c
 
 SRC_PATH = ./srcs
 BSRC_PATH = ./bsrcs
@@ -33,9 +35,9 @@ $(BOBJ_PATH)/%.o: $(BSRC_PATH)/%.c
 
 # all: $(LIBFT) $(OBJ_PATH) $(NAME)
 
-all: bonus
+all: $(LIBFT) $(BOBJ_PATH) $(NAME)
 
-bonus: $(LIBFT) $(BOBJ_PATH) $(NAME)
+bonus: all
 
 # $(NAME): $(OBJ)
 # 	cp $(LIBFT) $(NAME)
@@ -54,9 +56,13 @@ $(OBJ_PATH):
 $(BOBJ_PATH):
 	mkdir -p $(BOBJ_PATH)
 
+# clean:
+# 	make -C $(LIBFT_PATH) clean
+# 	$(RM) $(OBJ) $(OBJ_PATH)
+
 clean:
 	make -C $(LIBFT_PATH) clean
-	$(RM) $(OBJ) $(BOBJ) $(OBJ_PATH) $(BOBJ_PATH)
+	$(RM) $(BOBJ) $(BOBJ_PATH)
 
 fclean: clean
 	make -C $(LIBFT_PATH) fclean

@@ -6,11 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 14:39:10 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/19 15:00:35 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:41:12 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf_bonus.h"
+#include "ft_printf_bonus.h"
 
 void	reset_flags(t_flags *flags)
 {
@@ -33,7 +33,7 @@ void	update_flags(const char *s, t_flags *flags)
 		flags->space = true;
 	if (!(flags->hash) && *s == '#')
 		flags->hash = true;
-	if (!(flags->zero) && flags->width == 0 && *s == '0')
+	if (!(flags->zero) && flags->width == 0 && flags->prec < 0 && *s == '0')
 		flags->zero = true;
 	else if (flags->width == 0 && flags->prec < 0 && *s > '0' && *s <= '9')
 	{

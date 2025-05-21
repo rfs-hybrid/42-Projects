@@ -6,11 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 17:11:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/19 19:22:52 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/21 15:41:17 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf_bonus.h"
+#include "ft_printf_bonus.h"
 
 static int	ft_check_arg(char c, va_list args, t_flags *flags)
 {
@@ -27,69 +27,51 @@ static int	ft_check_arg(char c, va_list args, t_flags *flags)
 	else if (c == 'x' || c == 'X')
 		return (ft_puthex_cnt((long)(va_arg(args, unsigned int)), flags, c));
 	else if (c == '%')
-		ft_putchar_fd('%', 1);
-	else
-		ft_putchar_fd(c, 1);
-	return (1);
+		return (write(1, "%%", 1));
+	return (-1);
 }
 
-static int	ft_parse_string(const char *s, va_list args, t_flags *flags)
+static void	ft_parse_str(const char *s, va_list args, t_flags *flags, int *cnt)
 {
-	int	total;
+	int	n;
 
-	total = 0;
 	while (*s)
 	{
-		if (*s == '%' && *(s + 1))
+		if (*s == '%')
 		{
 			s++;
-			while (!(is_specifier(*s)))
+			while (*s && !(is_specifier(*s)))
+				update_flags(s++, flags);
+			n = ft_check_arg(*s, args, flags);
+			if (n < 0)
 			{
-				update_flags(s, flags);
-				s++;
+				*cnt = -1;
+				return ;
 			}
-			total += ft_check_arg(*s, args, flags);
+			*cnt += n;
 			reset_flags(flags);
 		}
-		else if (*s != '%')
+		else
 		{
 			ft_putchar_fd(*s, 1);
-			total++;
+			(*cnt)++;
 		}
 		s++;
 	}
-	return (total);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	int		total;
+	int		cnt;
 	va_list	args;
 	t_flags	flags;
 
-	total = 0;
+	cnt = 0;
 	if (!s)
-		return (total);
+		return (-1);
 	va_start(args, s);
 	reset_flags(&flags);
-	total = ft_parse_string(s, args, &flags);
+	ft_parse_str(s, args, &flags, &cnt);
 	va_end(args);
-	return (total);
+	return (cnt);
 }
-
-// int	main(void)
-// {
-// 	// unsigned int n = 0;
-// 	// char *str;
-// 	int		res1;
-// 	int		res2;
-
-// 	// str = NULL;
-// 	// res1 = printf("printf1 == %1s done\n", "");
-// 	// res2 = ft_printf("printf2 == %1s done\n", "");
-// 	res1 = printf("%1c%2c%3c%4c%1c%2c%3c\n", ' ','!','"','#','$','%','&');
-// 	res2 = ft_printf("%1c%2c%3c%4c%1c%2c%3c\n", ' ','!','"','#','$','%','&');
-// 	printf("res1 == %d\n", res1);
-// 	printf("res2 == %d\n", res2);
-// 	return (0);
-// }
