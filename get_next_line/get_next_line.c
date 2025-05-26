@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:39:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/12 16:03:42 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:00:10 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_next_line(int fd)
 		i = 0;
 		while (i < n_bytes && buffer[i] && buffer[i++] != '\n')
 			;
-		new_line = ft_str_realloc(new_line, i);
+		new_line = ft_str_realloc(&new_line, i);
 		if (!new_line)
 			break ;
 		len = ft_strlen(new_line);

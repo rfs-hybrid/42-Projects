@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:39:26 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/12 17:38:40 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:59:41 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,27 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	return (src_len);
 }
 
-char	*ft_str_realloc(char *str, size_t size)
+char	*ft_str_realloc(char **str, size_t size)
 {
 	char	*new;
 	size_t	len;
 
-	if (!str)
+	if (!str || !*str)
 	{
 		new = (char *) malloc(sizeof(char) * (size + 1));
 		if (!new)
-			return (NULL);
+			return (free(*str), NULL);
 		*new = '\0';
 	}
 	else
 	{
-		len = ft_strlen(str);
+		len = ft_strlen(*str);
 		new = (char *) malloc(sizeof(char) * (len + size + 1));
 		if (!new)
-			return (NULL);
-		ft_strlcpy(new, str, len + 1);
-		free(str);
+			return (free(*str), NULL);
+		ft_strlcpy(new, *str, len + 1);
+		free(*str);
+		str = NULL;
 	}
 	return (new);
 }
