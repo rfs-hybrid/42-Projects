@@ -6,17 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:33:55 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/02 14:49:16 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/03 17:09:13 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-// void	ft_stackadd_front(t_stack **stack, t_stack *new)
-// {
-// 	new->next = *stack;
-// 	*stack = new;
-// }
 
 void	ft_stackadd_back(t_stack **stack, t_stack *new)
 {
