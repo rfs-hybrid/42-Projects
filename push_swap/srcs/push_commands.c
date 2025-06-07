@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:59:36 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/03 17:06:30 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:17:15 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static void	push(t_stack **stack1, t_stack **stack2, t_stack *stack1_node)
 {
 	t_stack	*tmp;
 
-	if (!(*stack1 && stack1_node))
-		return ;
 	if (stack1_node == stack1_node->next)
 		*stack1 = NULL;
 	else
@@ -40,12 +38,22 @@ static void	push(t_stack **stack1, t_stack **stack2, t_stack *stack1_node)
 	*stack2 = stack1_node;
 }
 
-void	pa(t_stack **a, t_stack **b)
+void	pa(t_stack **a, t_stack **b, bool check)
 {
-	push(b, a, *b);
+	if (b && *b)
+	{
+		push(b, a, *b);
+		if (!check)
+			ft_printf("pa\n");
+	}
 }
 
-void	pb(t_stack **a, t_stack **b)
+void	pb(t_stack **a, t_stack **b, bool check)
 {
-	push(a, b, *a);
+	if (a && *a)
+	{
+		push(a, b, *a);
+		if (!check)
+			ft_printf("pb\n");
+	}
 }

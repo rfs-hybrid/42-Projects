@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:01:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/30 17:36:40 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:57:03 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static t_stack	*split_to_stack(char **argv)
 			ft_stackclear(&stack);
 			exit (-1);
 		}
-		new->current_i = i++;
-		new->final_i = new->current_i;
+		new->pos = i++;
 		new->value = ft_atoi(*argv);
 		new->next = NULL;
 		if (!stack)

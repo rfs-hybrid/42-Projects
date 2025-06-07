@@ -6,8 +6,9 @@ AR = ar rcs
 
 FILES = main.c stack_init.c validation.c string_to_stack.c \
 		args_to_stack.c stack_utils.c push_swap_utils.c  \
-		swap_commands.c rotation_commands.c reverse_rotation_commands.c \
-		algorithm.c
+		swap_commands.c push_commands.c rotation_commands.c \
+		reverse_rotation_commands.c short_stack_algorithm.c \
+		push_swap.c
 
 SRC_PATH = ./srcs
 

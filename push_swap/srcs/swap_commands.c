@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:08:12 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/02 21:03:10 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:18:47 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	swap(t_stack **stack)
 	t_stack	*node2;
 
 	if (*stack && (*stack)->next && *stack != (*stack)->next)
-	{	
+	{
 		node1 = *stack;
 		node2 = node1->next;
 		if (node2->next != node1)
@@ -33,21 +33,34 @@ static void	swap(t_stack **stack)
 		*stack = node2;
 	}
 }
-void	sa(t_stack **a)
+
+void	sa(t_stack **a, bool check)
 {
-	swap(a);
-	ft_printf("sa\n");
+	if (a && *a && *a != (*a)->next)
+	{
+		swap(a);
+		if (!check)
+			ft_printf("sa\n");
+	}
 }
 
-void	sb(t_stack **b)
+void	sb(t_stack **b, bool check)
 {
-	swap(b);
-	ft_printf("sb\n");
+	if (b && *b && *b != (*b)->next)
+	{
+		swap(b);
+		if (!check)
+			ft_printf("sb\n");
+	}
 }
 
-void	ss(t_stack **a, t_stack **b)
+void	ss(t_stack **a, t_stack **b, bool check)
 {
-	swap(a);
-	swap(b);
-	ft_printf("ss\n");
+	if (a && *a && *a != (*a)->next && b && *b && *b != (*b)->next)
+	{
+		swap(a);
+		swap(b);
+		if (!check)
+			ft_printf("ss\n");
+	}
 }

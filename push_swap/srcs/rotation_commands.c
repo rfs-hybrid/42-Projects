@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:59:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/02 21:17:52 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/07 15:18:05 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,33 @@ static void	rotation(t_stack **stack)
 	*stack = (*stack)->next;
 }
 
-void	ra(t_stack **a)
+void	ra(t_stack **a, bool check)
 {
-	rotation(a);
-	ft_printf("ra\n");
+	if (a && *a && *a != (*a)->prev)
+	{
+		rotation(a);
+		if (!check)
+			ft_printf("ra\n");
+	}
 }
 
-void	rb(t_stack **b)
+void	rb(t_stack **b, bool check)
 {
-	rotation(b);
-	ft_printf("rb\n");
+	if (b && *b && *b != (*b)->prev)
+	{
+		rotation(b);
+		if (!check)
+			ft_printf("rb\n");
+	}
 }
 
-void	rr(t_stack **a, t_stack **b)
+void	rr(t_stack **a, t_stack **b, bool check)
 {
-	rotation(a);
-	rotation(b);
-	ft_printf("rr\n");
+	if (a && *a && *a != (*a)->prev && b && *b && *b != (*b)->prev)
+	{
+		rotation(a);
+		rotation(b);
+		if (!check)
+			ft_printf("rr\n");
+	}
 }

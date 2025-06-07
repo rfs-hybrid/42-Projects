@@ -6,22 +6,41 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:15:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/02 14:29:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:39:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	is_sorted(t_stack *a)
-{
-	t_stack	*begin;
+// void	get_maxnum(t_stack *stack, int *max)
+// {
+// 	t_stack	*begin;
+// 	int		nbr;
 
-	begin = a;
-	while (a && a->next && a->next != begin)
-	{
-		if (a->final_i > a->next->final_i)
-			return (false);
-		a = a->next;
-	}
-	return (true);
-}
+// 	begin = stack;
+// 	*max = stack->final_i;
+// 	stack = stack->next;
+// 	while (stack != begin)
+// 	{
+// 		if (max < stack->final_i)
+// 			max = stack->final_i;
+// 		stack = stack->next;
+// 	}
+// 	*digits = 1;
+// 	nbr = *max;
+// 	while (nbr > 9)
+// 	{
+// 		nbr /= 10;
+// 		(*digits)++;
+// 	}
+// }
+
+// void radix_sort(t_stack **a, t_stack **b)
+// {
+	
+// }
+
+// void three_num_sort(t_stack	**stack)
+// {
+	
+// }

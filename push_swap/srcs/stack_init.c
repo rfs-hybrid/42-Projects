@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:38:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/30 18:52:16 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:56:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ static void	update_final_index(t_stack **a)
 		tmp = node->next;
 		while (tmp)
 		{
-			if ((node->value > tmp->value && node->final_i < tmp->final_i)
-				|| (node->value < tmp->value && node->final_i > tmp->final_i))
+			if ((node->value > tmp->value && node->pos < tmp->pos)
+				|| (node->value < tmp->value && node->pos > tmp->pos))
 			{
-				ft_swap(&(node->final_i), &(tmp->final_i));
+				ft_swap(&(node->pos), &(tmp->pos));
 				tmp = node->next;
 				continue ;
 			}
