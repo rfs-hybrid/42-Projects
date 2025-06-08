@@ -20,6 +20,7 @@ typedef struct s_stack
 {
 	int				value;
 	int				pos;
+	int				lis;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
@@ -30,7 +31,7 @@ t_stack	*string_to_stack(char *str);
 t_stack	*argv_to_stack(char **argv);
 void	validation(char **words, bool is_argv);
 
-bool	ft_stack_is_sorted(t_stack *a);
+bool	ft_stack_is_sorted(t_stack *a, bool is_rev);
 int		ft_stack_maxindex(t_stack *stack);
 void	ft_stackadd_back(t_stack **stack, t_stack *new);
 void	ft_stackclear(t_stack **stack);
@@ -64,5 +65,6 @@ void	rrr(t_stack **a, t_stack **b, bool check);
 void	push_swap(t_stack **a, t_stack **b, int max);
 void	three_num_algorithm(t_stack **stack, bool check);
 void	five_num_algorithm(t_stack **a, t_stack **b, int max);
+int		*lis_sequence (int *arr, int max);
 
 #endif

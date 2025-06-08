@@ -18,7 +18,7 @@ static t_stack	*split_to_stack(char **argv)
 	t_stack	*new;
 	int		i;
 
-	i = 0;
+	i = 1;
 	stack = NULL;
 	while (*argv)
 	{

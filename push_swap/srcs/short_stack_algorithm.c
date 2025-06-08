@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-
-
 void	three_num_algorithm(t_stack **s, bool check)
 {
 	if ((*s)->pos < (*s)->prev->pos && (*s)->pos < (*s)->next->pos)
@@ -36,6 +34,8 @@ void	three_num_algorithm(t_stack **s, bool check)
 
 void	five_num_algorithm(t_stack **a, t_stack **b, int max)
 {
+	if (ft_stack_is_sorted(*a, true))
+		sa(a, false);
 	// (void) max;
 	// pb(a, b, check);
 	// pb(a, b, check);

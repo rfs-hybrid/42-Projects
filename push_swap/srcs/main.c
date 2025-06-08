@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 	if (argc < 2 || (argc == 2 && !*argv[1]))
 		return (1);
 	stack_init(&a, argc, argv);
-	if (!ft_stack_is_sorted(a))
+	if (!ft_stack_is_sorted(a, false))
 		push_swap(&a, &b, ft_stack_maxindex(a));
 	int	i = 5;
 	tmp1 = a;

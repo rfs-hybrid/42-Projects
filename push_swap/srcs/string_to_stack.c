@@ -43,7 +43,7 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 	t_list	*tmp;
 	int		i;
 
-	i = 0;
+	i = 1;
 	tmp = *split;
 	while (tmp)
 	{

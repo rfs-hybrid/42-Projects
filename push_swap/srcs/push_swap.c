@@ -14,7 +14,7 @@
 
 void	push_swap(t_stack **a, t_stack **b, int max)
 {
-	if (max < 3)
+	if (max <= 3)
 	{
 		if ((*a)->prev == (*a)->next)
 		{
@@ -23,6 +23,6 @@ void	push_swap(t_stack **a, t_stack **b, int max)
 		}
 		three_num_algorithm(a, false);
 	}
-	else if (max < 5)
+	else if (max <= 5)
 		five_num_algorithm(a, b, max);
 }
