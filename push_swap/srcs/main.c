@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/07 15:01:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:31:10 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
-	t_stack	*tmp1;
+	int		max;
+	// t_stack	*tmp1;
 	// t_stack	*tmp2;
 	
 	a = NULL;
@@ -25,7 +26,14 @@ int	main(int argc, char **argv)
 		return (1);
 	stack_init(&a, argc, argv);
 	if (!ft_stack_is_sorted(a, false))
-		push_swap(&a, &b, ft_stack_maxindex(a));
+	{
+		max = ft_stack_maxindex(a);
+		if (max <= 3)
+			three_num_algorithm(&a, false);
+		else
+			push_swap(&a, &b, max);
+	}
+		
 	// int	i = 5;
 	// tmp1 = a;
 	// tmp2 = b;
@@ -63,6 +71,5 @@ int	main(int argc, char **argv)
 	// 	tmp = tmp->next;
 	// }
 	ft_stackclear(&a);
-	ft_stackclear(&b);
 	return (0);
 }

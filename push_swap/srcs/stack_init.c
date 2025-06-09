@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:38:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/05 14:56:40 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:53:29 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	prev_node_init(t_stack **a)
 	}
 }
 
-static void	update_final_index(t_stack **a)
+static void	update_final_pos(t_stack **a)
 {
 	t_stack	*node;
 	t_stack	*tmp;
@@ -73,6 +73,6 @@ void	stack_init(t_stack **a, int argc, char **argv)
 		*a = argv_to_stack(argv);
 	if (!*a)
 		print_error();
-	update_final_index(a);
+	update_final_pos(a);
 	prev_node_init(a);
 }

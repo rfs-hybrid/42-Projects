@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:33:55 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/05 14:53:48 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/09 15:39:47 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ bool	ft_stack_is_sorted(t_stack *stack, bool is_rev)
 	begin = stack;
 	while (begin != stack->next)
 	{
-		if (!is_rev && stack->pos > stack->next->pos
-			|| is_rev && stack->pos < stack->next->pos)
+		if ((!is_rev && stack->pos > stack->next->pos)
+			|| (is_rev && stack->pos < stack->next->pos))
 			return (false);
 		stack = stack->next;
 	}

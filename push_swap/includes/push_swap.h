@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/07 15:25:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:26:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_stack
 {
 	int				value;
 	int				pos;
-	int				lis;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
@@ -41,7 +40,8 @@ void	free_words(char **words);
 long	ft_atol(const char *nptr);
 int		ft_strcmp(const char *s1, const char *s2);
 void	print_error(void);
-int		*list_to_array(t_stack *s, int max);
+int		*stack_to_array(t_stack *s, int max);
+t_stack	*array_to_stack(int *arr, int len);
 
 /* Swap commands */
 void	sa(t_stack **a, bool check);
@@ -66,6 +66,6 @@ void	rrr(t_stack **a, t_stack **b, bool check);
 void	push_swap(t_stack **a, t_stack **b, int max);
 void	three_num_algorithm(t_stack **stack, bool check);
 void	five_num_algorithm(t_stack **a, t_stack **b, int max);
-int		*lis_sequence(int **arr, int max, int *lis_len);
+int		*lis_sequence(int *arr, int max, int *lis_len);
 
 #endif
