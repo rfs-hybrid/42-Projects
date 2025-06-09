@@ -60,20 +60,3 @@ int	ft_strcmp(const char *s1, const char *s2)
 		i++;
 	return ((*((unsigned char *)(s1 + i))) - (*((unsigned char *)(s2 + i))));
 }
-
-int	*list_to_array(t_stack *s, int max)
-{
-	int		*arr;
-	int		i;
-
-	arr = (int *) ft_calloc(max, sizeof(int));
-	if (!arr)
-		print_error();
-	i = -1;
-	while (++i < max)
-	{
-		arr[i] = s->pos;
-		s = s->next;
-	}
-	return (arr);
-}

@@ -26,16 +26,16 @@ int	main(int argc, char **argv)
 	stack_init(&a, argc, argv);
 	if (!ft_stack_is_sorted(a, false))
 		push_swap(&a, &b, ft_stack_maxindex(a));
-	int	i = 5;
-	tmp1 = a;
+	// int	i = 5;
+	// tmp1 = a;
 	// tmp2 = b;
-	while (i--)
-	{
-		ft_printf("a -> %d\n", tmp1->value);
+	// while (i--)
+	// {
+		// ft_printf("a -> %d\n", tmp1->value);
 	// 	ft_printf("b%d : %d\n", tmp2->value, tmp2->pos);
-		tmp1 = tmp1->next;
+		// tmp1 = tmp1->next;
 	// 	tmp2 = tmp2->next;
-	}
+	// }
 	// ft_printf("---------------------------------------------------------------\n");
 	// pb(&a, &b);
 	// pb(&a, &b);

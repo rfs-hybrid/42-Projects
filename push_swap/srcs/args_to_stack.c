@@ -31,10 +31,7 @@ static t_stack	*split_to_stack(char **argv)
 		new->pos = i++;
 		new->value = ft_atoi(*argv);
 		new->next = NULL;
-		if (!stack)
-			stack = new;
-		else
-			ft_stackadd_back(&stack, new);
+		ft_stackadd_back(&stack, new);
 		argv++;
 	}
 	return (stack);

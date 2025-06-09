@@ -14,7 +14,9 @@
 
 void	three_num_algorithm(t_stack **s, bool check)
 {
-	if ((*s)->pos < (*s)->prev->pos && (*s)->pos < (*s)->next->pos)
+	if ((*a)->prev == (*a)->next)
+		ra(a, check);
+	else if ((*s)->pos < (*s)->prev->pos && (*s)->pos < (*s)->next->pos)
 	{
 		sa(s, check);
 		ra(s, check);

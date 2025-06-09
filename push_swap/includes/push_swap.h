@@ -41,6 +41,7 @@ void	free_words(char **words);
 long	ft_atol(const char *nptr);
 int		ft_strcmp(const char *s1, const char *s2);
 void	print_error(void);
+int		*list_to_array(t_stack *s, int max);
 
 /* Swap commands */
 void	sa(t_stack **a, bool check);
@@ -65,6 +66,6 @@ void	rrr(t_stack **a, t_stack **b, bool check);
 void	push_swap(t_stack **a, t_stack **b, int max);
 void	three_num_algorithm(t_stack **stack, bool check);
 void	five_num_algorithm(t_stack **a, t_stack **b, int max);
-int		*lis_sequence (int *arr, int max);
+int		*lis_sequence(int **arr, int max, int *lis_len);
 
 #endif

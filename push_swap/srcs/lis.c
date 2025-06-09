@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static bool	initialize_lis(int **lis, int **pred)
+static bool	lis_init(int **lis, int **pred)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ static bool	initialize_lis(int **lis, int **pred)
 	return (true);
 }
 
-static void	compute_lis(int **lis, int **pred, int *arr, int max)
+static void	calculate_lis(int **lis, int **pred, int *arr, int max)
 {
 	int	i;
 	int	j;
@@ -59,54 +59,59 @@ static void	compute_lis(int **lis, int **pred, int *arr, int max)
 	}
 }
 
-static void	get_max_index(int *lis, int max, int *max_len, int *max_index)
+static void	get_lis_max_index(int *lis, int max, int *lis_len, int *max_index)
 {
 	int	i;
 
 	i = 0;
-	*max_len = lis[i];
+	*lis_len = lis[i];
 	*max_index = i;
 	while (++i < max)
 	{
-		if (lis[i] > *max_len)
+		if (lis[i] > *lis_len)
 		{
-			*max_len = lis[i];
+			*lis_len = lis[i];
 			*max_index = i;
 		}
 	}
 }
 
-static int	*reconstruct_lis(int *pred, int *arr, int max_len, int max_index)
+static int	*generate_lis(int *pred, int *arr, int lis_len, int max_index)
 {
 	int	*seq;
 	int	i;
 
-	seq = (int *) ft_calloc(max_len, sizeof(int));
+	seq = (int *) ft_calloc(lis_len, sizeof(int));
 	if (!seq)
 		return (NULL);
 	i = max_index;
 	while (i >= 0)
 	{
-		seq[--max_len] = arr[i];
+		seq[--lis_len] = arr[i];
 		i = pred[i];
 	}
 	return (seq);
 }
 
-int	*lis_sequence (int *arr, int max)
+int	*lis_sequence(int **arr, int max, int *lis_len)
 {
 	int	*lis;
 	int	*pred;
 	int	*seq;
-	int	max_len;
 	int	max_index;
 
-	if (!(initialize_lis(&lis, &pred)))
+	if (!arr || !*arr)
 		return (NULL);
-	compute_lis(&lis, &pred, arr, max);
-	get_max_index(lis, max, &max_len, &max_index);
-	seq = reconstruct_lis(pred, arr, max_len, max_index);
+	if(*!(lis_init(&lis, &pred)))
+	{
+		free (*arr);
+		return (NULL);
+	}
+	calculate_lis(&lis, &pred, *arr, max);
+	get_lis_max_index(lis, max, lis_len, &max_index);
+	seq = generate_lis(pred, *arr, *lis_len, max_index);
 	free (lis);
 	free (pred);
+	free (*arr);
 	return (seq);
 }

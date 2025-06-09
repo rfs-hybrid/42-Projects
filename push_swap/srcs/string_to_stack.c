@@ -57,10 +57,7 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 		new->pos = i++;
 		new->value = ft_atoi(tmp->content);
 		new->next = NULL;
-		if (!*stack)
-			*stack = new;
-		else
-			ft_stackadd_back(stack, new);
+		ft_stackadd_back(stack, new);
 		tmp = tmp->next;
 	}
 }

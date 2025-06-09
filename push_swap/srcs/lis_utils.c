@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   lis_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 14:57:51 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/07 15:24:54 by maaugust         ###   ########.fr       */
+/*   Created: 2025/06/08 20:57:35 by maaugust          #+#    #+#             */
+/*   Updated: 2025/06/08 20:57:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_swap(t_stack **a, t_stack **b, int max)
+int	*list_to_array(t_stack *s, int max)
 {
-	int	*lis;
 	int	*arr;
-	int	lis_len;
+	int	i;
 
-	if (max <= 3)
+	arr = (int *) ft_calloc(max, sizeof(int));
+	if (!arr)
+		return (NULL);
+	i = -1;
+	while (++i < max)
 	{
-		three_num_algorithm(a, false);
-		return ;
+		arr[i] = s->pos;
+		s = s->next;
 	}
-	arr = list_to_array(&a, max);
-	lis = lis_sequence(&arr, max, &lis_len);
-	if (!lis)
-	{
-		ft_stackclear(&a)
-		print_error();
-	}
-	if (max <= 5)
-		five_num_algorithm(a, b, max);
+	return (arr);
+}
+
+t_stack	*create_list_from_array(int *arr)
+{
+	t_stack	*stack;
+
+	return (stack);
 }
