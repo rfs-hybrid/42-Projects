@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:08:12 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/07 15:18:47 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:41:14 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sa(t_stack **a, bool check)
 	{
 		swap(a);
 		if (!check)
-			ft_printf("sa\n");
+			ft_putendl_fd("sa", 1);
 	}
 }
 
@@ -50,7 +50,7 @@ void	sb(t_stack **b, bool check)
 	{
 		swap(b);
 		if (!check)
-			ft_printf("sb\n");
+			ft_putendl_fd("sb", 1);
 	}
 }
 
@@ -61,6 +61,6 @@ void	ss(t_stack **a, t_stack **b, bool check)
 		swap(a);
 		swap(b);
 		if (!check)
-			ft_printf("ss\n");
+			ft_putendl_fd("ss", 1);
 	}
 }

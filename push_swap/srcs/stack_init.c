@@ -6,13 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:38:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/09 18:53:29 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:30:32 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_swap(int *a, int *b)
+static void	swap(int *a, int *b)
 {
 	int	tmp;
 
@@ -21,32 +21,12 @@ static void	ft_swap(int *a, int *b)
 	*b = tmp;
 }
 
-static void	prev_node_init(t_stack **a)
-{
-	t_stack	*last;
-	t_stack	*tmp;
-
-	last = *a;
-	while (last->next)
-		last = last->next;
-	last->next = *a;
-	tmp = *a;
-	tmp->prev = last;
-	tmp = tmp->next;
-	while (tmp != *a)
-	{
-		last = last->next;
-		tmp->prev = last;
-		tmp = tmp->next;
-	}
-}
-
-static void	update_final_pos(t_stack **a)
+static void	update_final_pos(t_stack **stack)
 {
 	t_stack	*node;
 	t_stack	*tmp;
 
-	node = *a;
+	node = *stack;
 	while (node && node->next)
 	{
 		tmp = node->next;
@@ -55,7 +35,7 @@ static void	update_final_pos(t_stack **a)
 			if ((node->value > tmp->value && node->pos < tmp->pos)
 				|| (node->value < tmp->value && node->pos > tmp->pos))
 			{
-				ft_swap(&(node->pos), &(tmp->pos));
+				swap(&(node->pos), &(tmp->pos));
 				tmp = node->next;
 				continue ;
 			}
@@ -65,14 +45,14 @@ static void	update_final_pos(t_stack **a)
 	}
 }
 
-void	stack_init(t_stack **a, int argc, char **argv)
+void	ft_stack_init(t_stack **stack, int argc, char **argv)
 {
 	if (argc == 2)
-		*a = string_to_stack(argv[1]);
+		*stack = ft_string_to_stack(argv[1]);
 	else
-		*a = argv_to_stack(argv);
-	if (!*a)
-		print_error();
-	update_final_pos(a);
-	prev_node_init(a);
+		*stack = ft_argv_to_stack(argv);
+	if (!*stack)
+		ft_print_error();
+	update_final_pos(stack);
+	ft_prev_node_init(stack);
 }

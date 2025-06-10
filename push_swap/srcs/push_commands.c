@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:59:36 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/07 15:17:15 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 17:26:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	push(t_stack **stack1, t_stack **stack2, t_stack *stack1_node)
 	tmp->next = stack1_node;
 	stack1_node->prev = tmp;
 	stack1_node->next = *stack2;
+	(*stack2)->prev = stack1_node;
 	*stack2 = stack1_node;
 }
 
@@ -44,7 +45,7 @@ void	pa(t_stack **a, t_stack **b, bool check)
 	{
 		push(b, a, *b);
 		if (!check)
-			ft_printf("pa\n");
+			ft_putendl_fd("pa", 1);
 	}
 }
 
@@ -54,6 +55,6 @@ void	pb(t_stack **a, t_stack **b, bool check)
 	{
 		push(a, b, *a);
 		if (!check)
-			ft_printf("pb\n");
+			ft_putendl_fd("pb", 1);
 	}
 }

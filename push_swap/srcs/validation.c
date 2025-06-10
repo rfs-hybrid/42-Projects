@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:34:36 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/29 18:14:23 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:45:06 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	check_is_int(char **words, int is_argv)
 		if (nbr > 2147483647 || nbr < -2147483648)
 		{
 			if (!is_argv)
-				free_words(words);
-			print_error();
+				ft_free_words(words);
+			ft_print_error();
 		}
 	}
 }
@@ -44,8 +44,8 @@ static void	check_duplicates(char **words, bool is_argv)
 			if (!ft_strcmp(words[i], words[j]))
 			{
 				if (!is_argv)
-					free_words(words);
-				print_error();
+					ft_free_words(words);
+				ft_print_error();
 			}
 		}
 	}
@@ -67,8 +67,8 @@ static void	check_is_num(char **words, bool is_argv)
 			if (!ft_isdigit(words[i][j]))
 			{
 				if (!is_argv)
-					free_words(words);
-				print_error();
+					ft_free_words(words);
+				ft_print_error();
 			}
 		}
 	}

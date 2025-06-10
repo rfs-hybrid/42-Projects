@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:38:42 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/05 14:56:47 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:44:45 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 		{
 			ft_stackclear(stack);
 			ft_lstclear(split, free);
-			print_error();
+			ft_print_error();
 		}
 		new->pos = i++;
 		new->value = ft_atoi(tmp->content);
@@ -62,7 +62,7 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 	}
 }
 
-t_stack	*string_to_stack(char *str)
+t_stack	*ft_string_to_stack(char *str)
 {
 	t_stack	*stack;
 	t_list	*split;
@@ -74,7 +74,7 @@ t_stack	*string_to_stack(char *str)
 		return (stack);
 	validation(words, false);
 	split = get_split_list(words);
-	free_words(words);
+	ft_free_words(words);
 	if (!split)
 		return (stack);
 	split_to_stack(&stack, &split);

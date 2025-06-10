@@ -6,19 +6,30 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:09:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/09 19:39:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:42:42 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_error(void)
+bool	ft_stack_is_sorted(t_stack *stack, bool is_rev)
 {
-	ft_printf("Error\n");
-	exit(-1);
+	t_stack	*begin;
+
+	if (!stack)
+		return (false);
+	begin = stack;
+	while (begin != stack->next)
+	{
+		if ((!is_rev && stack->pos > stack->next->pos)
+			|| (is_rev && stack->pos < stack->next->pos))
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
 }
 
-void	free_words(char **words)
+void	ft_free_words(char **words)
 {
 	size_t	i;
 

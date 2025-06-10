@@ -6,27 +6,16 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:33:55 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/09 15:39:47 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/10 14:33:05 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-bool	ft_stack_is_sorted(t_stack *stack, bool is_rev)
+void	ft_print_error(void)
 {
-	t_stack	*begin;
-
-	if (!stack)
-		return (false);
-	begin = stack;
-	while (begin != stack->next)
-	{
-		if ((!is_rev && stack->pos > stack->next->pos)
-			|| (is_rev && stack->pos < stack->next->pos))
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
+	ft_putendl_fd("Error", 1);
+	exit(-1);
 }
 
 int	ft_stack_maxindex(t_stack *stack)
@@ -44,6 +33,26 @@ int	ft_stack_maxindex(t_stack *stack)
 		stack = stack->next;
 	}
 	return (max);
+}
+
+void	ft_prev_node_init(t_stack **stack)
+{
+	t_stack	*last;
+	t_stack	*tmp;
+
+	last = *stack;
+	while (last->next)
+		last = last->next;
+	last->next = *stack;
+	tmp = *stack;
+	tmp->prev = last;
+	tmp = tmp->next;
+	while (tmp != *stack)
+	{
+		last = last->next;
+		tmp->prev = last;
+		tmp = tmp->next;
+	}
 }
 
 void	ft_stackadd_back(t_stack **stack, t_stack *new)
