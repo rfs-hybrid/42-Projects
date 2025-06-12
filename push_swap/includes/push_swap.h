@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 18:53:53 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:16:45 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_stack
 
 typedef struct s_lis
 {
-	t_stack	*stack;
 	int		*arr;
 	int		size;
 	int		mid;
@@ -54,10 +53,7 @@ int		ft_stack_size(t_stack *stack);
 int		ft_stack_max(t_stack *stack);
 int		ft_stack_min(t_stack *stack);
 
-int		*ft_stack_to_array(t_stack *s, int size);
-t_stack	*ft_array_to_stack(int *arr, int len);
-
-int	ft_stack_lis_init(t_stack **a, t_stack **b, t_lis lis);
+int		ft_stack_lis_init(t_stack **a, t_stack **b, t_lis lis);
 
 /* Swap commands */
 void	sa(t_stack **a, bool check);
@@ -79,9 +75,9 @@ void	rrb(t_stack **b, bool check);
 void	rrr(t_stack **a, t_stack **b, bool check);
 
 /* Algorithm functions */
-void	push_swap(t_stack **a, t_stack **b, int size);
-void	three_num_algorithm(t_stack **stack, bool check);
-int		*lis_sequence(int *arr, int size, int *lis_len);
-void	lis_algorithm(t_stack **a, t_stack **b, t_lis lis);
+void	ft_push_swap(t_stack **a, t_stack **b, int size);
+void	ft_three_num_algorithm(t_stack **stack, bool check);
+int		*ft_lis_sequence(int *arr, int size, int *lis_len);
+void	ft_lis_algorithm(t_stack **a, t_stack **b, t_lis lis);
 
 #endif

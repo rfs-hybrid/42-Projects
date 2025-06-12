@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/07 15:26:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 18:42:37 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:13:44 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	*generate_lis(int *pred, int *arr, int lis_len, int max)
 	return (seq);
 }
 
-int	*lis_sequence(int *arr, int size, int *lis_len)
+int	*ft_lis_sequence(int *arr, int size, int *lis_len)
 {
 	int	*lis;
 	int	*pred;

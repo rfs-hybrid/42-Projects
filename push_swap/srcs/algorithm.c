@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:15:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 19:04:35 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:16:39 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 // }
 
-void	lis_algorithm(t_stack **a, t_stack **b, t_lis lis)
+void	ft_lis_algorithm(t_stack **a, t_stack **b, t_lis lis)
 {
 	int	i;
 	int	total;
@@ -45,7 +45,7 @@ void	lis_algorithm(t_stack **a, t_stack **b, t_lis lis)
 	ft_putendl_fd("--------------------------------------------------------------------------------------------------\n", 1);
 }
 
-void	three_num_algorithm(t_stack **s, bool check)
+void	ft_three_num_algorithm(t_stack **s, bool check)
 {
 	if ((*s)->prev == (*s)->next)
 	{

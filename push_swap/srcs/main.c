@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 18:47:18 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 21:16:32 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	main(int argc, char **argv)
 	{
 		size = ft_stack_size(a);
 		if (size <= 3)
-			three_num_algorithm(&a, false);
+			ft_three_num_algorithm(&a, false);
 		else
-			push_swap(&a, &b, size);
+			ft_push_swap(&a, &b, size);
 	}
 	ft_stackclear(&a);
 	ft_stackclear(&b);
