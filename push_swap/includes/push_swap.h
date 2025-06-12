@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/10 15:51:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:53:53 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 typedef struct s_stack
 {
 	int				value;
+	int				idx;
 	int				pos;
+	int				cost;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
@@ -45,15 +47,17 @@ long	ft_atol(const char *nptr);
 int		ft_strcmp(const char *s1, const char *s2);
 
 void	ft_print_error(void);
-int		ft_stack_maxindex(t_stack *stack);
-void	ft_prev_node_init(t_stack **stack);
+void	ft_stack_prev_node_init(t_stack **stack);
 void	ft_stackadd_back(t_stack **stack, t_stack *new);
 void	ft_stackclear(t_stack **stack);
+int		ft_stack_size(t_stack *stack);
+int		ft_stack_max(t_stack *stack);
+int		ft_stack_min(t_stack *stack);
 
-int		*ft_stack_to_array(t_stack *s, int max);
+int		*ft_stack_to_array(t_stack *s, int size);
 t_stack	*ft_array_to_stack(int *arr, int len);
 
-void	ft_stack_lis_init(t_stack **a, t_stack **b, t_lis lis, int max);
+int	ft_stack_lis_init(t_stack **a, t_stack **b, t_lis lis);
 
 /* Swap commands */
 void	sa(t_stack **a, bool check);
@@ -75,9 +79,9 @@ void	rrb(t_stack **b, bool check);
 void	rrr(t_stack **a, t_stack **b, bool check);
 
 /* Algorithm functions */
-void	push_swap(t_stack **a, t_stack **b, int max);
+void	push_swap(t_stack **a, t_stack **b, int size);
 void	three_num_algorithm(t_stack **stack, bool check);
-int		*lis_sequence(int *arr, int max, int *lis_len);
-void	lis_algorithm(t_stack **a, t_stack **b, t_lis lis, int max);
+int		*lis_sequence(int *arr, int size, int *lis_len);
+void	lis_algorithm(t_stack **a, t_stack **b, t_lis lis);
 
 #endif

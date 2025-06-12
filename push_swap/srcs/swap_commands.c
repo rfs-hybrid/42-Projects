@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:08:12 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/10 14:41:14 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:27:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,31 @@ static void	swap(t_stack **stack)
 
 void	sa(t_stack **a, bool check)
 {
-	if (a && *a && *a != (*a)->next)
+	if (a && *a)
 	{
 		swap(a);
-		if (!check)
+		if (!check && *a != (*a)->next)
 			ft_putendl_fd("sa", 1);
 	}
 }
 
 void	sb(t_stack **b, bool check)
 {
-	if (b && *b && *b != (*b)->next)
+	if (b && *b)
 	{
 		swap(b);
-		if (!check)
+		if (!check && *b != (*b)->next)
 			ft_putendl_fd("sb", 1);
 	}
 }
 
 void	ss(t_stack **a, t_stack **b, bool check)
 {
-	if (a && *a && *a != (*a)->next && b && *b && *b != (*b)->next)
-	{
+	if (a && *a)
 		swap(a);
+	if (b && *b)
 		swap(b);
-		if (!check)
-			ft_putendl_fd("ss", 1);
-	}
+	if (!check && ((a && *a && *a != (*a)->next)
+		|| (b && *b && *b != (*b)->next)))
+		ft_putendl_fd("ss", 1);
 }

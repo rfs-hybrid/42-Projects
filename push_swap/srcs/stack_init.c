@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:38:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/10 14:30:32 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:41:13 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static void	update_final_pos(t_stack **stack)
 		tmp = node->next;
 		while (tmp)
 		{
-			if ((node->value > tmp->value && node->pos < tmp->pos)
-				|| (node->value < tmp->value && node->pos > tmp->pos))
+			if ((node->value > tmp->value && node->idx < tmp->idx)
+				|| (node->value < tmp->value && node->idx > tmp->idx))
 			{
-				swap(&(node->pos), &(tmp->pos));
+				swap(&(node->idx), &(tmp->idx));
 				tmp = node->next;
 				continue ;
 			}
@@ -54,5 +54,5 @@ void	ft_stack_init(t_stack **stack, int argc, char **argv)
 	if (!*stack)
 		ft_print_error();
 	update_final_pos(stack);
-	ft_prev_node_init(stack);
+	ft_stack_prev_node_init(stack);
 }

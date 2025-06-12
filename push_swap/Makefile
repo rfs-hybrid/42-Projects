@@ -4,11 +4,11 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 AR = ar rcs
 
-FILES = main.c stack_init.c stack_utils.c string_to_stack.c \
-		args_to_stack.c validation.c stack_init_utils.c  \
-		swap_commands.c push_commands.c rotation_commands.c \
-		reverse_rotation_commands.c push_swap.c lis.c lis_utils.c \
-		algorithm.c algorithm_utils.c
+FILES = main.c stack_init.c stack_utils.c stack_utils2.c \
+		string_to_stack.c args_to_stack.c validation.c \
+		stack_init_utils.c swap_commands.c push_commands.c \
+		rotation_commands.c reverse_rotation_commands.c \
+		push_swap.c lis.c lis_utils.c algorithm.c algorithm_utils.c
 
 SRC_PATH = ./srcs
 

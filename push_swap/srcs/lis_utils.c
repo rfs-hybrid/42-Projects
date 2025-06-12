@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/08 20:57:35 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/10 14:42:22 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:40:10 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	*ft_stack_to_array(t_stack *s, int max)
 	i = -1;
 	while (++i < max)
 	{
-		arr[i] = s->pos;
+		arr[i] = s->idx;
 		s = s->next;
 	}
 	return (arr);
@@ -47,10 +47,10 @@ t_stack	*ft_array_to_stack(int *arr, int len)
 			ft_stackclear(&stack);
 			return (NULL);
 		}
-		new->pos = arr[i];
+		new->idx = arr[i];
 		new->next = NULL;
 		ft_stackadd_back(&stack, new);
 	}
-	ft_prev_node_init(&stack);
+	ft_stack_prev_node_init(&stack);
 	return (stack);
 }

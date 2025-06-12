@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 17:33:55 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/10 14:33:05 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/12 18:12:03 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,11 @@
 void	ft_print_error(void)
 {
 	ft_putendl_fd("Error", 1);
-	exit(-1);
+	ft_putendl_fd("Error", 2);
+	exit(1);
 }
 
-int	ft_stack_maxindex(t_stack *stack)
-{
-	t_stack	*begin;
-	int		max;
-
-	begin = stack;
-	max = stack->pos;
-	stack = stack->next;
-	while (stack != begin)
-	{
-		if (max < stack->pos)
-			max = stack->pos;
-		stack = stack->next;
-	}
-	return (max);
-}
-
-void	ft_prev_node_init(t_stack **stack)
+void	ft_stack_prev_node_init(t_stack **stack)
 {
 	t_stack	*last;
 	t_stack	*tmp;
