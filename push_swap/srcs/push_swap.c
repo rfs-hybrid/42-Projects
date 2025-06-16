@@ -12,6 +12,22 @@
 
 #include "push_swap.h"
 
+static void	update_stack_lis_numbers(t_stack **a, t_lis lis)
+{
+	t_stack	*current;
+
+	current = (*a)->prev;
+	while (lis.size)
+	{
+		if (current->val == lis.arr[lis.size - 1])
+		{
+			current->lis = true;
+			lis.size--;	
+		}
+		current = current->prev;
+	}
+}
+
 static int	*stack_to_array(t_stack *s, int max)
 {
 	int	*arr;
@@ -23,7 +39,7 @@ static int	*stack_to_array(t_stack *s, int max)
 	i = -1;
 	while (++i < max)
 	{
-		arr[i] = s->idx;
+		arr[i] = s->val;
 		s = s->next;
 	}
 	return (arr);
@@ -33,7 +49,6 @@ void	ft_push_swap(t_stack **a, t_stack **b, int size)
 {
 	t_lis	lis;
 	int		*a_array;
-	(void)	b;
 
 	if (ft_stack_is_sorted(*a, true))
 		sa(a, false);
@@ -45,7 +60,7 @@ void	ft_push_swap(t_stack **a, t_stack **b, int size)
 		ft_stackclear(a);
 		ft_print_error();
 	}
-	lis.mid = lis.arr[lis.size / 2];
+	update_stack_lis_numbers(a, lis);
 	ft_lis_algorithm(a, b, lis);
 	free(lis.arr);
 }

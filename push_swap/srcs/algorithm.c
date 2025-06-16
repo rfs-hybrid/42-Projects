@@ -20,10 +20,8 @@
 void	ft_lis_algorithm(t_stack **a, t_stack **b, t_lis lis)
 {
 	int	i;
-	int	total;
 
-	total = ft_stack_lis_init(a, b, lis);
-	ft_printf("\ntotal commands = %d", total);
+	ft_stack_lis_init(a, b, lis);
 	i = -1;
 	ft_putendl_fd("\n--------------------------------------------------------------------------------------------------", 1);
 	ft_putstr_fd("STACK A: ", 1);
@@ -45,21 +43,24 @@ void	ft_lis_algorithm(t_stack **a, t_stack **b, t_lis lis)
 	ft_putendl_fd("--------------------------------------------------------------------------------------------------\n", 1);
 }
 
-void	ft_three_num_algorithm(t_stack **s, bool check)
+void	ft_three_num_algorithm(t_stack **stack, bool check)
 {
-	if ((*s)->prev == (*s)->next)
+	if ((*stack)->prev == (*stack)->next)
 	{
-		sa(s, check);
+		sa(stack, check);
 		return ;
 	}
-	if (!((*s)->prev->idx < (*s)->idx && (*s)->prev->idx > (*s)->next->idx)
-		&& !((*s)->idx < (*s)->next->idx && (*s)->idx > (*s)->prev->idx))
-		sa(s, check);
-	if (!ft_stack_is_sorted(*s, false))
+	if (!((*stack)->prev->val < (*stack)->val
+		&& (*stack)->prev->val > (*stack)->next->val)
+		&& !((*stack)->val < (*stack)->next->val
+		&& (*stack)->val > (*stack)->prev->val))
+		sa(stack, check);
+	if (!ft_stack_is_sorted(*stack, false))
 	{
-		if ((*s)->idx > (*s)->next->idx	&& (*s)->prev->idx > (*s)->next->idx)
-			ra(s, check);
+		if ((*stack)->val > (*stack)->next->val
+			&& (*stack)->prev->val > (*stack)->next->val)
+			ra(stack, check);
 		else
-			rra(s, check);
+			rra(stack, check);
 	}
 }

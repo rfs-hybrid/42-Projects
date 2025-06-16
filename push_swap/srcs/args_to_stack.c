@@ -12,13 +12,11 @@
 
 #include "push_swap.h"
 
-static t_stack	*split_to_stack(char **argv)
+static t_stack	*generate_stack(char **argv)
 {
 	t_stack	*stack;
 	t_stack	*new;
-	int		i;
 
-	i = 1;
 	stack = NULL;
 	while (*argv)
 	{
@@ -28,8 +26,8 @@ static t_stack	*split_to_stack(char **argv)
 			ft_stackclear(&stack);
 			ft_print_error();
 		}
-		new->idx = i++;
-		new->value = ft_atoi(*argv);
+		new->val = ft_atoi(*argv);
+		new->lis = false;
 		new->next = NULL;
 		ft_stackadd_back(&stack, new);
 		argv++;
@@ -43,6 +41,6 @@ t_stack	*ft_argv_to_stack(char **argv)
 
 	argv++;
 	validation(argv, true);
-	stack = split_to_stack(argv);
+	stack = generate_stack(argv);
 	return (stack);
 }

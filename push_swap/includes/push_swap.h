@@ -18,10 +18,11 @@
 /* Stack double circular linked list */
 typedef struct s_stack
 {
-	int				value;
+	int				val;
 	int				idx;
-	int				pos;
 	int				cost;
+	bool			top;
+	bool			lis;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 }	t_stack;
@@ -30,7 +31,6 @@ typedef struct s_lis
 {
 	int		*arr;
 	int		size;
-	int		mid;
 }	t_lis;
 
 /* Stack initialization */
@@ -45,15 +45,15 @@ void	ft_free_words(char **words);
 long	ft_atol(const char *nptr);
 int		ft_strcmp(const char *s1, const char *s2);
 
-void	ft_print_error(void);
-void	ft_stack_prev_node_init(t_stack **stack);
+void	ft_print_error(void);\
 void	ft_stackadd_back(t_stack **stack, t_stack *new);
 void	ft_stackclear(t_stack **stack);
 int		ft_stack_size(t_stack *stack);
-int		ft_stack_max(t_stack *stack);
-int		ft_stack_min(t_stack *stack);
+int		ft_stack_max_val(t_stack *stack);
+int		ft_stack_min_val(t_stack *stack);
+void	ft_stack_reset_indexes(t_stack **stack);
 
-int		ft_stack_lis_init(t_stack **a, t_stack **b, t_lis lis);
+void	ft_stack_lis_sort(t_stack **a, t_stack **b, t_lis lis);
 
 /* Swap commands */
 void	sa(t_stack **a, bool check);

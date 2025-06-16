@@ -20,11 +20,11 @@ static t_list	*get_split_list(char **words)
 
 	split = NULL;
 	tmp = split;
-	i = 0;
-	while (words[i])
+	i = -1;
+	while (words[++i])
 	{
 		tmp = (t_list *)ft_calloc(1, sizeof(t_list));
-		tmp->content = ft_strdup(words[i++]);
+		tmp->content = ft_strdup(words[i]);
 		if (!(tmp->content))
 		{
 			ft_lstclear(&split, free);
@@ -41,9 +41,7 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 {
 	t_stack	*new;
 	t_list	*tmp;
-	int		i;
 
-	i = 1;
 	tmp = *split;
 	while (tmp)
 	{
@@ -54,8 +52,8 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 			ft_lstclear(split, free);
 			ft_print_error();
 		}
-		new->idx = i++;
-		new->value = ft_atoi(tmp->content);
+		new->val = ft_atoi(tmp->content);
+		new->lis = false;
 		new->next = NULL;
 		ft_stackadd_back(stack, new);
 		tmp = tmp->next;

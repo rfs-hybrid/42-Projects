@@ -32,36 +32,53 @@ int	ft_stack_size(t_stack *stack)
 	return (size);
 }
 
-int	ft_stack_max(t_stack *stack)
+int	ft_stack_max_val(t_stack *stack)
 {
 	t_stack	*begin;
 	int		max;
 
 	begin = stack;
-	max = stack->pos;
+	max = stack->val;
 	stack = stack->next;
 	while (stack != begin)
 	{
-		if (max < stack->pos)
-			max = stack->pos;
+		if (max < stack->val)
+			max = stack->val;
 		stack = stack->next;
 	}
 	return (max);
 }
 
-int	ft_stack_min(t_stack *stack)
+int	ft_stack_min_val(t_stack *stack)
 {
 	t_stack	*begin;
 	int		min;
 
 	begin = stack;
-	min = stack->pos;
+	min = stack->val;
 	stack = stack->next;
 	while (stack != begin)
 	{
-		if (min > stack->pos)
-			min = stack->pos;
+		if (min > stack->val)
+			min = stack->val;
 		stack = stack->next;
 	}
 	return (min);
+}
+
+void	ft_stack_reset_indexes(t_stack **stack)
+{
+	int	size
+	int	i;
+
+	size = ft_stack_size(*stack);
+	i = -1;
+	while (++i < size)
+	{
+		(*stack)->idx = i;
+		(*stack)->top = true;
+		if (i > size / 2)
+			(*stack)->top = false;
+		*stack = (*stack)->next;
+	}
 }

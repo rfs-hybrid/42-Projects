@@ -12,35 +12,49 @@
 
 #include "push_swap.h"
 
-static bool	is_lis_num(int n, t_lis lis)
+static void	stack_index_cost(t_stack **stack)
 {
-	while (lis.size--)
+	t_stack	*current;
+	int		size;
+	int		i;
+
+	if (!stack)
+		return ;
+	size = ft_stack_size(*stack);
+	current = *stack;
+	i = -1;
+	while (++i < size)
 	{
-		if (n == lis.arr[lis.size])
-			return (true);
+		if (current->top)
+			current->cost = current->idx;
+		else
+			current->cost = size - current->idx;
+		current = current->next;
 	}
-	return (false);
 }
 
-int	ft_stack_lis_init(t_stack **a, t_stack **b, t_lis lis)
+static void	find_cheapest(t_stack **s1, t_stack **s2)
 {
-	int	total;
+	stack_index_cost(s1);
+	stack_index_cost(s2);
 
-	total = 0;
-	while (!ft_stack_is_sorted(*a, false))
+}
+
+void	ft_stack_lis_sort(t_stack **a, t_stack **b, t_lis lis)
+{
+	while (ft_stack_size(*a) != lis.size && !ft_stack_is_semi_sorted(*a, false))
 	{
-		if (!is_lis_num((*a)->idx, lis))
-		{
+		if (!((*a)->lis) && ft_stack_size(*b) < 2)	
 			pb(a, b, false);
-			if ((*b)->idx < lis.mid)
-			{
-				rb(b, false);
-				total++;
-			}
+		else if (!((*a)->lis))
+		{
+
 		}
 		else
-			ra(a, false);
-		total++;
+		{
+
+		}
+		ft_stack_reset_indexes(a);
+		ft_stack_reset_indexes(b);
 	}
-	return (total);
 }

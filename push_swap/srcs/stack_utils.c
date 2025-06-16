@@ -19,24 +19,38 @@ void	ft_print_error(void)
 	exit(1);
 }
 
-void	ft_stack_prev_node_init(t_stack **stack)
+bool	ft_stack_is_semi_sorted(t_stack *stack, bool is_rev)
 {
-	t_stack	*last;
-	t_stack	*tmp;
+	t_stack	*current;
 
-	last = *stack;
-	while (last->next)
-		last = last->next;
-	last->next = *stack;
-	tmp = *stack;
-	tmp->prev = last;
-	tmp = tmp->next;
-	while (tmp != *stack)
+	if (!stack || stack->next == stack)
+		return (true);
+	current = stack->next;
+	while (current != stack)
 	{
-		last = last->next;
-		tmp->prev = last;
-		tmp = tmp->next;
+		if (ft_stack_is_sorted(current, is_rev))
+			return (true);
+		current = current->next;
 	}
+	return (ft_stack_is_sorted(stack, is_rev));
+}
+
+bool	ft_stack_is_sorted(t_stack *stack, bool is_rev)
+{
+	t_stack	*begin;
+
+	if (!stack || stack->next == stack)
+		return (true);
+	begin = stack;
+	stack = stack->next;
+	while (begin != stack)
+	{
+		if ((!is_rev && stack->prev->val > stack->val)
+			|| (is_rev && stack->prev->val < stack->val))
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
 }
 
 void	ft_stackadd_back(t_stack **stack, t_stack *new)

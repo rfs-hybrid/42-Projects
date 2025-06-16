@@ -12,23 +12,6 @@
 
 #include "push_swap.h"
 
-bool	ft_stack_is_sorted(t_stack *stack, bool is_rev)
-{
-	t_stack	*begin;
-
-	if (!stack)
-		return (false);
-	begin = stack;
-	while (begin != stack->next)
-	{
-		if ((!is_rev && stack->idx > stack->next->idx)
-			|| (is_rev && stack->idx < stack->next->idx))
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
-}
-
 void	ft_free_words(char **words)
 {
 	size_t	i;

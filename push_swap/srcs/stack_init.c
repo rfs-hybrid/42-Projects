@@ -21,27 +21,23 @@ static void	swap(int *a, int *b)
 	*b = tmp;
 }
 
-static void	update_final_pos(t_stack **stack)
+static void	stack_prev_node_init(t_stack **stack)
 {
-	t_stack	*node;
+	t_stack	*last;
 	t_stack	*tmp;
 
-	node = *stack;
-	while (node && node->next)
+	last = *stack;
+	while (last->next)
+		last = last->next;
+	last->next = *stack;
+	tmp = *stack;
+	tmp->prev = last;
+	tmp = tmp->next;
+	while (tmp != *stack)
 	{
-		tmp = node->next;
-		while (tmp)
-		{
-			if ((node->value > tmp->value && node->idx < tmp->idx)
-				|| (node->value < tmp->value && node->idx > tmp->idx))
-			{
-				swap(&(node->idx), &(tmp->idx));
-				tmp = node->next;
-				continue ;
-			}
-			tmp = tmp->next;
-		}
-		node = node->next;
+		last = last->next;
+		tmp->prev = last;
+		tmp = tmp->next;
 	}
 }
 
@@ -53,6 +49,6 @@ void	ft_stack_init(t_stack **stack, int argc, char **argv)
 		*stack = ft_argv_to_stack(argv);
 	if (!*stack)
 		ft_print_error();
-	update_final_pos(stack);
-	ft_stack_prev_node_init(stack);
+	stack_prev_node_init(stack);
+	ft_stack_reset_indexes(stack);
 }
