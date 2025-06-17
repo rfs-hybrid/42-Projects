@@ -6,20 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:38:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 17:41:13 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:36:57 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static void	swap(int *a, int *b)
-{
-	int	tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
 
 static void	stack_prev_node_init(t_stack **stack)
 {

@@ -6,44 +6,46 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:59:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 17:31:41 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:08:33 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotation(t_stack **stack)
-{
-	*stack = (*stack)->next;
-}
-
-void	ra(t_stack **a, bool check)
+static void	ra(t_stack **a)
 {
 	if (a && *a && *a != (*a)->next)
 	{
-		rotation(a);
-		if (!check)
-			ft_putendl_fd("ra", 1);
+		*a = (*a)->next;
+		ft_putendl_fd("ra", 1);
 	}
 }
 
-void	rb(t_stack **b, bool check)
+static void	rb(t_stack **b)
 {
 	if (b && *b && *b != (*b)->next)
 	{
-		rotation(b);
-		if (!check)
-			ft_putendl_fd("rb", 1);
+		*b = (*b)->next;
+		ft_putendl_fd("rb", 1);
 	}
 }
 
-void	rr(t_stack **a, t_stack **b, bool check)
+static void	rr(t_stack **a, t_stack **b)
 {
 	if (a && *a && *a != (*a)->next && b && *b && *b != (*b)->next)
 	{
-		rotation(a);
-		rotation(b);
-		if (!check)
-			ft_putendl_fd("rr", 1);
+		*a = (*a)->next;
+		*b = (*b)->next;
+		ft_putendl_fd("rr", 1);
 	}
+}
+
+void	ft_run_rotation(t_stack **a, t_stack **b, int op)
+{
+	if (op == 0)
+		ra(a);
+	else if (op == 1)
+		rb(b);
+	else
+		rr(a, b);
 }

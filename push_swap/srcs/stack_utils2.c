@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/12 18:09:51 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 18:12:50 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/17 16:34:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,16 @@ int	ft_stack_min_val(t_stack *stack)
 
 void	ft_stack_reset_indexes(t_stack **stack)
 {
-	int	size
+	int	size;
 	int	i;
 
 	size = ft_stack_size(*stack);
 	i = -1;
 	while (++i < size)
 	{
+		(*stack)->target = NULL;
 		(*stack)->idx = i;
-		(*stack)->top = true;
-		if (i > size / 2)
-			(*stack)->top = false;
+		(*stack)->top = (i < (size + 1) / 2);
 		*stack = (*stack)->next;
 	}
 }
