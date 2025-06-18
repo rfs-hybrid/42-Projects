@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 14:54:22 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/17 16:52:03 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:45:10 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	run_opposite(t_stack **s1, t_stack **s2, t_stack *node, bool is_a)
 {
-	while (node->cost--)
+	while (node->cost-- > 0)
 	{
 		if (node->top)
 			ft_run_rotation(s1, s2, (int) !is_a);
 		else
 			ft_run_reverse_rotation(s1, s2, (int) !is_a);
 	}
-	while (node->target->cost--)
+	while (node->target->cost-- > 0)
 	{
 		if (node->target->top)
 			ft_run_rotation(s1, s2, (int) is_a);
@@ -76,7 +76,7 @@ void	run_commands(t_stack **s1, t_stack **s2, t_stack *node, bool is_a)
 {
 	if (node->top != node->target->top)
 		return (run_opposite(s1, s2, node, is_a));
-	while (node->cost && node->target->cost-- > 0)
+	while (node->cost > 0 && node->target->cost-- > 0)
 	{
 		if (node->top)
 			ft_run_rotation(s1, s2, 2);

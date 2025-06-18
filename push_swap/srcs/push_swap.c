@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:57:51 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/17 17:25:57 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/18 16:10:09 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static void	update_stack_lis_numbers(t_stack **a, t_lis lis)
 		if (current->val == lis.arr[lis.size - 1])
 		{
 			current->lis = true;
-			current->cost = INT_MAX / 2;
 			lis.size--;	
 		}
 		current = current->prev;
@@ -89,6 +88,6 @@ void	ft_push_swap(t_stack **a, t_stack **b, int size)
 		ft_print_error();
 	}
 	update_stack_lis_numbers(a, lis);
-	ft_lis_algorithm(a, b, lis);
+	ft_run_algorithm(a, b, lis);
 	free(lis.arr);
 }
