@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:50:05 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/18 16:35:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/18 17:17:59 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ void	ft_stack_lis_sort(t_stack **a, t_stack **b, t_lis lis)
 {
 	while (ft_stack_size(*a) != lis.size && !ft_stack_is_semi_sorted(*a, false))
 	{
-		while (ft_stack_size(*b) < 2)
+		if (ft_stack_size(*b) < 2 && ft_stack_size(*a) > 3)
 		{
 			if ((*a)->lis)
 				rotate_to_non_lis(a);
 			ft_run_push(a, b, 1);
 		}
-		if (!((*a)->lis))
+		else if (!((*a)->lis))
 		{
 			stack_index_cost(a);
 			stack_index_cost(b);
