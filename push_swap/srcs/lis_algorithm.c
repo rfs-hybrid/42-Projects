@@ -87,6 +87,9 @@ static void	find_target_reverse_ordered(t_stack **stack1, t_stack *stack2)
 
 void	ft_stack_lis_sort(t_stack **a, t_stack **b, t_lis lis)
 {
+	int	pivot;
+
+	pivot = ft_stack_size(*a) / 2 + ft_stack_size(*a) % 2;
 	while (ft_stack_size(*a) != lis.size && !ft_stack_is_semi_sorted(*a, false))
 	{
 		if (ft_stack_size(*b) < 2 && ft_stack_size(*a) > 3)
@@ -94,17 +97,17 @@ void	ft_stack_lis_sort(t_stack **a, t_stack **b, t_lis lis)
 			if ((*a)->lis)
 				rotate_to_non_lis(a);
 			ft_run_push(a, b, 1);
+			if (ft_stack_size(*b) == 2
+				&& (*b)->val < pivot && (*b)->next->val > pivot)
+				ft_run_swap(NULL, b, 1);
 		}
 		else if (!((*a)->lis))
 		{
-			stack_index_cost(a);
-			stack_index_cost(b);
-			find_target_reverse_ordered(a, *b);
-			run_commands(a, b, find_cheapest(a), true);
+			ft_run_push(a, b, 1);
+			if ((*b)->val < pivot)
+				ft_run_rotation(NULL, b, 1);
 		}
 		else
 			rotate_to_non_lis(a);
-		ft_stack_reset_indexes(a);
-		ft_stack_reset_indexes(b);
 	}
 }

@@ -66,12 +66,12 @@ static void sort_stack(t_stack **a, t_stack **b)
 {
 	while (ft_stack_size(*b))
 	{
+		ft_stack_reset_indexes(a);
+		ft_stack_reset_indexes(b);
 		stack_index_cost(a);
 		stack_index_cost(b);
 		find_target_ordered(b, *a);
 		run_commands(a, b, find_cheapest(b), false);
-		ft_stack_reset_indexes(a);
-		ft_stack_reset_indexes(b);
 	}
 }
 
