@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_init_utils.c                                 :+:      :+:    :+:   */
+/*   init_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:09:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 17:40:48 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:59:32 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_free_words(char **words)
+void	ft_print_error(void)
 {
-	size_t	i;
-
-	i = 0;
-	while (words[i])
-		free(words[i++]);
-	free (words);
-	words = NULL;
+	ft_putendl_fd("Error", 2);
+	exit(1);
 }
 
 long	ft_atol(const char *nptr)

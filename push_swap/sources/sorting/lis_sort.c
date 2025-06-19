@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lis_algorithm.c                                    :+:      :+:    :+:   */
+/*   lis_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:50:05 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 16:05:52 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:50:49 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static void	rotate_to_non_lis(t_stack **stack)
 			ft_run_reverse_rotation(stack, NULL, 0);
 }
 
-void	ft_stack_lis_sort(t_stack **a, t_stack **b, t_lis lis)
+void	ft_lis_sort(t_stack **a, t_stack **b, t_lis lis)
 {
 	int	pivot;
 
 	pivot = ft_stack_size(*a) / 2 + ft_stack_size(*a) % 2;
 	while (ft_stack_size(*a) != lis.size && ft_stack_size(*a) > 3
-			&& !ft_stack_is_semi_sorted(*a, false))
+		&& !ft_stack_is_semi_sorted(*a, false))
 	{
 		if (ft_stack_size(*b) < 2 && ft_stack_size(*a) > 3)
 		{

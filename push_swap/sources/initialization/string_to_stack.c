@@ -6,11 +6,22 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:38:42 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 14:54:16 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 17:49:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	free_words(char **words)
+{
+	size_t	i;
+
+	i = 0;
+	while (words[i])
+		free(words[i++]);
+	free (words);
+	words = NULL;
+}
 
 static t_list	*get_split_list(char **words)
 {
@@ -73,9 +84,13 @@ t_stack	*ft_string_to_stack(char *str)
 	words = ft_split(str, ' ');
 	if (!words)
 		return (stack);
-	validation(words, false);
+	if (!ft_validation(words))
+	{
+		free_words(words);
+		ft_print_error();
+	}
 	split = get_split_list(words);
-	ft_free_words(words);
+	free_words(words);
 	if (!split)
 		return (stack);
 	split_to_stack(&stack, &split);

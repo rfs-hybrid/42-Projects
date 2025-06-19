@@ -1,40 +1,56 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   stack_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 15:15:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 16:08:33 by maaugust         ###   ########.fr       */
+/*   Created: 2025/06/19 17:07:35 by maaugust          #+#    #+#             */
+/*   Updated: 2025/06/19 18:26:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	rotate_to_min_val(t_stack **stack)
+static int	calculate_cost(t_stack *node1, t_stack *node2)
+{
+	int	cost;
+
+	cost = node1->cost;
+	if (node2)
+	{
+		if (node1->top != node2->top)
+			cost += node2->cost;
+		else if (node1->cost < node2->cost)
+			cost = node2->cost;
+	}
+	return (cost);
+}
+
+static t_stack	*find_cheapest(t_stack **stack)
 {
 	t_stack	*current;
-	int		min;
-	int		size;
-	int		rotations;
+	t_stack	*cheapest;
+	int		next_cost;
+	int		prev_cost;
 
-	ft_stack_reset_indexes(stack);
-	current = *stack;
-	min = ft_stack_min_val(*stack);
-	while (current->val != min)
-		current = current->next;
-	size = ft_stack_size(*stack);
-	rotations = current->idx;
-	if (rotations < (size + 1) / 2)
-		while (rotations--)
-			ft_run_rotation(stack, NULL, 0);
-	else
+	cheapest = *stack;
+	prev_cost = calculate_cost(*stack, (*stack)->target);
+	current = (*stack)->next;
+	while (current != *stack)
 	{
-		rotations = size - rotations;
-		while (rotations--)
-			ft_run_reverse_rotation(stack, NULL, 0);
+		if (!(current->lis))
+		{
+			next_cost = calculate_cost(current, current->target);
+			if (next_cost < prev_cost)
+			{
+				cheapest = current;
+				prev_cost = next_cost;
+			}
+		}
+		current = current->next;
 	}
+	return (cheapest);
 }
 
 static void	find_target_ordered(t_stack **stack1, t_stack *stack2)
@@ -62,7 +78,28 @@ static void	find_target_ordered(t_stack **stack1, t_stack *stack2)
 	}
 }
 
-static void	sort_stack(t_stack **a, t_stack **b)
+static void	stack_index_cost(t_stack **stack)
+{
+	t_stack	*current;
+	int		size;
+	int		i;
+
+	if (!stack)
+		return ;
+	size = ft_stack_size(*stack);
+	current = *stack;
+	i = -1;
+	while (++i < size)
+	{
+		if (current->top)
+			current->cost = current->idx;
+		else
+			current->cost = size - current->idx;
+		current = current->next;
+	}
+}
+
+void	ft_stack_sort(t_stack **a, t_stack **b)
 {
 	while (ft_stack_size(*b))
 	{
@@ -71,16 +108,6 @@ static void	sort_stack(t_stack **a, t_stack **b)
 		stack_index_cost(a);
 		stack_index_cost(b);
 		find_target_ordered(b, *a);
-		run_commands(a, b, find_cheapest(b));
+		ft_run_commands(a, b, find_cheapest(b));
 	}
-}
-
-void	ft_run_algorithm(t_stack **a, t_stack **b, t_lis lis)
-{
-	ft_stack_lis_sort(a, b, lis);
-	if (ft_stack_size(*a) == 3 && !ft_stack_is_semi_sorted(*a, false))
-		ft_run_swap(a, NULL, 0);
-	sort_stack(a, b);
-	if (!ft_stack_is_sorted(*a, false))
-		rotate_to_min_val(a);
 }

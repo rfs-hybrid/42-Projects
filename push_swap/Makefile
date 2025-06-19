@@ -1,58 +1,49 @@
 NAME = push_swap
+
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -Iincludes -Ift_printf/includes -Ift_printf/libft/includes
 RM = rm -rf
-AR = ar rcs
 
-FILES = main.c stack_init.c stack_utils.c stack_utils2.c \
-		string_to_stack.c args_to_stack.c validation.c \
-		stack_init_utils.c swap_commands.c push_commands.c \
-		rotation_commands.c reverse_rotation_commands.c \
-		push_swap.c lis_sequence.c lis_algorithm.c algorithm.c algorithm_utils.c
+FT_PRINTF_DIR = ft_printf
+FT_PRINTF_LIB = $(FT_PRINTF_DIR)/libftprintf.a
+FT_PRINTF_MAKE = $(MAKE) -C $(FT_PRINTF_DIR)
 
-SRC_PATH = ./srcs
+LIBFT_DIR = ft_printf/libft
+LIBFT_LIB = $(LIBFT_DIR)/libft.a
+LIBFT_MAKE = $(MAKE) -C $(LIBFT_DIR)
 
-OBJ_PATH = ./objs
-
-INC_PATH = ./includes
-LIBFT_PATH = ./ft_printf/libft
-LIBFT = $(LIBFT_PATH)/libft.a
-LIBFTPRINTF_PATH = ./ft_printf
-LIBFTPRINTF = $(LIBFTPRINTF_PATH)/libftprintf.a
-
-SRC = $(addprefix $(SRC_PATH)/, $(FILES))
-
-OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
+SRC_PATH = ./sources
+OBJ_PATH = ./build
+SRC = $(shell find $(SRC_PATH) -name '*.c')
+OBJ = $(patsubst %.c, $(OBJ_PATH)/%.o, $(subst $(SRC_PATH)/,,$(SRC)))
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) -I$(INC_PATH) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-all: $(LIBFT) $(LIBFTPRINTF) $(OBJ_PATH) $(NAME)
+all: $(LIBFT_LIB) $(FT_PRINTF_LIB) $(NAME)
 
 # bonus: all
 
+$(LIBFT_LIB):
+	$(LIBFT_MAKE)
+
+$(FT_PRINTF_LIB):
+	$(FT_PRINTF_MAKE)
+
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -I$(INC_PATH) -L$(LIBFTPRINTF_PATH) -L$(LIBFT_PATH) \
-		$(OBJ) -lftprintf -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(FT_PRINTF_LIB) $(LIBFT_LIB) -o $(NAME)
 
-$(LIBFT):
-	make -C $(LIBFT_PATH) all
-
-$(LIBFTPRINTF):
-	make -C $(LIBFTPRINTF_PATH) all
-
-$(OBJ_PATH):
-	mkdir -p $(OBJ_PATH)
 
 clean:
-	make -C $(LIBFTPRINTF_PATH) clean
-	make -C $(LIBFT_PATH) clean
-	$(RM) $(OBJ) $(OBJ_PATH)
+	$(RM) $(OBJ_PATH)
+	$(FT_PRINTF_MAKE) clean
+	$(LIBFT_MAKE) clean
 
 fclean: clean
-	make -C $(LIBFTPRINTF_PATH) fclean
-	make -C $(LIBFT_PATH) fclean
 	$(RM) $(NAME)
+	$(FT_PRINTF_MAKE) fclean
+	$(LIBFT_MAKE) fclean
 
 re: fclean all
 

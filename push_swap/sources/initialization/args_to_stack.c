@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/27 18:01:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 14:53:35 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:10:55 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,13 @@ static t_stack	*generate_stack(char **argv)
 	return (stack);
 }
 
-t_stack	*ft_argv_to_stack(char **argv)
+t_stack	*ft_args_to_stack(char **argv)
 {
 	t_stack	*stack;
 
 	argv++;
-	validation(argv, true);
+	if (!ft_validation(argv))
+		ft_print_error();
 	stack = generate_stack(argv);
 	return (stack);
 }

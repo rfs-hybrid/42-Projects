@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 16:38:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 14:56:08 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:10:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_stack_init(t_stack **stack, int argc, char **argv)
 	if (argc == 2)
 		*stack = ft_string_to_stack(argv[1]);
 	else
-		*stack = ft_argv_to_stack(argv);
+		*stack = ft_args_to_stack(argv);
 	if (!*stack)
 		ft_print_error();
 	find_final_index(stack);
