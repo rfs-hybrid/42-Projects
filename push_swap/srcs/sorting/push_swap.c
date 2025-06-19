@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:57:51 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 18:10:16 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:44:47 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ static void	three_num_algorithm(t_stack **stack)
 {
 	if ((*stack)->prev == (*stack)->next)
 	{
-		ft_run_swap(stack, NULL, 0);
+		ft_run_swap(stack, NULL, 0, false);
 		return ;
 	}
 	if (!((*stack)->prev->val < (*stack)->val
 			&& (*stack)->prev->val > (*stack)->next->val)
 		&& !((*stack)->val < (*stack)->next->val
 			&& (*stack)->val > (*stack)->prev->val))
-		ft_run_swap(stack, NULL, 0);
+		ft_run_swap(stack, NULL, 0, false);
 	if (!ft_stack_is_sorted(*stack, false))
 	{
 		if ((*stack)->val > (*stack)->next->val
 			&& (*stack)->prev->val > (*stack)->next->val)
-			ft_run_rotation(stack, NULL, 0);
+			ft_run_rotation(stack, NULL, 0, false);
 		else
-			ft_run_reverse_rotation(stack, NULL, 0);
+			ft_run_reverse_rotation(stack, NULL, 0, false);
 	}
 }
 
@@ -78,7 +78,7 @@ void	ft_push_swap(t_stack **a, t_stack **b, int size)
 		return ;
 	}
 	if (ft_stack_is_sorted(*a, true))
-		ft_run_swap(a, NULL, 0);
+		ft_run_swap(a, NULL, 0, false);
 	a_array = stack_to_array(*a, size);
 	lis.arr = ft_lis_sequence(a_array, size, &(lis.size));
 	free (a_array);

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:59:36 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/17 15:25:54 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:42:02 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,30 @@ static void	push(t_stack **stack1, t_stack **stack2, t_stack *stack1_node)
 	*stack2 = stack1_node;
 }
 
-static void	pa(t_stack **a, t_stack **b)
+static void	pa(t_stack **a, t_stack **b, bool check)
 {
 	if (b && *b)
 	{
-		ft_putendl_fd("pa", 1);
 		push(b, a, *b);
+		if (!check)
+			ft_putendl_fd("pa", 1);
 	}
 }
 
-static void	pb(t_stack **a, t_stack **b)
+static void	pb(t_stack **a, t_stack **b, bool check)
 {
 	if (a && *a)
 	{
-		ft_putendl_fd("pb", 1);
 		push(a, b, *a);
+		if (!check)
+			ft_putendl_fd("pb", 1);
 	}
 }
 
-void	ft_run_push(t_stack **a, t_stack **b, int op)
+void	ft_run_push(t_stack **a, t_stack **b, int op, bool check)
 {
 	if (op == 0)
-		pa(a, b);
+		pa(a, b, check);
 	else
-		pb(a, b);
+		pb(a, b, check);
 }

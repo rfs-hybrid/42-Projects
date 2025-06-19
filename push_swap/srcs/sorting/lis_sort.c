@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:50:05 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 17:50:49 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:44:14 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static void	rotate_to_non_lis(t_stack **stack)
 {
 	if (non_lis_forward_offset(*stack) <= non_lis_backward_offset(*stack))
 		while ((*stack)->lis)
-			ft_run_rotation(stack, NULL, 0);
+			ft_run_rotation(stack, NULL, 0, false);
 	else
 		while ((*stack)->lis)
-			ft_run_reverse_rotation(stack, NULL, 0);
+			ft_run_reverse_rotation(stack, NULL, 0, false);
 }
 
 void	ft_lis_sort(t_stack **a, t_stack **b, t_lis lis)
@@ -64,16 +64,16 @@ void	ft_lis_sort(t_stack **a, t_stack **b, t_lis lis)
 		{
 			if ((*a)->lis)
 				rotate_to_non_lis(a);
-			ft_run_push(a, b, 1);
+			ft_run_push(a, b, 1, false);
 			if (ft_stack_size(*b) == 2
 				&& (*b)->val < pivot && (*b)->next->val > pivot)
-				ft_run_swap(NULL, b, 1);
+				ft_run_swap(NULL, b, 1, false);
 		}
 		else if (!((*a)->lis))
 		{
-			ft_run_push(a, b, 1);
+			ft_run_push(a, b, 1, false);
 			if ((*b)->val < pivot)
-				ft_run_rotation(NULL, b, 1);
+				ft_run_rotation(NULL, b, 1, false);
 		}
 		else
 			rotate_to_non_lis(a);

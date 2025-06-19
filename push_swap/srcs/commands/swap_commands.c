@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:08:12 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/17 15:16:02 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:41:13 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,41 +31,44 @@ static void	swap(t_stack **stack)
 	*stack = node2;
 }
 
-static void	sa(t_stack **a)
+static void	sa(t_stack **a, bool check)
 {
 	if (a && *a && (*a)->next && *a != (*a)->next)
 	{
 		swap(a);
-		ft_putendl_fd("sa", 1);
+		if (!check)
+			ft_putendl_fd("sa", 1);
 	}
 }
 
-static void	sb(t_stack **b)
+static void	sb(t_stack **b, bool check)
 {
 	if (b && *b && (*b)->next && *b != (*b)->next)
 	{
 		swap(b);
-		ft_putendl_fd("sb", 1);
+		if (!check)
+			ft_putendl_fd("sb", 1);
 	}
 }
 
-static void	ss(t_stack **a, t_stack **b)
+static void	ss(t_stack **a, t_stack **b, bool check)
 {
 	if (a && *a && (*a)->next && *a != (*a)->next)
 		swap(a);
 	if (b && *b && (*b)->next && *b != (*b)->next)
 		swap(b);
-	if ((a && *a && (*a)->next && *a != (*a)->next)
+	if (((a && *a && (*a)->next && *a != (*a)->next)
 		|| (b && *b && (*b)->next && *b != (*b)->next))
+		&& !check)
 		ft_putendl_fd("ss", 1);
 }
 
-void	ft_run_swap(t_stack **a, t_stack **b, int op)
+void	ft_run_swap(t_stack **a, t_stack **b, int op, bool check)
 {
 	if (op == 0)
-		sa(a);
+		sa(a, check);
 	else if (op == 1)
-		sb(b);
+		sb(b, check);
 	else
-		ss(a, b);
+		ss(a, b, check);
 }
