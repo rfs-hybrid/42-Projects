@@ -22,7 +22,7 @@ static void	swap(t_stack **stack)
 	if (node2->next != node1)
 	{
 		node1->prev->next = node2;
-		node1->next->prev = node1;
+		node2->next->prev = node1;
 		node1->next = node2->next;
 		node2->prev = node1->prev;
 		node2->next = node1;
