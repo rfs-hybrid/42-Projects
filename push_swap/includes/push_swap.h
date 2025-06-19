@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 18:41:24 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 19:43:42 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	ft_algorithm(t_stack **a, t_stack **b, t_lis lis);
 int		*ft_lis_sequence(int *arr, int size, int *lis_len);
 
 /* Commands */
-void	ft_run_push(t_stack **a, t_stack **b, int op);
-void	ft_run_swap(t_stack **a, t_stack **b, int op);
-void	ft_run_rotation(t_stack **a, t_stack **b, int op);
-void	ft_run_reverse_rotation(t_stack **a, t_stack **b, int op);
+void	ft_run_push(t_stack **a, t_stack **b, int op, bool check);
+void	ft_run_swap(t_stack **a, t_stack **b, int op, bool check);
+void	ft_run_rotation(t_stack **a, t_stack **b, int op, bool check);
+void	ft_run_reverse_rotation(t_stack **a, t_stack **b, int op, bool check);
 void	ft_run_commands(t_stack **s1, t_stack **s2, t_stack *node);
 
 /* Initialization */
