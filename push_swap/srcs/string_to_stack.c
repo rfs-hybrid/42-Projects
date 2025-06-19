@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 13:38:42 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/12 17:41:25 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 14:54:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 {
 	t_stack	*new;
 	t_list	*tmp;
+	int		i;
 
 	tmp = *split;
+	i = -1;
 	while (tmp)
 	{
 		new = (t_stack *)ft_calloc(1, sizeof(t_stack));
@@ -53,6 +55,7 @@ static void	split_to_stack(t_stack **stack, t_list **split)
 			ft_print_error();
 		}
 		new->val = ft_atoi(tmp->content);
+		new->idx = ++i;
 		new->lis = false;
 		new->next = NULL;
 		ft_stackadd_back(stack, new);

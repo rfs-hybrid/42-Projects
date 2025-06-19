@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:15:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/18 16:54:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 16:08:33 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	find_target_ordered(t_stack **stack1, t_stack *stack2)
 	}
 }
 
-static void sort_stack(t_stack **a, t_stack **b)
+static void	sort_stack(t_stack **a, t_stack **b)
 {
 	while (ft_stack_size(*b))
 	{
@@ -71,23 +71,16 @@ static void sort_stack(t_stack **a, t_stack **b)
 		stack_index_cost(a);
 		stack_index_cost(b);
 		find_target_ordered(b, *a);
-		run_commands(a, b, find_cheapest(b), false);
+		run_commands(a, b, find_cheapest(b));
 	}
 }
 
 void	ft_run_algorithm(t_stack **a, t_stack **b, t_lis lis)
 {
 	ft_stack_lis_sort(a, b, lis);
+	if (ft_stack_size(*a) == 3 && !ft_stack_is_semi_sorted(*a, false))
+		ft_run_swap(a, NULL, 0);
 	sort_stack(a, b);
 	if (!ft_stack_is_sorted(*a, false))
 		rotate_to_min_val(a);
-	// int i = -1;
-	// ft_putendl_fd("\n--------------------------------------------------------------------------------------------------", 1);
-	// ft_putstr_fd("STACK A: ", 1);
-	// while (++i < ft_stack_size(*a))
-	// {
-	// 	ft_printf ("%d ", (*a)->val);
-	// 	*a = (*a)->next;
-	// }
-	// ft_putchar_fd('\n', 1);
 }

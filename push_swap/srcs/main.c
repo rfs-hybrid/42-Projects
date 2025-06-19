@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/18 15:00:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:39:41 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	main(int argc, char **argv)
 {
-	t_stack *a;
-	t_stack *b;
-	
+	t_stack	*a;
+	t_stack	*b;
+
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || (argc == 2 && !*argv[1]))

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 14:57:51 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/18 16:10:09 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 15:40:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	update_stack_lis_numbers(t_stack **a, t_lis lis)
 		if (current->val == lis.arr[lis.size - 1])
 		{
 			current->lis = true;
-			lis.size--;	
+			lis.size--;
 		}
 		current = current->prev;
 	}
@@ -53,9 +53,9 @@ static void	three_num_algorithm(t_stack **stack)
 		return ;
 	}
 	if (!((*stack)->prev->val < (*stack)->val
-		&& (*stack)->prev->val > (*stack)->next->val)
+			&& (*stack)->prev->val > (*stack)->next->val)
 		&& !((*stack)->val < (*stack)->next->val
-		&& (*stack)->val > (*stack)->prev->val))
+			&& (*stack)->val > (*stack)->prev->val))
 		ft_run_swap(stack, NULL, 0);
 	if (!ft_stack_is_sorted(*stack, false))
 	{
