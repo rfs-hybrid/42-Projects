@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:12:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 19:38:05 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:12:09 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	rra(t_stack **a, bool check)
 	{
 		*a = (*a)->prev;
 		if (!check)
-			ft_putendl_fd("rra", 1);
+			ft_putendl_fd("rra", STDOUT_FILENO);
 	}
 }
 
@@ -28,7 +28,7 @@ static void	rrb(t_stack **b, bool check)
 	{
 		*b = (*b)->prev;
 		if (!check)
-			ft_putendl_fd("rrb", 1);
+			ft_putendl_fd("rrb", STDOUT_FILENO);
 	}
 }
 
@@ -39,7 +39,7 @@ static void	rrr(t_stack **a, t_stack **b, bool check)
 		*a = (*a)->prev;
 		*b = (*b)->prev;
 		if (!check)
-			ft_putendl_fd("rrr", 1);
+			ft_putendl_fd("rrr", STDOUT_FILENO);
 	}
 }
 

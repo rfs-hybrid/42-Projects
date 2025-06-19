@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 17:09:49 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 17:59:32 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 20:13:39 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_print_error(void)
 {
-	ft_putendl_fd("Error", 2);
+	ft_putendl_fd("Error", STDERR_FILENO);
 	exit(1);
 }
 
