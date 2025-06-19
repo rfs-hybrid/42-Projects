@@ -6,14 +6,14 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 13:01:09 by maaugust          #+#    #+#             */
-/*   Updated: 2025/05/19 19:45:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:51:20 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "../libft/includes/libft.h"
+# include "libft.h"
 # include <stdarg.h>
 # include <stdbool.h>
 

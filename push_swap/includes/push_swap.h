@@ -6,14 +6,15 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 18:14:19 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:41:24 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../ft_printf/includes/ft_printf.h"
+# include "../libft/includes/libft.h"
+# include <stdbool.h>
 # include <limits.h>
 
 /* Stack double circular linked list */
