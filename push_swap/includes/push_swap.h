@@ -6,14 +6,14 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 19:43:42 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/21 15:21:06 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../libft/includes/libft.h"
+# include "libft.h"
 # include <stdbool.h>
 # include <limits.h>
 
