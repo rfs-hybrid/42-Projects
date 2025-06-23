@@ -6,11 +6,36 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:39:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 18:55:35 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:05:41 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+static char	*ft_str_realloc(char **str, size_t size)
+{
+	char	*new;
+	size_t	len;
+
+	if (!str || !*str)
+	{
+		new = (char *) malloc(sizeof(char) * (size + 1));
+		if (!new)
+			return (free(*str), NULL);
+		*new = '\0';
+	}
+	else
+	{
+		len = ft_strlen(*str);
+		new = (char *) malloc(sizeof(char) * (len + size + 1));
+		if (!new)
+			return (free(*str), NULL);
+		ft_strlcpy(new, *str, len + 1);
+		free(*str);
+		str = NULL;
+	}
+	return (new);
+}
 
 static ssize_t	read_line(int fd, char *buffer, char **new_line)
 {

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 18:50:55 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/23 15:05:52 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,8 @@
 #  define FD_SIZE 1024
 # endif
 
-# include <unistd.h>
-# include <stdlib.h>
+# include "libft.h"
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-char	*ft_str_realloc(char **str, size_t size);
 
 #endif
