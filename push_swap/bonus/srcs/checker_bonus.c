@@ -6,12 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 19:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/24 16:07:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/25 12:52:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker_bonus.h"
-#include "ft_printf.h"
 
 static void	print_error(t_stack **a, t_stack **b, char *cmd)
 {
