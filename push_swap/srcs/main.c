@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:40:15 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/25 12:51:07 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:46:43 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	a = NULL;
 	b = NULL;
-	if (argc < 2 || (argc == 2 && !*argv[1]))
+	if (argc < 2)
 		return (0);
 	ft_stack_init(&a, argc, argv);
 	if (!ft_stack_is_sorted(a, false))

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:34:36 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/26 13:28:27 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:45:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static bool	check_duplicates(char **words)
 		j = i;
 		while (words[++j])
 		{
-			if (!ft_strcmp(words[i], words[j]))
+			if (ft_atoi(words[i]) == ft_atoi(words[j]))
 				return (false);
 		}
 	}
