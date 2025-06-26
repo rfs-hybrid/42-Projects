@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 16:34:36 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/19 17:50:34 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/26 13:28:27 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static bool	check_is_int(char **words)
 	while (words[++i])
 	{
 		nbr = ft_atol(words[i]);
-		if (nbr > INT_MAX || nbr < -INT_MIN)
+		if (nbr > INT_MAX || nbr < INT_MIN)
 			return (false);
 	}
 	return (true);
