@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/19 19:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/25 12:52:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/26 16:27:13 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	line = NULL;
-	if (argc < 2 || (argc == 2 && !*argv[1]))
+	if (argc < 2)
 		return (0);
 	ft_stack_init(&a, argc, argv);
 	line = get_next_line(STDIN_FILENO);
