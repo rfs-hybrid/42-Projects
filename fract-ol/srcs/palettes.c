@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   palettes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:38:52 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 20:18:58 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:51:23 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	fire_palette(int iter, int max_iter)
 	return ((red << 16) | (green << 8) | blue);
 }
 
-int	pastel_palette(int iter, int max_iter)
+int	cherry_blossom_palette(int iter, int max_iter)
 {
 	double	tmp;
 	int		red;
@@ -61,13 +61,13 @@ int	pastel_palette(int iter, int max_iter)
 	int		blue;
 
 	tmp = (double)iter / max_iter;
-	red = (int)(128 + 127 * sin(3.0 * tmp));
-	green = (int)(128 + 127 * sin(3.0 * tmp + 2.0));
-	blue = (int)(128 + 127 * sin(3.0 * tmp + 4.0));
+	red = (int)(255 * pow(tmp, 1.2));
+	green = (int)(150 * pow(tmp, 2) * (1 - tmp));
+	blue = (int)(180 * (1 - pow(tmp, 1.5)));
 	return ((red << 16) | (green << 8) | blue);
 }
 
-int	dreamy_pastel_palette(int iter, int max_iter)
+int	autumn_palette(int iter, int max_iter)
 {
 	double	tmp;
 	int		red;
@@ -75,8 +75,8 @@ int	dreamy_pastel_palette(int iter, int max_iter)
 	int		blue;
 
 	tmp = (double)iter / max_iter;
-	red = (int)(200 + 55 * sin(3.0 * tmp));
-	green = (int)(180 + 75 * sin(2.0 * tmp + 2));
-	blue = (int)(220 + 35 * cos(4.0 * tmp));
+	red = (int)(15 * (1 - tmp) * tmp * tmp * 255);
+	green = (int)(8 * (1 - tmp) * (1 - tmp) * tmp * 255);
+	blue = (int)(3 * (1 - tmp) * (1 - tmp) * (1 - tmp) * 255);
 	return ((red << 16) | (green << 8) | blue);
 }

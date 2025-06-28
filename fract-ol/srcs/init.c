@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:01:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 20:23:17 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:52:38 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ static void	init_palettes(t_fractal *frac)
 	frac->palette[0] = blue_orange_palette;
 	frac->palette[1] = rainbow_palette;
 	frac->palette[2] = fire_palette;
-	frac->palette[3] = pastel_palette;
-	frac->palette[4] = dreamy_pastel_palette;
+	frac->palette[3] = cherry_blossom_palette;
+	frac->palette[4] = autumn_palette;
 	frac->palette[5] = sunset_palette;
 	frac->palette[6] = galaxy_palette;
 	frac->palette[7] = forest_palette;
-	frac->palette[3] = hsv_palette;
-	frac->palette[8] = ice_palette;
-	frac->palette[9] = dreamy_pastel_palette;
+	frac->palette[8] = hsv_palette;
+	frac->palette[9] = ice_palette;
+	frac->palette[10] = deep_ocean_palette;
+	frac->palette[11] = psychedelic_palette;
+	frac->palette[12] = shell_palette;
+	frac->palette[13] = inferno_palette;
+	frac->palette[14] = dragonfly_palette;
 	frac->n_palettes = N_PALETTES;
 }
 

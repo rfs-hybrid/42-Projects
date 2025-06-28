@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 20:18:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:52:34 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define BURNING_SHIP	"BURNING SHIP"
 # define TRICORN		"TRICORN"
 
-# define N_PALETTES	10
+# define N_PALETTES	15
 
 typedef unsigned char	byte;
 typedef int	(*t_palette_func)(int iter, int max_iter);
@@ -92,12 +92,17 @@ double	ft_atod(const char *nptr);
 int	blue_orange_palette(int iter, int max_iter);
 int	rainbow_palette(int iter, int max_iter);
 int	fire_palette(int iter, int max_iter);
-int	pastel_palette(int iter, int max_iter);
-int	dreamy_pastel_palette(int iter, int max_iter);
+int	cherry_blossom_palette(int iter, int max_iter);
+int	autumn_palette(int iter, int max_iter);
 int	sunset_palette(int iter, int max_iter);
 int	galaxy_palette(int iter, int max_iter);
 int	forest_palette(int iter, int max_iter);
 int	hsv_palette(int iter, int max_iter);
 int	ice_palette(int iter, int max_iter);
+int deep_ocean_palette(int iter, int max_iter);
+int	psychedelic_palette(int iter, int max_iter);
+int	shell_palette(int iter, int max_iter);
+int	inferno_palette(int iter, int max_iter);
+int	dragonfly_palette(int iter, int max_iter);
 
 #endif

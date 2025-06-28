@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 01:42:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 20:18:40 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:46:50 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	apply_pixel_color(t_fractal *frac)
 		frac->color = 0x000000;
 	else if (!frac->is_gray)
 		frac->color = frac->palette[frac->palette_idx](frac->iter,
-			frac->max_iter);
+				frac->max_iter);
 	apply_shade(frac);
 }
 

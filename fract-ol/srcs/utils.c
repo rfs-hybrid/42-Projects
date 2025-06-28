@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:25:57 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 20:17:45 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:47:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	ft_mlx_pixel_put(const t_fractal *frac)
 		|| frac->y >= frac->height)
 		return ;
 	dst = frac->data.addr + (frac->y * frac->data.line_len
-		+ frac->x * (frac->data.bpp / 8));
-	*(unsigned int*)dst = frac->color;
+			+ frac->x * (frac->data.bpp / 8));
+	*(unsigned int *)dst = frac->color;
 }
 
 char	*ft_strtoupper(char *str)

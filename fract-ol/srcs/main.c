@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 17:39:55 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/29 00:48:53 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	print_invalid_input(void)
 	ft_putendl_fd("Invalid fractal input paramaters!", STDERR_FILENO);
 	exit (EXIT_FAILURE);
 }
-
 
 static void	validate_inputs(t_fractal *frac, int argc, char **argv)
 {
@@ -43,7 +42,7 @@ static void	validate_inputs(t_fractal *frac, int argc, char **argv)
 }
 
 int	main(int argc, char **argv)
-{	
+{
 	t_fractal	frac;
 
 	validate_inputs(&frac, argc, argv);
