@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 18:10:56 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/28 20:18:00 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@
 # define BURNING_SHIP	"BURNING SHIP"
 # define TRICORN		"TRICORN"
 
+# define N_PALETTES	10
+
 typedef unsigned char	byte;
+typedef int	(*t_palette_func)(int iter, int max_iter);
 
 typedef struct s_data
 {
@@ -52,33 +55,49 @@ typedef struct s_complex
 
 typedef struct s_fractal
 {
-	void		*mlx;
-	void		*win;
-	t_data		data;
-	char		*name;
-	int			width;
-	int			height;
-	int			color;
-	int			max_iter;
-	int			x;
-	int			y;
-	double		off_x;
-	double		off_y;
-	double		zoom;
-	t_complex	z;
-	t_complex	c;
+	void			*mlx;
+	void			*win;
+	t_data			data;
+	char			*name;
+	int				width;
+	int				height;
+	int				color;
+	int				shade;
+	int				iter;
+	int				max_iter;
+	int				x;
+	int				y;
+	double			off_x;
+	double			off_y;
+	double			zoom;
+	t_complex		z;
+	t_complex		c;
+	bool			is_gray;
+	int				palette_idx;
+	t_palette_func	palette[N_PALETTES];
+	int				n_palettes;
 }	t_fractal;
 
 void	ft_init_fractal(t_fractal *frac);
 void	ft_mlx_pixel_put(const t_fractal *frac);
-void	ft_apply_shade(t_fractal *frac, int iter, bool is_gray);
 void	ft_mandelbrot(t_fractal *frac);
 void	ft_render_fractal(t_fractal *frac);
-// void	apply_shade(t_fractal *frac, bool is_gray);
 int		ft_handle_key_event(int keysym, t_fractal *frac);
 
 /* Utility functions */
 char	*ft_strtoupper(char *str);
 double	ft_atod(const char *nptr);
+
+/* Palette functions */
+int	blue_orange_palette(int iter, int max_iter);
+int	rainbow_palette(int iter, int max_iter);
+int	fire_palette(int iter, int max_iter);
+int	pastel_palette(int iter, int max_iter);
+int	dreamy_pastel_palette(int iter, int max_iter);
+int	sunset_palette(int iter, int max_iter);
+int	galaxy_palette(int iter, int max_iter);
+int	forest_palette(int iter, int max_iter);
+int	hsv_palette(int iter, int max_iter);
+int	ice_palette(int iter, int max_iter);
 
 #endif

@@ -6,32 +6,11 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:25:57 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 18:05:14 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/28 20:17:45 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-void	ft_apply_shade(t_fractal *frac, int iter, bool is_gray)
-{
-	double	shade;
-	int		gray;
-	byte	red;
-	byte	green;
-	byte	blue;
-
-	shade = 1.0 - ((double)iter / frac->max_iter);
-	if (is_gray)
-	{
-		gray = (int) (255 * shade);
-		frac->color = (gray << 16) | (gray << 8) | gray;
-		return ;
-	}
-	red = (byte)(((frac->color >> 16) & 0xff) * shade);
-	green = (byte)(((frac->color >> 8) & 0xff) * shade);
-	blue = (byte)((frac->color & 0xff) * shade);
-	frac->color = (red << 16) | (green << 8) | blue;
-}
 
 void	ft_mlx_pixel_put(const t_fractal *frac)
 {

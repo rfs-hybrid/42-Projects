@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:01:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/28 18:13:40 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/28 20:23:17 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,38 @@ static void	ft_malloc_error(t_fractal *frac)
 	exit(EXIT_FAILURE);
 }
 
+static void	init_palettes(t_fractal *frac)
+{
+	frac->palette[0] = blue_orange_palette;
+	frac->palette[1] = rainbow_palette;
+	frac->palette[2] = fire_palette;
+	frac->palette[3] = pastel_palette;
+	frac->palette[4] = dreamy_pastel_palette;
+	frac->palette[5] = sunset_palette;
+	frac->palette[6] = galaxy_palette;
+	frac->palette[7] = forest_palette;
+	frac->palette[3] = hsv_palette;
+	frac->palette[8] = ice_palette;
+	frac->palette[9] = dreamy_pastel_palette;
+	frac->n_palettes = N_PALETTES;
+}
+
 static void	init_values(t_fractal *frac)
 {
 	frac->mlx = NULL;
 	frac->win = NULL;
 	frac->data.img = NULL;
 	frac->color = 0x419F32;
+	frac->shade = 0;
 	frac->width = WIDTH;
 	frac->height = HEIGHT;
 	frac->max_iter = 100;
 	frac->off_x = 0.0;
 	frac->off_y = 0.0;
 	frac->zoom = 1.0;
+	frac->is_gray = false;
+	frac->palette_idx = 0;
+	init_palettes(frac);
 }
 
 void	ft_init_fractal(t_fractal *frac)
