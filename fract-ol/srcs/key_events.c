@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:34:41 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 18:50:42 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:13:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,21 @@ int	ft_handle_key_event(int keysym, t_fractal *frac)
 {
 	if (keysym == XK_Escape)
 		ft_exit_program(frac);
+	if (!ft_strncmp(frac->name, PHOENIX, 8))
+	{
+		if (keysym == '[')
+		{
+			frac->delta -= 0.05;
+			if (frac->delta < -1.0)
+				frac->delta = -1.0;
+		}
+		if (keysym == ']')
+		{
+			frac->delta += 0.05;
+			if (frac->delta > 1.0)
+				frac->delta = 1.0;
+		}
+	}
 	apply_color_shade(keysym, frac);
 	apply_zoom_in_out(keysym, frac);
 	move_reset_screen(keysym, frac);

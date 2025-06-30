@@ -15,7 +15,8 @@
 static void	init_fractal_calc(t_fractal *frac)
 {
 	frac->iter = -1;
-	if (!ft_strncmp(frac->name, JULIA, 6))
+	if (!ft_strncmp(frac->name, JULIA, 6)
+		|| !ft_strncmp(frac->name, PHOENIX, 8))
 	{
 		frac->z.re = ((XMAX - XMIN) * frac->x / frac->width + XMIN)
 			* frac->zoom + frac->off_x;
@@ -74,12 +75,14 @@ void	ft_render_fractal(t_fractal *frac)
 			init_fractal_calc(frac);
 			if (!ft_strncmp(frac->name, MANDELBROT, 11))
 				ft_mandelbrot(frac);
-			if (!ft_strncmp(frac->name, JULIA, 6))
+			else if (!ft_strncmp(frac->name, JULIA, 6))
 				ft_julia(frac);
-			if (!ft_strncmp(frac->name, TRICORN, 8))
+			else if (!ft_strncmp(frac->name, TRICORN, 8))
 				ft_tricorn(frac);
-			if (!ft_strncmp(frac->name, BURNING_SHIP, 13))
+			else if (!ft_strncmp(frac->name, BURNING_SHIP, 13))
 				ft_burning_ship(frac);
+			else if (!ft_strncmp(frac->name, PHOENIX, 8))
+				ft_phoenix(frac);
 			apply_pixel_color(frac);
 			ft_mlx_pixel_put(frac);
 		}

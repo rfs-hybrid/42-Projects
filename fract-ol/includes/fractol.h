@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 18:46:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/30 19:54:45 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_fractal
 	double			zoom;
 	t_complex		z;
 	t_complex		c;
+	double			delta;
 	bool			is_gray;
 	int				palette_idx;
 	t_palette_func	palette[N_PALETTES];
@@ -100,6 +101,7 @@ void	ft_mandelbrot(t_fractal *frac);
 void	ft_julia(t_fractal *frac);
 void	ft_tricorn(t_fractal *frac);
 void	ft_burning_ship(t_fractal *frac);
+void	ft_phoenix(t_fractal *frac);
 void	ft_render_fractal(t_fractal *frac);
 int		ft_handle_key_event(int keysym, t_fractal *frac);
 int		ft_exit_program(t_fractal *frac);
