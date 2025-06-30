@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   palettes3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 23:36:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/29 00:52:18 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/30 12:23:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int deep_ocean_palette(int iter, int max_iter)
+int	deep_ocean_palette(int iter, int max_iter)
 {
 	double	tmp;
 	int		red;
@@ -23,7 +23,7 @@ int deep_ocean_palette(int iter, int max_iter)
 	red = (int)(30 * (1 - tmp));
 	green = (int)(100 * pow(tmp, 0.8));
 	blue = (int)(200 * pow(tmp, 1.5) + 55);
-    return ((red << 16) | (green << 8) | blue);
+	return ((red << 16) | (green << 8) | blue);
 }
 
 int	psychedelic_palette(int iter, int max_iter)
