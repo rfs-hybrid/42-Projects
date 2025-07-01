@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:01:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:12:31 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 04:06:54 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	init_values(t_fractal *frac)
 	frac->shade = SHADE_INIT;
 	frac->width = WIDTH_800;
 	frac->height = HEIGHT_600;
-	frac->max_iter = ITER_MAX;
+	frac->max_iter = ITER_INIT;
 	frac->off_x = OFF_X_INIT;
 	frac->off_y = OFF_Y_INIT;
 	frac->zoom = ZOOM_INIT;

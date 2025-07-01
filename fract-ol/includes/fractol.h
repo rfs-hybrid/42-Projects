@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:38:13 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 04:06:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 /* Iteration definitions */
 # define ITER_SCALE			25
 # define ITER_MIN			25
-# define ITER_MAX			500
+# define ITER_MAX			1000
 # define ITER_INIT			100
 
 /* Delta definitions */
