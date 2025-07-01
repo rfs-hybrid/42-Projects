@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 04:06:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 13:53:48 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@
 # define ITER_INIT			100
 
 /* Delta definitions */
-# define DELTA_SCALE		0.05
+# define DELTA_SCALE		0.02
 # define DELTA_MIN			-1.0
 # define DELTA_MAX			1.0
 
@@ -149,8 +149,7 @@ int		ft_handle_key_event(int keysym, t_fractal *frac);
 int		ft_handle_mouse_event(int button, int x, int y, t_fractal *frac);
 
 /* Fractal functions */
-void	ft_mandelbrot(t_fractal *frac);
-void	ft_julia(t_fractal *frac);
+void	ft_mandelbrot_julia(t_fractal *frac);
 void	ft_tricorn(t_fractal *frac);
 void	ft_burning_ship(t_fractal *frac);
 void	ft_phoenix(t_fractal *frac);

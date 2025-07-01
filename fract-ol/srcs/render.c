@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 01:42:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:24:46 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 13:55:44 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ static void	init_fractal_calc(t_fractal *frac)
 	if (!ft_strncmp(frac->name, JULIA, 6)
 		|| !ft_strncmp(frac->name, PHOENIX, 8))
 	{
-		frac->z.re = ((XMAX - XMIN) * frac->x / frac->width + XMIN)
+		frac->z.re = ((XMAX - XMIN) * (double)frac->x / frac->width + XMIN)
 			* frac->zoom + frac->off_x;
-		frac->z.im = ((YMAX - YMIN) * frac->y / frac->height + YMIN)
+		frac->z.im = ((YMAX - YMIN) * (double)frac->y / frac->height + YMIN)
 			* frac->zoom + frac->off_y;
 		return ;
 	}
 	frac->z.re = 0.0;
 	frac->z.im = 0.0;
-	frac->c.re = ((XMAX - XMIN) * frac->x / frac->width + XMIN) * frac->zoom
-		+ frac->off_x;
-	frac->c.im = ((YMAX - YMIN) * frac->y / frac->height + YMIN) * frac->zoom
-		+ frac->off_y;
+	frac->c.re = ((XMAX - XMIN) * (double)frac->x / frac->width + XMIN)
+		* frac->zoom + frac->off_x;
+	frac->c.im = ((YMAX - YMIN) * (double)frac->y / frac->height + YMIN)
+		* frac->zoom + frac->off_y;
 }
 
 static void	apply_shade(t_fractal *frac)
@@ -85,10 +85,9 @@ void	ft_render_fractal(t_fractal *frac)
 		while (++(frac->y) < frac->height)
 		{
 			init_fractal_calc(frac);
-			if (!ft_strncmp(frac->name, MANDELBROT, 11))
-				ft_mandelbrot(frac);
-			else if (!ft_strncmp(frac->name, JULIA, 6))
-				ft_julia(frac);
+			if (!ft_strncmp(frac->name, MANDELBROT, 11)
+				|| !ft_strncmp(frac->name, JULIA, 6))
+				ft_mandelbrot_julia(frac);
 			else if (!ft_strncmp(frac->name, TRICORN, 8))
 				ft_tricorn(frac);
 			else if (!ft_strncmp(frac->name, BURNING_SHIP, 13))

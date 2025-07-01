@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 20:31:19 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 12:55:30 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ static bool	is_julia_phoenix(t_fractal *frac, int argc, char **argv)
 		frac->c.re = ft_atod(argv[2]);
 		frac->c.im = ft_atod(argv[3]);
 		frac->delta = ft_atod(argv[4]);
+		if (frac->delta < DELTA_MIN)
+			frac->delta = DELTA_MIN;
+		else if (frac->delta > DELTA_MAX)
+			frac->delta = DELTA_MAX;
 		return (true);
 	}
 	return (false);
