@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 20:16:49 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/06/30 20:31:19 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	main(int argc, char **argv)
 	ft_init_fractal(&frac);
 	ft_render_fractal(&frac);
 	mlx_key_hook(frac.win, ft_handle_key_event, &frac);
+	mlx_hook(frac.win, 17, 0L, ft_exit_program, &frac);
+	mlx_mouse_hook(frac.win, ft_handle_mouse_event, &frac);
 	mlx_loop(frac.mlx);
 	return (0);
 }

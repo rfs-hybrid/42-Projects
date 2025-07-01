@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:25:57 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 18:50:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 03:23:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@ int	ft_exit_program(t_fractal *frac)
 	free(frac->mlx);
 	exit (EXIT_SUCCESS);
 	return (0);
-}
-
-void	ft_mlx_pixel_put(const t_fractal *frac)
-{
-	char	*dst;
-
-	if (frac->x < 0 || frac->y < 0 || frac->x >= frac->width
-		|| frac->y >= frac->height)
-		return ;
-	dst = frac->data.addr + (frac->y * frac->data.line_len
-			+ frac->x * (frac->data.bpp / 8));
-	*(unsigned int *)dst = frac->color;
 }
 
 double	ft_absd(double nbr)

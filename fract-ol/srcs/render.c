@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 01:42:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 18:49:48 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 03:24:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	init_fractal_calc(t_fractal *frac)
 
 static void	apply_shade(t_fractal *frac)
 {
-	int		gray;
-	t_byte	red;
-	t_byte	green;
-	t_byte	blue;
+	int				gray;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
 
 	if (frac->is_gray)
 	{
@@ -45,9 +45,9 @@ static void	apply_shade(t_fractal *frac)
 		frac->color = (gray << 16) | (gray << 8) | gray;
 		return ;
 	}
-	red = (t_byte)(((frac->color >> 16) & 0xff) * frac->shade);
-	green = (t_byte)(((frac->color >> 8) & 0xff) * frac->shade);
-	blue = (t_byte)((frac->color & 0xff) * frac->shade);
+	red = (unsigned char)(((frac->color >> 16) & 0xff) * frac->shade);
+	green = (unsigned char)(((frac->color >> 8) & 0xff) * frac->shade);
+	blue = (unsigned char)((frac->color & 0xff) * frac->shade);
 	frac->color = (red << 16) | (green << 8) | blue;
 }
 
@@ -62,6 +62,18 @@ static void	apply_pixel_color(t_fractal *frac)
 		frac->color = frac->palette[frac->palette_idx](frac->iter,
 				frac->max_iter);
 	apply_shade(frac);
+}
+
+static void	ft_mlx_pixel_put(const t_fractal *frac)
+{
+	char	*dst;
+
+	if (frac->x < 0 || frac->y < 0 || frac->x >= frac->width
+		|| frac->y >= frac->height)
+		return ;
+	dst = frac->data.addr + (frac->y * frac->data.line_len
+			+ frac->x * (frac->data.bpp / 8));
+	*(unsigned int *)dst = frac->color;
 }
 
 void	ft_render_fractal(t_fractal *frac)

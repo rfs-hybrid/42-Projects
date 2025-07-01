@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:34:41 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 20:13:46 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 03:25:15 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,53 +26,42 @@ static void	apply_color_shade(int keysym, t_fractal *frac)
 		frac->is_gray = !frac->is_gray;
 	if (keysym == XK_Home)
 	{
-		frac->shade += 0.1;
-		if (frac->shade > 1.0)
-			frac->shade = 1.0;
+		frac->shade += SHADE_SCALE;
+		if (frac->shade > SHADE_MAX)
+			frac->shade = SHADE_MAX;
 	}
 	if (keysym == XK_End)
 	{
-		frac->shade -= 0.1;
-		if (frac->shade < 0.0)
-			frac->shade = 0.0;
+		frac->shade -= SHADE_SCALE;
+		if (frac->shade < SHADE_MIN)
+			frac->shade = SHADE_MIN;
 	}
 }
 
-static void	apply_zoom_in_out(int keysym, t_fractal *frac)
-{
-	if (keysym == XK_plus || keysym == XK_KP_Add)
-	{
-		frac->zoom *= 0.95;
-		if (frac->zoom > 1.0)
-			frac->zoom = 1.0;
-	}
-	if (keysym == XK_minus || keysym == XK_KP_Subtract)
-	{
-		frac->zoom /= 0.95;
-		if (frac->zoom > 1.0)
-			frac->zoom = 1.0;
-	}
-}
-
-static void	move_reset_screen(int keysym, t_fractal *frac)
+static void	screen_padding_zoom(int keysym, t_fractal *frac)
 {
 	if (keysym == XK_w || keysym == XK_Up)
-		frac->off_y -= 0.25 * frac->zoom;
+		frac->off_y -= PADDING_SCALE * frac->zoom;
 	if (keysym == XK_s || keysym == XK_Down)
-		frac->off_y += 0.25 * frac->zoom;
+		frac->off_y += PADDING_SCALE * frac->zoom;
 	if (keysym == XK_a || keysym == XK_Left)
-		frac->off_x -= 0.25 * frac->zoom;
+		frac->off_x -= PADDING_SCALE * frac->zoom;
 	if (keysym == XK_d || keysym == XK_Right)
-		frac->off_x += 0.25 * frac->zoom;
+		frac->off_x += PADDING_SCALE * frac->zoom;
+	if ((keysym == XK_plus || keysym == XK_KP_Add) && frac->zoom > ZOOM_MIN)
+		frac->zoom *= ZOOM_SCALE;
+	if ((keysym == XK_minus || keysym == XK_KP_Subtract)
+		&& frac->zoom < ZOOM_MAX)
+		frac->zoom /= ZOOM_SCALE;
 	if (keysym == XK_r)
 	{
-		frac->shade = 1.0;
-		frac->max_iter = 100;
-		frac->off_x = 0.0;
-		frac->off_y = 0.0;
-		frac->zoom = 1.0;
+		frac->shade = SHADE_INIT;
+		frac->max_iter = ITER_INIT;
+		frac->off_x = OFF_X_INIT;
+		frac->off_y = OFF_Y_INIT;
+		frac->zoom = ZOOM_INIT;
 		frac->is_gray = false;
-		frac->palette_idx = 0;
+		frac->palette_idx = PALETTE_INIT % frac->n_palettes;
 	}
 }
 
@@ -80,15 +69,15 @@ static void	update_iterations(int keysym, t_fractal *frac)
 {
 	if (keysym == XK_q)
 	{
-		frac->max_iter -= 25;
-		if (frac->max_iter <= 0)
-			frac->max_iter = 25;
+		frac->max_iter -= ITER_SCALE;
+		if (frac->max_iter < ITER_MIN)
+			frac->max_iter = ITER_MIN;
 	}
 	if (keysym == XK_e)
 	{
-		frac->max_iter += 25;
-		if (frac->max_iter >= 500)
-			frac->max_iter = 500;
+		frac->max_iter += ITER_SCALE;
+		if (frac->max_iter > ITER_MAX)
+			frac->max_iter = ITER_MAX;
 	}
 }
 
@@ -100,20 +89,19 @@ int	ft_handle_key_event(int keysym, t_fractal *frac)
 	{
 		if (keysym == '[')
 		{
-			frac->delta -= 0.05;
-			if (frac->delta < -1.0)
-				frac->delta = -1.0;
+			frac->delta -= DELTA_SCALE;
+			if (frac->delta < DELTA_MIN)
+				frac->delta = DELTA_MIN;
 		}
 		if (keysym == ']')
 		{
-			frac->delta += 0.05;
-			if (frac->delta > 1.0)
-				frac->delta = 1.0;
+			frac->delta += DELTA_SCALE;
+			if (frac->delta > DELTA_MAX)
+				frac->delta = DELTA_MAX;
 		}
 	}
 	apply_color_shade(keysym, frac);
-	apply_zoom_in_out(keysym, frac);
-	move_reset_screen(keysym, frac);
+	screen_padding_zoom(keysym, frac);
 	update_iterations(keysym, frac);
 	ft_render_fractal(frac);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:01:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 18:30:25 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 03:12:31 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static void	init_palettes(t_fractal *frac)
 	frac->palette[12] = shell_palette;
 	frac->palette[13] = inferno_palette;
 	frac->palette[14] = dragonfly_palette;
-	frac->n_palettes = N_PALETTES;
+	frac->n_palettes = PALETTE_TOTAL;
+	frac->palette_idx = PALETTE_INIT % frac->n_palettes;
 }
 
 static void	init_values(t_fractal *frac)
@@ -80,15 +81,14 @@ static void	init_values(t_fractal *frac)
 	frac->mlx = NULL;
 	frac->win = NULL;
 	frac->data.img = NULL;
-	frac->shade = 1.0;
+	frac->shade = SHADE_INIT;
 	frac->width = WIDTH_800;
 	frac->height = HEIGHT_600;
-	frac->max_iter = 250;
-	frac->off_x = 0.0;
-	frac->off_y = 0.0;
-	frac->zoom = 1.0;
+	frac->max_iter = ITER_MAX;
+	frac->off_x = OFF_X_INIT;
+	frac->off_y = OFF_Y_INIT;
+	frac->zoom = ZOOM_INIT;
 	frac->is_gray = false;
-	frac->palette_idx = 0;
 	init_palettes(frac);
 }
 
