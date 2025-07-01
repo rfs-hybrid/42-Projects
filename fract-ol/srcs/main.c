@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 12:55:30 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:57:11 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static bool	is_julia_phoenix(t_fractal *frac, int argc, char **argv)
 {
 	if (argc == 4 && !ft_strncmp(ft_strtoupper(argv[1]), JULIA, 6))
 	{
-		frac->name = JULIA;
+		frac->disp.name = JULIA;
 		frac->c.re = ft_atod(argv[2]);
 		frac->c.im = ft_atod(argv[3]);
 		return (true);
 	}
 	else if (argc == 5 && !ft_strncmp(ft_strtoupper(argv[1]), PHOENIX, 8))
 	{
-		frac->name = PHOENIX;
+		frac->disp.name = PHOENIX;
 		frac->c.re = ft_atod(argv[2]);
 		frac->c.im = ft_atod(argv[3]);
 		frac->delta = ft_atod(argv[4]);
@@ -62,11 +62,11 @@ static void	validate_inputs(t_fractal *frac, int argc, char **argv)
 	else if (argc == 2)
 	{
 		if (!ft_strncmp(ft_strtoupper(argv[1]), MANDELBROT, 11))
-			frac->name = MANDELBROT;
+			frac->disp.name = MANDELBROT;
 		else if (!ft_strncmp(ft_strtoupper(argv[1]), BURNING_SHIP, 13))
-			frac->name = BURNING_SHIP;
+			frac->disp.name = BURNING_SHIP;
 		else if (!ft_strncmp(ft_strtoupper(argv[1]), TRICORN, 8))
-			frac->name = TRICORN;
+			frac->disp.name = TRICORN;
 		else
 			print_invalid_input();
 	}
@@ -81,9 +81,9 @@ int	main(int argc, char **argv)
 	validate_inputs(&frac, argc, argv);
 	ft_init_fractal(&frac);
 	ft_render_fractal(&frac);
-	mlx_key_hook(frac.win, ft_handle_key_event, &frac);
-	mlx_hook(frac.win, 17, 0L, ft_exit_program, &frac);
-	mlx_mouse_hook(frac.win, ft_handle_mouse_event, &frac);
-	mlx_loop(frac.mlx);
+	mlx_key_hook(frac.disp.win, ft_handle_key_event, &frac);
+	mlx_hook(frac.disp.win, 17, 0L, ft_exit_program, &frac);
+	mlx_mouse_hook(frac.disp.win, ft_handle_mouse_event, &frac);
+	mlx_loop(frac.disp.mlx);
 	return (0);
 }

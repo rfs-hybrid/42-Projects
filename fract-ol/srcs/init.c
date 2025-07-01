@@ -6,20 +6,20 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:01:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 13:43:44 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:56:54 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	ft_malloc_error(t_fractal *frac)
+static void	malloc_error(t_display *disp)
 {
-	if (frac->mlx)
+	if (disp->mlx)
 	{
-		if (frac->win)
-			mlx_destroy_window(frac->mlx, frac->win);
-		mlx_destroy_display(frac->mlx);
-		free (frac->mlx);
+		if (disp->win)
+			mlx_destroy_window(disp->mlx, disp->win);
+		mlx_destroy_display(disp->mlx);
+		free (disp->mlx);
 	}
 	ft_putendl_fd("Error: Memory allocation or MLX setup failed!",
 		STDERR_FILENO);
@@ -36,18 +36,18 @@ static void	set_resolution(t_fractal *frac)
 				STDOUT_FILENO));
 	if (!ft_strncmp(line, "2\n", 3))
 	{
-		frac->width = WIDTH_1024;
-		frac->height = HEIGHT_768;
+		frac->disp.width = WIDTH_1024;
+		frac->disp.height = HEIGHT_768;
 	}
 	else if (!ft_strncmp(line, "3\n", 3))
 	{
-		frac->width = WIDTH_1280;
-		frac->height = HEIGHT_720;
+		frac->disp.width = WIDTH_1280;
+		frac->disp.height = HEIGHT_720;
 	}
 	else if (!ft_strncmp(line, "4\n", 3))
 	{
-		frac->width = WIDTH_1680;
-		frac->height = HEIGHT_1050;
+		frac->disp.width = WIDTH_1680;
+		frac->disp.height = HEIGHT_1050;
 	}
 	else if (ft_strncmp(line, "1\n", 3))
 		ft_putendl_fd("Invalid option. Default resolution applied!",
@@ -78,12 +78,12 @@ static void	init_palettes(t_fractal *frac)
 
 static void	init_values(t_fractal *frac)
 {
-	frac->mlx = NULL;
-	frac->win = NULL;
-	frac->data.img = NULL;
+	frac->disp.mlx = NULL;
+	frac->disp.win = NULL;
+	frac->disp.data.img = NULL;
+	frac->disp.width = WIDTH_800;
+	frac->disp.height = HEIGHT_600;
 	frac->shade = SHADE_INIT;
-	frac->width = WIDTH_800;
-	frac->height = HEIGHT_600;
 	frac->max_iter = ITER_INIT;
 	frac->off_x = OFF_X_INIT;
 	frac->off_y = OFF_Y_INIT;
@@ -102,16 +102,18 @@ void	ft_init_fractal(t_fractal *frac)
 	ft_putstr_fd("Please select one: ", STDOUT_FILENO);
 	init_values(frac);
 	set_resolution(frac);
-	frac->mlx = mlx_init();
-	if (!frac->mlx)
-		ft_malloc_error(frac);
-	frac->win = mlx_new_window(frac->mlx, frac->width, frac->height,
-			frac->name);
-	if (!frac->win)
-		ft_malloc_error(frac);
-	frac->data.img = mlx_new_image(frac->mlx, frac->width, frac->height);
-	if (!frac->data.img)
-		ft_malloc_error(frac);
-	frac->data.addr = mlx_get_data_addr(frac->data.img, &frac->data.bpp,
-			&frac->data.line_len, &frac->data.endian);
+	frac->disp.mlx = mlx_init();
+	if (!frac->disp.mlx)
+		malloc_error(&frac->disp);
+	frac->disp.win = mlx_new_window(frac->disp.mlx, frac->disp.width,
+			frac->disp.height, frac->disp.name);
+	if (!frac->disp.win)
+		malloc_error(&frac->disp);
+	frac->disp.data.img = mlx_new_image(frac->disp.mlx, frac->disp.width,
+			frac->disp.height);
+	if (!frac->disp.data.img)
+		malloc_error(&frac->disp);
+	frac->disp.data.addr = mlx_get_data_addr(frac->disp.data.img,
+			&frac->disp.data.bpp, &frac->disp.data.line_len,
+			&frac->disp.data.endian);
 }

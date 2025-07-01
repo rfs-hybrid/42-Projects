@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 13:53:48 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:57:53 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ typedef struct s_complex
 	double	im;
 }	t_complex;
 
-/* Fractal struct */
-typedef struct s_fractal
+/* Display struct*/
+typedef struct s_display
 {
 	void			*mlx;
 	void			*win;
@@ -120,6 +120,12 @@ typedef struct s_fractal
 	char			*name;
 	int				width;
 	int				height;
+}	t_display;
+
+/* Fractal struct */
+typedef struct s_fractal
+{
+	t_display		disp;
 	int				color;
 	double			shade;
 	int				iter;
@@ -155,7 +161,7 @@ void	ft_burning_ship(t_fractal *frac);
 void	ft_phoenix(t_fractal *frac);
 
 /* Utility functions */
-int		ft_exit_program(t_fractal *frac);
+int		ft_exit_program(t_display *disp);
 double	ft_absd(double nbr);
 char	*ft_strtoupper(char *str);
 double	ft_atod(const char *nptr);

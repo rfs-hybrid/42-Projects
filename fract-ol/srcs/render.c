@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 01:42:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 13:55:44 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:06:33 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,20 @@
 static void	init_fractal_calc(t_fractal *frac)
 {
 	frac->iter = -1;
-	if (!ft_strncmp(frac->name, JULIA, 6)
-		|| !ft_strncmp(frac->name, PHOENIX, 8))
+	if (!ft_strncmp(frac->disp.name, JULIA, 6)
+		|| !ft_strncmp(frac->disp.name, PHOENIX, 8))
 	{
-		frac->z.re = ((XMAX - XMIN) * (double)frac->x / frac->width + XMIN)
-			* frac->zoom + frac->off_x;
-		frac->z.im = ((YMAX - YMIN) * (double)frac->y / frac->height + YMIN)
-			* frac->zoom + frac->off_y;
+		frac->z.re = ((XMAX - XMIN) * (double)frac->x / frac->disp.width
+				+ XMIN) * frac->zoom + frac->off_x;
+		frac->z.im = ((YMAX - YMIN) * (double)frac->y / frac->disp.height
+				+ YMIN) * frac->zoom + frac->off_y;
 		return ;
 	}
 	frac->z.re = 0.0;
 	frac->z.im = 0.0;
-	frac->c.re = ((XMAX - XMIN) * (double)frac->x / frac->width + XMIN)
+	frac->c.re = ((XMAX - XMIN) * (double)frac->x / frac->disp.width + XMIN)
 		* frac->zoom + frac->off_x;
-	frac->c.im = ((YMAX - YMIN) * (double)frac->y / frac->height + YMIN)
+	frac->c.im = ((YMAX - YMIN) * (double)frac->y / frac->disp.height + YMIN)
 		* frac->zoom + frac->off_y;
 }
 
@@ -68,35 +68,36 @@ static void	ft_mlx_pixel_put(const t_fractal *frac)
 {
 	char	*dst;
 
-	if (frac->x < 0 || frac->y < 0 || frac->x >= frac->width
-		|| frac->y >= frac->height)
+	if (frac->x < 0 || frac->y < 0 || frac->x >= frac->disp.width
+		|| frac->y >= frac->disp.height)
 		return ;
-	dst = frac->data.addr + (frac->y * frac->data.line_len
-			+ frac->x * (frac->data.bpp / 8));
+	dst = frac->disp.data.addr + (frac->y * frac->disp.data.line_len
+			+ frac->x * (frac->disp.data.bpp / 8));
 	*(unsigned int *)dst = frac->color;
 }
 
 void	ft_render_fractal(t_fractal *frac)
 {
 	frac->x = -1;
-	while (++(frac->x) < frac->width)
+	while (++(frac->x) < frac->disp.width)
 	{
 		frac->y = -1;
-		while (++(frac->y) < frac->height)
+		while (++(frac->y) < frac->disp.height)
 		{
 			init_fractal_calc(frac);
-			if (!ft_strncmp(frac->name, MANDELBROT, 11)
-				|| !ft_strncmp(frac->name, JULIA, 6))
+			if (!ft_strncmp(frac->disp.name, MANDELBROT, 11)
+				|| !ft_strncmp(frac->disp.name, JULIA, 6))
 				ft_mandelbrot_julia(frac);
-			else if (!ft_strncmp(frac->name, TRICORN, 8))
+			else if (!ft_strncmp(frac->disp.name, TRICORN, 8))
 				ft_tricorn(frac);
-			else if (!ft_strncmp(frac->name, BURNING_SHIP, 13))
+			else if (!ft_strncmp(frac->disp.name, BURNING_SHIP, 13))
 				ft_burning_ship(frac);
-			else if (!ft_strncmp(frac->name, PHOENIX, 8))
+			else if (!ft_strncmp(frac->disp.name, PHOENIX, 8))
 				ft_phoenix(frac);
 			apply_pixel_color(frac);
 			ft_mlx_pixel_put(frac);
 		}
 	}
-	mlx_put_image_to_window(frac->mlx, frac->win, frac->data.img, 0, 0);
+	mlx_put_image_to_window(frac->disp.mlx, frac->disp.win,
+		frac->disp.data.img, 0, 0);
 }

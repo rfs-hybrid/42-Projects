@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:45:23 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 13:12:18 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:07:22 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static void	screen_zoom(int button, int x, int y, t_fractal *frac)
 	double	prev_off_re;
 	double	prev_off_im;
 
-	prev_off_re = ((XMAX - XMIN) * (double)x / frac->width + XMIN) * frac->zoom
-		+ frac->off_x;
-	prev_off_im = ((YMAX - YMIN) * (double)y / frac->height + YMIN) * frac->zoom
-		+ frac->off_y;
+	prev_off_re = ((XMAX - XMIN) * (double)x / frac->disp.width + XMIN)
+		* frac->zoom + frac->off_x;
+	prev_off_im = ((YMAX - YMIN) * (double)y / frac->disp.height + YMIN)
+		* frac->zoom + frac->off_y;
 	if (button == MOUSE_SCROLL_UP)
 		frac->zoom *= ZOOM_SCALE;
 	if (button == MOUSE_SCROLL_DOWN)
 		frac->zoom /= ZOOM_SCALE;
-	frac->off_x = prev_off_re - ((XMAX - XMIN) * x / frac->width + XMIN)
+	frac->off_x = prev_off_re - ((XMAX - XMIN) * x / frac->disp.width + XMIN)
 		* frac->zoom;
-	frac->off_y = prev_off_im - ((YMAX - YMIN) * y / frac->height + YMIN)
+	frac->off_y = prev_off_im - ((YMAX - YMIN) * y / frac->disp.height + YMIN)
 		* frac->zoom;
 }
 

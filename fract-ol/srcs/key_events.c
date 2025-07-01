@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:34:41 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:25:15 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:23:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ static void	update_iterations(int keysym, t_fractal *frac)
 int	ft_handle_key_event(int keysym, t_fractal *frac)
 {
 	if (keysym == XK_Escape)
-		ft_exit_program(frac);
-	if (!ft_strncmp(frac->name, PHOENIX, 8))
+		ft_exit_program(&frac->disp);
+	if (!ft_strncmp(frac->disp.name, PHOENIX, 8))
 	{
 		if (keysym == '[')
 		{

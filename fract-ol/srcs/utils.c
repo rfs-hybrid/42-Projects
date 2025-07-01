@@ -6,18 +6,18 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:25:57 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:23:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:56:28 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	ft_exit_program(t_fractal *frac)
+int	ft_exit_program(t_display *disp)
 {
-	mlx_destroy_image(frac->mlx, frac->data.img);
-	mlx_destroy_window(frac->mlx, frac->win);
-	mlx_destroy_display(frac->mlx);
-	free(frac->mlx);
+	mlx_destroy_image(disp->mlx, disp->data.img);
+	mlx_destroy_window(disp->mlx, disp->win);
+	mlx_destroy_display(disp->mlx);
+	free(disp->mlx);
 	exit (EXIT_SUCCESS);
 	return (0);
 }
