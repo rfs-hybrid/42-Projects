@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:45:23 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:25:05 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 03:33:15 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static void	screen_zoom(int button, int x, int y, t_fractal *frac)
 		+ frac->off_x;
 	prev_off_im = ((YMAX - YMIN) * y / frac->height + YMIN) * frac->zoom
 		+ frac->off_y;
-	if (button == 4)
+	if (button == MOUSE_SCROLL_UP)
 		frac->zoom *= ZOOM_SCALE;
-	if (button == 5)
+	if (button == MOUSE_SCROLL_DOWN)
 		frac->zoom /= ZOOM_SCALE;
 	frac->off_x = prev_off_re - ((XMAX - XMIN) * x / frac->width + XMIN)
 		* frac->zoom;
@@ -33,8 +33,8 @@ static void	screen_zoom(int button, int x, int y, t_fractal *frac)
 
 int	ft_handle_mouse_event(int button, int x, int y, t_fractal *frac)
 {
-	if ((button == 4 && frac->zoom > ZOOM_MIN)
-		|| (button == 5 && frac->zoom < ZOOM_MAX))
+	if ((button == MOUSE_SCROLL_UP && frac->zoom > ZOOM_MIN)
+		|| (button == MOUSE_SCROLL_DOWN && frac->zoom < ZOOM_MAX))
 		screen_zoom(button, x, y, frac);
 	ft_render_fractal(frac);
 	return (0);

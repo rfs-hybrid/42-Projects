@@ -6,15 +6,14 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 03:26:01 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/01 03:38:13 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-/* Include libraries*/
-# include <stdio.h>
+/* Include libraries */
 # include <stdbool.h>
 # include <math.h>
 # include <X11/X.h>
@@ -24,66 +23,73 @@
 # include "mlx.h"
 
 /* Screen resolutions definitions */
-# define WIDTH_800		800
-# define HEIGHT_600		600
+# define WIDTH_800			800
+# define HEIGHT_600			600
 
-# define WIDTH_1024		1024
-# define HEIGHT_768		768
+# define WIDTH_1024			1024
+# define HEIGHT_768			768
 
-# define WIDTH_1280		1280
-# define HEIGHT_720		720
+# define WIDTH_1280			1280
+# define HEIGHT_720			720
 
-# define WIDTH_1680		1680
-# define HEIGHT_1050	1050 
+# define WIDTH_1680			1680
+# define HEIGHT_1050		1050 
 
 /* Complex plane definitions */
-# define XMIN			-2.0
-# define XMAX			2.0
+# define XMIN				-2.0
+# define XMAX				2.0
 
-# define YMIN			-2.0
-# define YMAX			2.0
+# define YMIN				-2.0
+# define YMAX				2.0
 
-# define OFF_X_INIT		0.0
-# define OFF_Y_INIT		0.0
+# define OFF_X_INIT			0.0
+# define OFF_Y_INIT			0.0
 
-# define FRAC_LIMIT		4.0
+# define FRAC_LIMIT			4.0
 
 /* Palette definitions */
-# define PALETTE_INIT	0
-# define PALETTE_TOTAL	15
+# define PALETTE_INIT		0
+# define PALETTE_TOTAL		15
 
 /* Zoom definitions */
-# define ZOOM_SCALE		0.9
-# define ZOOM_MIN		0.00001
-# define ZOOM_MAX		5.0
-# define ZOOM_INIT		1.0
+# define ZOOM_SCALE			0.9
+# define ZOOM_MIN			1.0e-9
+# define ZOOM_MAX			5.0
+# define ZOOM_INIT			1.0
 
 /* Shading definitions */
-# define SHADE_SCALE	0.1
-# define SHADE_MIN		0.0
-# define SHADE_MAX		1.0
-# define SHADE_INIT		1.0
+# define SHADE_SCALE		0.1
+# define SHADE_MIN			0.0
+# define SHADE_MAX			1.0
+# define SHADE_INIT			1.0
 
 /* Padding definitions */
-# define PADDING_SCALE	0.25
+# define PADDING_SCALE		0.25
 
 /* Iteration definitions */
-# define ITER_SCALE		25
-# define ITER_MIN		25
-# define ITER_MAX		250
-# define ITER_INIT		100
+# define ITER_SCALE			25
+# define ITER_MIN			25
+# define ITER_MAX			500
+# define ITER_INIT			100
 
 /* Delta definitions */
-# define DELTA_SCALE	0.05
-# define DELTA_MIN		-1.0
-# define DELTA_MAX		1.0
+# define DELTA_SCALE		0.05
+# define DELTA_MIN			-1.0
+# define DELTA_MAX			1.0
+
+/* Mouse button definitions*/
+# define MOUSE_LEFT      	1
+# define MOUSE_RIGHT     	2
+# define MOUSE_MIDDLE    	3
+# define MOUSE_SCROLL_UP 	4
+# define MOUSE_SCROLL_DOWN	5
 
 /* Fractal types*/
-# define MANDELBROT		"MANDELBROT"
-# define JULIA			"JULIA"
-# define BURNING_SHIP	"BURNING SHIP"
-# define TRICORN		"TRICORN"
-# define PHOENIX		"PHOENIX"
+# define MANDELBROT			"MANDELBROT"
+# define JULIA				"JULIA"
+# define BURNING_SHIP		"BURNING SHIP"
+# define TRICORN			"TRICORN"
+# define PHOENIX			"PHOENIX"
 
 /* Typedef for palette function pointer*/
 typedef int	(*t_palette_func)(int iter, int max_iter);
