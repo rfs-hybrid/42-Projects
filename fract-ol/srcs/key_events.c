@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:34:41 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:23:51 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:04:54 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,5 @@ int	ft_handle_key_event(int keysym, t_fractal *frac)
 	screen_padding_zoom(keysym, frac);
 	update_iterations(keysym, frac);
 	ft_render_fractal(frac);
-	return (0);
+	return (EXIT_SUCCESS);
 }

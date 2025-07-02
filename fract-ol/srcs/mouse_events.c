@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/30 15:45:23 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:07:22 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:05:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ int	ft_handle_mouse_event(int button, int x, int y, t_fractal *frac)
 		|| (button == MOUSE_SCROLL_DOWN && frac->zoom < ZOOM_MAX))
 		screen_zoom(button, x, y, frac);
 	ft_render_fractal(frac);
-	return (0);
+	return (EXIT_SUCCESS);
 }

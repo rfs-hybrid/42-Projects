@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:57:11 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/02 20:04:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,5 @@ int	main(int argc, char **argv)
 	mlx_hook(frac.disp.win, 17, 0L, ft_exit_program, &frac);
 	mlx_mouse_hook(frac.disp.win, ft_handle_mouse_event, &frac);
 	mlx_loop(frac.disp.mlx);
-	return (0);
+	return (EXIT_SUCCESS);
 }

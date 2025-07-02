@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/21 18:04:18 by maaugust          #+#    #+#              #
-#    Updated: 2025/06/27 02:40:48 by maaugust         ###   ########.fr        #
+#    Updated: 2025/07/02 21:23:34 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,5 +68,8 @@ fclean: clean
 
 # ============================== REBUILD TARGETS ============================= #
 re: fclean all
+
+# ========================= HEADER DEPENDENCY INCLUDE ======================== #
+-include $(FRACTOL_OBJ:.o=.d)
 
 .PHONY: all bonus clean fclean re
