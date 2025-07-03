@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   palettes.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/28 18:38:52 by maaugust          #+#    #+#             */
-/*   Updated: 2025/06/30 14:59:23 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:19:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,7 @@ int	blue_orange_palette(int iter, int max_iter)
 	return ((red << 16) | (green << 8) | blue);
 }
 
-int	rainbow_palette(int iter, int max_iter)
-{
-	int	red;
-	int	green;
-	int	blue;
-
-	(void) max_iter;
-	red = (int)(sin(0.016 * iter + 4) * 230 + 25);
-	green = (int)(sin(0.013 * iter + 2) * 230 + 25);
-	blue = (int)(sin(0.01 * iter + 1) * 230 + 25);
-	return ((red << 16) | (green << 8) | blue);
-}
-
-int	fire_palette(int iter, int max_iter)
+int	lava_lamp_palette(int iter, int max_iter)
 {
 	double	tmp;
 	int		red;
@@ -47,13 +34,13 @@ int	fire_palette(int iter, int max_iter)
 	int		blue;
 
 	tmp = (double)iter / max_iter;
-	red = (int)(tmp * 255);
-	green = (int)(tmp * tmp * 255);
-	blue = (int)(tmp * tmp * tmp * 128);
+	red = (int)(255 * (0.5 + 0.5 * cos(3.0 * 3.1415 * tmp)));
+	green = (int)(255 * (0.5 + 0.5 * sin(6.2831 * tmp + 1.0)));
+	blue = (int)(255 * (0.5 + 0.5 * sin(3.0 * 3.1415 * tmp)));
 	return ((red << 16) | (green << 8) | blue);
 }
 
-int	cherry_blossom_palette(int iter, int max_iter)
+int	phoenix_glow_palette(int iter, int max_iter)
 {
 	double	tmp;
 	int		red;
@@ -61,13 +48,51 @@ int	cherry_blossom_palette(int iter, int max_iter)
 	int		blue;
 
 	tmp = (double)iter / max_iter;
-	red = (int)(255 * pow(tmp, 1.2));
-	green = (int)(150 * pow(tmp, 2) * (1 - tmp));
-	blue = (int)(180 * (1 - pow(tmp, 1.5)));
+	red = (int)(255 * pow(sin(3.2 * tmp), 2));
+	green = (int)(255 * pow(sin(3.0 * tmp - 0.5), 2));
+	blue = (int)(255 * pow(sin(2.5 * tmp - 1.0), 2));
+	if (red > 255)
+		red = 255;
+	if (green > 255)
+		green = 255;
+	if (blue > 255)
+		blue = 255;
+	if (red < 0)
+		red = 0;
+	if (green < 0)
+		green = 0;
+	if (blue < 0)
+		blue = 0;
 	return ((red << 16) | (green << 8) | blue);
 }
 
-int	autumn_palette(int iter, int max_iter)
+int	hsv_palette(int iter, int max_iter)
+{
+	double	tmp;
+	int		i;
+	double	f;
+	int		q;
+	int		p;
+
+	tmp = (double)iter / max_iter;
+	i = (int)(tmp * 6);
+	f = tmp * 6 - i;
+	q = (int)(255 * (1 - f));
+	p = (int)(255 * f);
+	if (i % 6 == 0)
+		return ((255 << 16) | (p << 8));
+	if (i % 6 == 1)
+		return ((q << 16) | (255 << 8));
+	if (i % 6 == 2)
+		return ((0 << 16) | (255 << 8) | p);
+	if (i % 6 == 3)
+		return ((0 << 16) | (q << 8) | 255);
+	if (i % 6 == 4)
+		return ((p << 16) | (0 << 8) | 255);
+	return ((255 << 16) | (0 << 8) | q);
+}
+
+int	electric_carnival_palette(int iter, int max_iter)
 {
 	double	tmp;
 	int		red;
@@ -75,8 +100,12 @@ int	autumn_palette(int iter, int max_iter)
 	int		blue;
 
 	tmp = (double)iter / max_iter;
-	red = (int)(15 * (1 - tmp) * tmp * tmp * 255);
-	green = (int)(8 * (1 - tmp) * (1 - tmp) * tmp * 255);
-	blue = (int)(3 * (1 - tmp) * (1 - tmp) * (1 - tmp) * 255);
+	red = (int)(255 * (0.5 + 0.5 * sin(8 * tmp + 0)));
+	red = (int)((0.8 * red) + (0.2 * (255 * (0.5 + 0.5 * sin(10 * tmp)))));
+	green = (int)(255 * (0.5 + 0.5 * sin(8 * tmp + 2)));
+	green = (int)((0.7 * green)
+			+ (0.3 * (255 * (0.5 + 0.5 * sin(10 * tmp)))));
+	blue = (int)(255 * (0.5 + 0.5 * sin(8 * tmp + 4)));
+	blue = (int)((0.6 * blue) + (0.4 * (255 * (0.5 + 0.5 * sin(10 * tmp)))));
 	return ((red << 16) | (green << 8) | blue);
 }

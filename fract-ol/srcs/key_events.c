@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_events.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:34:41 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/02 20:04:54 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:04:06 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int	ft_handle_key_event(int keysym, t_fractal *frac)
 {
 	if (keysym == XK_Escape)
 		ft_exit_program(&frac->disp);
-	if (!ft_strncmp(frac->disp.name, PHOENIX, 8))
+	if (!ft_strncmp(frac->disp.name, PHOENIX, 8)
+		|| !ft_strncmp(frac->disp.name, PHOENIX_VARIANT, 16))
 	{
 		if (keysym == '[')
 		{

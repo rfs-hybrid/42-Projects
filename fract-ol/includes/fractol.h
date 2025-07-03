@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:57:53 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:48:10 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 /* Palette definitions */
 # define PALETTE_INIT		0
-# define PALETTE_TOTAL		15
+# define PALETTE_TOTAL		10
 
 /* Zoom definitions */
 # define ZOOM_SCALE			0.9
@@ -90,6 +90,7 @@
 # define BURNING_SHIP		"BURNING SHIP"
 # define TRICORN			"TRICORN"
 # define PHOENIX			"PHOENIX"
+# define PHOENIX_VARIANT	"PHOENIX VARIANT"
 
 /* Typedef for palette function pointer*/
 typedef int	(*t_palette_func)(int iter, int max_iter);
@@ -159,28 +160,23 @@ void	ft_mandelbrot_julia(t_fractal *frac);
 void	ft_tricorn(t_fractal *frac);
 void	ft_burning_ship(t_fractal *frac);
 void	ft_phoenix(t_fractal *frac);
+void	ft_phoenix_variant(t_fractal *frac);
 
 /* Utility functions */
 int		ft_exit_program(t_display *disp);
-double	ft_absd(double nbr);
 char	*ft_strtoupper(char *str);
 double	ft_atod(const char *nptr);
 
 /* Palette functions */
 int		blue_orange_palette(int iter, int max_iter);
-int		rainbow_palette(int iter, int max_iter);
-int		fire_palette(int iter, int max_iter);
-int		cherry_blossom_palette(int iter, int max_iter);
-int		autumn_palette(int iter, int max_iter);
-int		sunset_palette(int iter, int max_iter);
-int		galaxy_palette(int iter, int max_iter);
-int		forest_palette(int iter, int max_iter);
+int		lava_lamp_palette(int iter, int max_iter);
+int		electric_carnival_palette(int iter, int max_iter);
+int		phoenix_glow_palette(int iter, int max_iter);
 int		hsv_palette(int iter, int max_iter);
-int		ice_palette(int iter, int max_iter);
-int		deep_ocean_palette(int iter, int max_iter);
-int		psychedelic_palette(int iter, int max_iter);
-int		shell_palette(int iter, int max_iter);
-int		inferno_palette(int iter, int max_iter);
-int		dragonfly_palette(int iter, int max_iter);
+int		autumn_palette(int iter, int max_iter);
+int		autumn_frost_palette(int iter, int max_iter);
+int		tropical_sunset_palette(int iter, int max_iter);
+int		winter_sunrise_palette(int iter, int max_iter);
+int		funky_galaxy_palette(int iter, int max_iter);
 
 #endif

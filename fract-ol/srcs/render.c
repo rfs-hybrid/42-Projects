@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 01:42:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:06:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:06:53 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,21 @@
 static void	init_fractal_calc(t_fractal *frac)
 {
 	frac->iter = -1;
-	if (!ft_strncmp(frac->disp.name, JULIA, 6)
-		|| !ft_strncmp(frac->disp.name, PHOENIX, 8))
+	if (!ft_strncmp(frac->disp.name, JULIA, 6))
 	{
 		frac->z.re = ((XMAX - XMIN) * (double)frac->x / frac->disp.width
 				+ XMIN) * frac->zoom + frac->off_x;
 		frac->z.im = ((YMAX - YMIN) * (double)frac->y / frac->disp.height
 				+ YMIN) * frac->zoom + frac->off_y;
+		return ;
+	}
+	else if (!ft_strncmp(frac->disp.name, PHOENIX, 8)
+		|| !ft_strncmp(frac->disp.name, PHOENIX_VARIANT, 16))
+	{
+		frac->z.re = ((YMAX - YMIN) * (double)frac->y / frac->disp.height
+				+ YMIN) * frac->zoom + frac->off_y;
+		frac->z.im = ((XMAX - XMIN) * (double)frac->x / frac->disp.width
+				+ XMIN) * frac->zoom + frac->off_x;
 		return ;
 	}
 	frac->z.re = 0.0;
@@ -94,6 +102,8 @@ void	ft_render_fractal(t_fractal *frac)
 				ft_burning_ship(frac);
 			else if (!ft_strncmp(frac->disp.name, PHOENIX, 8))
 				ft_phoenix(frac);
+			else if (!ft_strncmp(frac->disp.name, PHOENIX_VARIANT, 16))
+				ft_phoenix_variant(frac);
 			apply_pixel_color(frac);
 			ft_mlx_pixel_put(frac);
 		}

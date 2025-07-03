@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:01:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:56:54 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 20:39:25 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,15 @@ static void	set_resolution(t_fractal *frac)
 static void	init_palettes(t_fractal *frac)
 {
 	frac->palette[0] = blue_orange_palette;
-	frac->palette[1] = rainbow_palette;
-	frac->palette[2] = fire_palette;
-	frac->palette[3] = cherry_blossom_palette;
-	frac->palette[4] = autumn_palette;
-	frac->palette[5] = sunset_palette;
-	frac->palette[6] = galaxy_palette;
-	frac->palette[7] = forest_palette;
-	frac->palette[8] = hsv_palette;
-	frac->palette[9] = ice_palette;
-	frac->palette[10] = deep_ocean_palette;
-	frac->palette[11] = psychedelic_palette;
-	frac->palette[12] = shell_palette;
-	frac->palette[13] = inferno_palette;
-	frac->palette[14] = dragonfly_palette;
+	frac->palette[1] = lava_lamp_palette;
+	frac->palette[2] = electric_carnival_palette;
+	frac->palette[3] = phoenix_glow_palette;
+	frac->palette[4] = hsv_palette;
+	frac->palette[5] = autumn_palette;
+	frac->palette[6] = autumn_frost_palette;
+	frac->palette[7] = tropical_sunset_palette;
+	frac->palette[8] = winter_sunrise_palette;
+	frac->palette[9] = funky_galaxy_palette;
 	frac->n_palettes = PALETTE_TOTAL;
 	frac->palette_idx = PALETTE_INIT % frac->n_palettes;
 }

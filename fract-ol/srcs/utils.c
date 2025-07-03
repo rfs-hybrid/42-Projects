@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 17:25:57 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/01 14:56:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 16:35:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ int	ft_exit_program(t_display *disp)
 	free(disp->mlx);
 	exit (EXIT_SUCCESS);
 	return (0);
-}
-
-double	ft_absd(double nbr)
-{
-	return (nbr * ((nbr > 0) - (nbr < 0)));
 }
 
 char	*ft_strtoupper(char *str)

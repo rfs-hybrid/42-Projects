@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/02 20:04:35 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:29:23 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,13 @@ static void	print_invalid_input(void)
 		STDERR_FILENO);
 	ft_putendl_fd("\tMandelbrot: ./fractol mandelbrot", STDERR_FILENO);
 	ft_putendl_fd("\tJulia: ./fractol julia <real> <imag>", STDERR_FILENO);
-	ft_putendl_fd("\tPhoenix: ./fractol phoenix <real> <imag> <delta>",
-		STDERR_FILENO);
 	ft_putendl_fd("\tTricorn: ./fractol tricorn", STDERR_FILENO);
 	ft_putendl_fd("\tBurning Ship: ./fractol 'burning ship'\n", STDERR_FILENO);
+	ft_putendl_fd("\tPhoenix: ./fractol phoenix <real> <imag> <delta>",
+		STDERR_FILENO);
+	ft_putendl_fd("\tPhoenix Variant: ./fractol 'Phoenix Variant' <real> \
+<imag> <delta>",
+		STDERR_FILENO);
 	exit (EXIT_FAILURE);
 }
 
@@ -40,9 +43,13 @@ static bool	is_julia_phoenix(t_fractal *frac, int argc, char **argv)
 		frac->c.im = ft_atod(argv[3]);
 		return (true);
 	}
-	else if (argc == 5 && !ft_strncmp(ft_strtoupper(argv[1]), PHOENIX, 8))
+	else if (argc == 5 && (!ft_strncmp(ft_strtoupper(argv[1]), PHOENIX, 8)
+			|| !ft_strncmp(ft_strtoupper(argv[1]), PHOENIX_VARIANT, 16)))
 	{
-		frac->disp.name = PHOENIX;
+		if (!ft_strncmp(ft_strtoupper(argv[1]), PHOENIX, 8))
+			frac->disp.name = PHOENIX;
+		else
+			frac->disp.name = PHOENIX_VARIANT;
 		frac->c.re = ft_atod(argv[2]);
 		frac->c.im = ft_atod(argv[3]);
 		frac->delta = ft_atod(argv[4]);
