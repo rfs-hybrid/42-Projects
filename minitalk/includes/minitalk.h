@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:58:08 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/02 19:41:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/05 14:46:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/types.h>
+
+# define CHAR_BYTE	8
 
 typedef unsigned char	t_byte;
 
