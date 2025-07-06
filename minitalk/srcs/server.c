@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/05 15:50:10 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/06 14:29:11 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,13 @@ int	main(void)
 	write(STDOUT_FILENO, ".\n", 2);
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGUSR1);
+	sigaddset(&sa.sa_mask, SIGUSR2);
 	sa.sa_sigaction = &handle_signal;
-	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+	if (sigaction(SIGUSR1, &sa, NULL) == -1
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
-		write(STDERR_FILENO, "sigaction failed to handle SIGUSR1!\n", 36);
-		return (EXIT_FAILURE);
-	}
-	if (sigaction(SIGUSR2, &sa, NULL) == -1)
-	{
-		write(STDERR_FILENO, "sigaction failed to handle SIGUSR2!\n", 36);
+		write(STDERR_FILENO, "sigaction failed to setup handlers!\n", 36);
 		return (EXIT_FAILURE);
 	}
 	while (1)

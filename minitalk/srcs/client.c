@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:21 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/05 15:47:45 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/06 14:30:12 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,13 @@ int	main(int argc, char **argv)
 	validate_inputs(&srv_pid, argv);
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGUSR1);
+	sigaddset(&sa.sa_mask, SIGUSR2);
 	sa.sa_handler = &handle_signal;
-	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+	if (sigaction(SIGUSR1, &sa, NULL) == -1
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
-		write(STDERR_FILENO, "sigaction failed to handle SIGUSR1!\n", 37);
+		write(STDERR_FILENO, "sigaction failed to setup handlers!\n", 36);
 		return (EXIT_FAILURE);
 	}
 	send_message(srv_pid, argv[2]);
