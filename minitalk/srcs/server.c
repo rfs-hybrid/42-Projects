@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/06 14:29:11 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/06 21:59:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,36 @@ static void	putnbr(long nbr)
 	write(STDOUT_FILENO, &c, sizeof(char));
 }
 
-static void	handle_char (t_byte *c, size_t *n_bits, pid_t *pid)
+static void	handle_char(t_byte *c, size_t *n_bits, pid_t *pid)
 {
+	pid_t	tmp;
+
+	tmp = *pid;
 	if (!*c)
 	{
 		write(STDOUT_FILENO, "\n", 1);
-		if (kill(*pid, SIGUSR1) == -1)
+		if (kill(*pid, SIGUSR2) == -1)
 		{
 			write (STDERR_FILENO, "Failed to send signal!\n", 23);
-			exit (EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		}
 		*pid = 0;
 	}
 	else
-	{
 		write(STDOUT_FILENO, c, sizeof(t_byte));
-		if (kill(*pid, SIGUSR1) == -1)
-		{
-			write (STDERR_FILENO, "Failed to send signal!\n", 23);
-			exit (EXIT_FAILURE);
-		}
-	}
 	*c = 0;
-	*n_bits = CHAR_BYTE;
+	*n_bits = CHAR_BITS;
+	if (tmp && kill(tmp, SIGUSR1) == -1)
+	{
+		write(STDERR_FILENO, "Failed to send signal!\n", 23);
+		exit(EXIT_FAILURE);
+	}
 }
 
-static void	handle_signal (int sig, siginfo_t *info, void *context)
+static void	handle_signal(int sig, siginfo_t *info, void *context)
 {
 	static t_byte	c = 0;
-	static size_t	n_bits = CHAR_BYTE;
+	static size_t	n_bits = CHAR_BITS;
 	static pid_t	cli_pid = 0;
 
 	(void) context;
@@ -63,13 +64,21 @@ static void	handle_signal (int sig, siginfo_t *info, void *context)
 	{
 		cli_pid = info->si_pid;
 		c = 0;
-		n_bits = CHAR_BYTE;
+		n_bits = CHAR_BITS;
 	}
 	else if (info->si_pid != cli_pid)
-		return;
+		return ;
 	c |= (sig == SIGUSR1) << --n_bits;
 	if (n_bits == 0)
+	{
 		handle_char(&c, &n_bits, &cli_pid);
+		return ;
+	}
+	if (kill(cli_pid, SIGUSR1) == -1)
+	{
+		write(STDERR_FILENO, "Failed to send signal!\n", 23);
+		exit(EXIT_FAILURE);
+	}
 }
 
 int	main(void)
