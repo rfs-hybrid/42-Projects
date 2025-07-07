@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:19:45 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/03 19:29:23 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:18:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int argc, char **argv)
 	ft_init_fractal(&frac);
 	ft_render_fractal(&frac);
 	mlx_key_hook(frac.disp.win, ft_handle_key_event, &frac);
-	mlx_hook(frac.disp.win, 17, 0L, ft_exit_program, &frac);
+	mlx_hook(frac.disp.win, DestroyNotify, NoEventMask, ft_exit_program, &frac);
 	mlx_mouse_hook(frac.disp.win, ft_handle_mouse_event, &frac);
 	mlx_loop(frac.disp.mlx);
 	return (EXIT_SUCCESS);
