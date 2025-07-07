@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/21 18:04:18 by maaugust          #+#    #+#              #
-#    Updated: 2025/07/07 16:19:18 by maaugust         ###   ########.fr        #
+#    Updated: 2025/07/07 16:39:47 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FRACTOL = fractol
 
 # ============================== COMPILER FLAGS ============================== #
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes -Ilibft/includes -Iminilibx
+CFLAGS = -Wall -Wextra -Werror -Iincludes -Ilibft/includes -Iminilibx-linux
 RM = rm -rf
 AR = ar rcs
 
@@ -25,7 +25,8 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 LIBFT_MAKE = make -C $(LIBFT_DIR)
 
 # ================================== MINILIBX ================================ #
-MINILIBX_DIR = minilibx
+MINILIBX_URL = https://github.com/42paris/minilibx-linux.git
+MINILIBX_DIR = minilibx-linux
 MINILIBX_LIB = $(MINILIBX_DIR)/libmlx_Linux.a
 MINILIBX_MAKE = make -C $(MINILIBX_DIR)
 
@@ -53,17 +54,20 @@ bonus: all
 $(LIBFT_LIB):
 	$(LIBFT_MAKE)
 
-$(MINILIBX_LIB):
+$(MINILIBX_DIR):
+	test -d $(MINILIBX_DIR) || git clone $(MINILIBX_URL)
+
+$(MINILIBX_LIB): $(MINILIBX_DIR)
 	$(MINILIBX_MAKE)
 	
 # =============================== CLEAN TARGETS ============================== #
 clean:
 	$(RM) $(FRACTOL_OBJ_PATH)
 	$(LIBFT_MAKE) clean
-	$(MINILIBX_MAKE) clean
+	@if [ -d $(MINILIBX_DIR) ]; then $(MINILIBX_MAKE) clean; fi
 
 fclean: clean
-	$(RM) $(FRACTOL)
+	$(RM) $(FRACTOL) $(MINILIBX_DIR)
 	$(LIBFT_MAKE) fclean
 
 # ============================== REBUILD TARGETS ============================= #
