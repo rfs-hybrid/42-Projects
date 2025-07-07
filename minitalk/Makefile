@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
+#    By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/01 15:19:49 by maaugust          #+#    #+#              #
-#    Updated: 2025/07/02 14:06:02 by maaugust         ###   ########.fr        #
+#    Updated: 2025/07/07 20:36:38 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SERVER = server
 
 # ============================== COMPILER FLAGS ============================== #
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes -MMD
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 RM = rm -rf
 
 # ================================= MINITALK ================================= #
@@ -53,8 +53,5 @@ fclean: clean
 
 # ============================== REBUILD TARGETS ============================= #
 re: fclean all
-
-# ========================= HEADER DEPENDENCY INCLUDE ======================== #
--include $(MINITALK_OBJ:.o=.d)
 
 .PHONY: all bonus clean fclean re
