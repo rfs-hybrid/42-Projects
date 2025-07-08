@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/08 02:36:17 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/08 02:47:28 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ static void	putnbr(long nbr)
 	write(STDOUT_FILENO, &c, sizeof(char));
 }
 
-static void	print_error(void)
+static void	send_signal(pid_t pid, int sig)
 {
-	write(STDERR_FILENO, "Failed to send signal!\n", 23);
-	exit(EXIT_FAILURE);
+	if (kill(pid, sig) == -1)
+	{
+		write(STDERR_FILENO, "Failed to send signal!\n", 23);
+		exit(EXIT_FAILURE);
+	}
 }
 
 static void	handle_char(t_byte *c, size_t *n_bits, pid_t *pid)
@@ -41,16 +44,15 @@ static void	handle_char(t_byte *c, size_t *n_bits, pid_t *pid)
 	if (!*c)
 	{
 		write(STDOUT_FILENO, "\n", 1);
-		if (kill(*pid, SIGUSR2) == -1)
-			print_error();
+		send_signal(tmp, SIGUSR2);
 		*pid = 0;
 	}
 	else
 		write(STDOUT_FILENO, c, sizeof(t_byte));
 	*c = 0;
 	*n_bits = CHAR_BITS;
-	if (tmp && kill(tmp, SIGUSR1) == -1)
-		print_error();
+	if (tmp)
+		send_signal(tmp, SIGUSR1);
 }
 
 static void	handle_signal(int sig, siginfo_t *info, void *context)
@@ -74,8 +76,7 @@ static void	handle_signal(int sig, siginfo_t *info, void *context)
 		handle_char(&c, &n_bits, &cli_pid);
 		return ;
 	}
-	if (kill(cli_pid, SIGUSR1) == -1)
-		print_error();
+	send_signal(cli_pid, SIGUSR1);
 }
 
 int	main(void)
