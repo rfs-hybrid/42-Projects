@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:58:08 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/06 22:12:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/08 02:34:41 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <sys/types.h>
-# include <stdio.h>
 
 /* Total number of bits in a char */
 # define CHAR_BITS	8

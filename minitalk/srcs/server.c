@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/06 21:59:26 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/08 02:36:17 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@ static void	putnbr(long nbr)
 	write(STDOUT_FILENO, &c, sizeof(char));
 }
 
+static void	print_error(void)
+{
+	write(STDERR_FILENO, "Failed to send signal!\n", 23);
+	exit(EXIT_FAILURE);
+}
+
 static void	handle_char(t_byte *c, size_t *n_bits, pid_t *pid)
 {
 	pid_t	tmp;
@@ -36,10 +42,7 @@ static void	handle_char(t_byte *c, size_t *n_bits, pid_t *pid)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		if (kill(*pid, SIGUSR2) == -1)
-		{
-			write (STDERR_FILENO, "Failed to send signal!\n", 23);
-			exit(EXIT_FAILURE);
-		}
+			print_error();
 		*pid = 0;
 	}
 	else
@@ -47,10 +50,7 @@ static void	handle_char(t_byte *c, size_t *n_bits, pid_t *pid)
 	*c = 0;
 	*n_bits = CHAR_BITS;
 	if (tmp && kill(tmp, SIGUSR1) == -1)
-	{
-		write(STDERR_FILENO, "Failed to send signal!\n", 23);
-		exit(EXIT_FAILURE);
-	}
+		print_error();
 }
 
 static void	handle_signal(int sig, siginfo_t *info, void *context)
@@ -75,10 +75,7 @@ static void	handle_signal(int sig, siginfo_t *info, void *context)
 		return ;
 	}
 	if (kill(cli_pid, SIGUSR1) == -1)
-	{
-		write(STDERR_FILENO, "Failed to send signal!\n", 23);
-		exit(EXIT_FAILURE);
-	}
+		print_error();
 }
 
 int	main(void)

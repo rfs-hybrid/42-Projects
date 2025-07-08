@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:21 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/06 21:59:12 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/08 02:32:31 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,27 @@ static void	handle_signal(int sig)
 	}
 }
 
-static void	send_signal(pid_t pid, int sig)
+static void	send_signal(pid_t pid, char c, size_t i)
 {
-	if (kill(pid, sig) == -1)
+	if (c & (1 << i))
 	{
-		write (STDERR_FILENO, "Failed to send signal!\n", 23);
-		exit(EXIT_FAILURE);
+		if (kill(pid, SIGUSR1) == -1)
+		{
+			write (STDERR_FILENO, "Failed to send signal!\n", 23);
+			exit(EXIT_FAILURE);
+		}
 	}
+	else
+	{
+		if (kill(pid, SIGUSR2) == -1)
+		{
+			write (STDERR_FILENO, "Failed to send signal!\n", 23);
+			exit(EXIT_FAILURE);
+		}
+	}
+	while (g_ack == PAUSE)
+		pause();
+	g_ack = PAUSE;
 }
 
 static void	send_message(int pid, char *str)
@@ -69,25 +83,12 @@ static void	send_message(int pid, char *str)
 	{
 		i = CHAR_BITS;
 		while (i-- > 0)
-		{
-			if (*str & (1 << i))
-				send_signal(pid, SIGUSR1);
-			else
-				send_signal(pid, SIGUSR2);
-			while (g_ack == PAUSE)
-				pause();
-			g_ack = PAUSE;
-		}
+			send_signal(pid, *str, i);
 		str++;
 	}
 	i = CHAR_BITS;
 	while (i-- > 0)
-	{
-		kill(pid, SIGUSR2);
-		while (g_ack == PAUSE)
-			pause();
-		g_ack = PAUSE;
-	}
+		send_signal(pid, *str, i);
 }
 
 int	main(int argc, char **argv)
