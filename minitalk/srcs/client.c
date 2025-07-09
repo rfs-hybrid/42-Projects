@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:21 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/08 02:32:31 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:05:11 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,29 @@ static void	handle_signal(int sig)
 
 static void	send_signal(pid_t pid, char c, size_t i)
 {
-	if (c & (1 << i))
+	size_t	time_cnt;
+
+	time_cnt = 0;
+	if (c & (1 << i) && kill(pid, SIGUSR1) == -1)
 	{
-		if (kill(pid, SIGUSR1) == -1)
-		{
-			write (STDERR_FILENO, "Failed to send signal!\n", 23);
+			write(STDERR_FILENO, "Failed to send signal!\n", 23);
 			exit(EXIT_FAILURE);
-		}
 	}
-	else
+	else if (!(c & (1 << i)) && kill(pid, SIGUSR2) == -1)
 	{
-		if (kill(pid, SIGUSR2) == -1)
-		{
-			write (STDERR_FILENO, "Failed to send signal!\n", 23);
-			exit(EXIT_FAILURE);
-		}
+		write(STDERR_FILENO, "Failed to send signal!\n", 23);
+		exit(EXIT_FAILURE);
 	}
-	while (g_ack == PAUSE)
-		pause();
+	while (g_ack == PAUSE && time_cnt < TIMEOUT_MS)
+	{
+		usleep(1000);
+		time_cnt++;
+	}
+	if (g_ack != ACK)
+	{
+		write(STDERR_FILENO, "Timeout waiting for ack\n", 24);
+		exit(EXIT_FAILURE);
+	}
 	g_ack = PAUSE;
 }
 
@@ -103,7 +108,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	validate_inputs(&srv_pid, argv);
-	g_ack = 0;
+	g_ack = PAUSE;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGUSR1);

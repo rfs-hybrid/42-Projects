@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:58:08 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/08 02:34:41 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:10:12 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 
 /* Total number of bits in a char */
 # define CHAR_BITS	8
+
+/* Client timeout handling */
+# define TIMEOUT_MS 3000
+# define SLEEP_US   1000
 
 /* Client signal handling status */
 # define PAUSE	0

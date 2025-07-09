@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:28 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/08 02:47:28 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/09 16:39:52 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,12 @@ static void	handle_signal(int sig, siginfo_t *info, void *context)
 	static pid_t	cli_pid = 0;
 
 	(void) context;
-	if (!cli_pid)
+	if (!cli_pid || info->si_pid != cli_pid)
 	{
 		cli_pid = info->si_pid;
 		c = 0;
 		n_bits = CHAR_BITS;
 	}
-	else if (info->si_pid != cli_pid)
-		return ;
 	c |= (sig == SIGUSR1) << --n_bits;
 	if (n_bits == 0)
 	{
