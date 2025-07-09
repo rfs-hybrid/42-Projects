@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:21 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/09 17:15:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:18:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ static void	send_signal(pid_t pid, char c, size_t i)
 	time_cnt = 0;
 	if (c & (1 << i) && kill(pid, SIGUSR1) == -1)
 	{
-			write(STDERR_FILENO, "Failed to send signal!\n", 23);
-			exit(EXIT_FAILURE);
+		write(STDERR_FILENO, "Failed to send signal!\n", 23);
+		exit(EXIT_FAILURE);
 	}
 	else if (!(c & (1 << i)) && kill(pid, SIGUSR2) == -1)
 	{
