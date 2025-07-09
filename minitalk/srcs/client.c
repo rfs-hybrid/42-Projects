@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 15:19:21 by maaugust          #+#    #+#             */
-/*   Updated: 2025/07/09 17:05:11 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:15:33 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	send_signal(pid_t pid, char c, size_t i)
 	}
 	while (g_ack == PAUSE && time_cnt < TIMEOUT_MS)
 	{
-		usleep(1000);
+		usleep(SLEEP_US);
 		time_cnt++;
 	}
 	if (g_ack != ACK)
