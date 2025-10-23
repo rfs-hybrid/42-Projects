@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/18 00:20:02 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/23 16:31:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	mutex_message(t_print_code code)
 
 static void	error_message(t_print_code code)
 {
-	printf(BOLD RED SLOW_BLINK);
+	printf(BOLD_ON FG_RED BLINK_ON);
 	printf("\n╔═════════════════════════════════════════════════════════╗\n");
 	if (code == NUM_ARGS)
 		printf("║                WRONG NUMBER OF ARGUMENTS                ║\n");
@@ -58,10 +58,10 @@ static void	error_message(t_print_code code)
 	printf(RESET);
 	if (code != NUM_ARGS && code != POS_ARGS)
 		return ;
-	printf(BOLD GREEN "\nUsage:" BOLD_OFF "\t./philo " ITALIC "number\
-_of_philosophers time_to_die time_to_eat time_to_sleep " ITALIC_OFF "[" ITALIC\
-"number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
-	printf(BOLD YELLOW"\nExamples:\n" BOLD_OFF "\t./philo 5 800 200 200\n\
+	printf(BOLD_ON FG_GREEN "\nUsage:" BOLD_OFF "\t./philo " ITALIC_ON "number\
+_of_philosophers time_to_die time_to_eat time_to_sleep " ITALIC_OFF "["\
+ITALIC_ON "number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
+	printf(BOLD_ON FG_YELLOW"\nExamples:\n" BOLD_OFF "\t./philo 5 800 200 200\n\
 \t./philo 5 800 200 200 7\n\n" RESET);
 }
 
@@ -83,12 +83,12 @@ static void	philo_message(t_print_code code, size_t id)
 void	print_message(t_print_code code, t_philo *philo)
 {
 	static const char	*colors[] = {
-		WHITE,
-		GREEN,
-		YELLOW,
-		BLUE,
-		MAGENTA,
-		CYAN
+		FG_WHITE,
+		FG_GREEN,
+		FG_YELLOW,
+		FG_BLUE,
+		FG_MAGENTA,
+		FG_CYAN
 	};
 	const size_t		color_count = sizeof(colors) / sizeof(colors[0]);
 	const char			*text_color;
@@ -98,10 +98,10 @@ void	print_message(t_print_code code, t_philo *philo)
 		error_message(code);
 		return ;
 	}
-	if (philo->is_dead)
-		text_color = RED;
+	else if (code == PHILO_DEAD)
+		text_color = FG_RED;
 	else
-		text_color = colors[philo->id % color_count];
-	printf(BOLD "%s%zu\t" BOLD_OFF, text_color, philo->start_time); // TODO: Fix timestamp
-	philo_message(code, philo->id);
+		text_color = colors[philo->philo_id % color_count];
+	printf(BOLD_ON "%s%zu\t" BOLD_OFF, text_color, philo->data->start_time); // TODO: Fix timestamp
+	philo_message(code, philo->philo_id);
 }

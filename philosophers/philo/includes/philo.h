@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:07:04 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/17 23:41:03 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:34:11 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,30 @@ typedef pthread_mutex_t	t_mtx;
 
 typedef struct s_philo
 {
-	size_t		id;
-	size_t		meals_eaten;
-	size_t		time_last_meal;
-	size_t		start_time;
-	bool		is_full;
-	bool		is_dead;
-	t_mtx		*left_fork;
-	t_mtx		*right_fork;
-	pthread_t	th;
+	long		philo_id;
+	long		meals_eaten;
+	long		last_meal;
+	long		fork_a;
+	long		fork_b;
+	t_mtx		meal_mtx;
+	pthread_t	thread;
+	t_data		*data;
 }	t_philo;
 
 typedef struct s_data
 {
-	size_t	total_philos;
-	size_t	time_to_die;
-	size_t	time_to_eat;
-	size_t	time_to_sleep;
-	size_t	total_meals;
-	bool	is_over;
-	t_mtx	*forks;
-	t_philo	*philos;
+	long		total_philos;
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_to_sleep;
+	long		total_meals;
+	long		philos_done;
+	long		start_time;
+	bool		is_over;
+	t_mtx		writing;
+	t_mtx		*forks;
+	t_philo		*philos;
+	pthread_t	monitor;
 }	t_data;
 
 #endif

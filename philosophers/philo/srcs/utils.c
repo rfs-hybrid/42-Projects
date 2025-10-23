@@ -6,84 +6,86 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/17 18:27:18 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/09/20 13:46:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
-#include "printer.h"
+#include "philo.h"
+#include "safety.h"
 
-size_t	ft_atoul(char *str)
+bool	destroy_mutexes(t_data *data, long count)
 {
-	size_t	res;
+	long	i;
+
+	i = -1;
+	if (!safe_mutex(&data->writing, DESTROY))
+		return (false);
+	while (++i < count)
+	{
+		if (!safe_mutex(&data->forks[i], DESTROY)
+			|| !safe_mutex(&data->philos[i].meal_mtx, DESTROY))
+			return (false);
+	}
+	return (true);
+}
+
+long	ft_atol(char *str)
+{
+	long	res;
+	long	prev;
 
 	res = 0;
 	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
 		str++;
 	if (*str == '-')
-	{
-		print_message(POS_ARGS, NULL);
-		return (res);
-	}
+		return (-1);
 	if (*str == '+')
 		str++;
 	while (*str >= '0' && *str <= '9')
+	{
+		prev = res;
 		res = res * 10 + *str++ - '0';
-	if (res == 0)
-		print_message(POS_ARGS, NULL);
+		if (res < prev)
+			return (-1);
+	}
 	return (res);
 }
 
-size_t	ft_gettimeofday_us(void)
+int64_t	ft_gettimeofday_us(void)
 {
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
-		return ((size_t)(-1));
-	return ((size_t)(tv.tv_sec * 1e6 + tv.tv_usec));
+		return (-1);
+	return ((int64_t) tv.tv_sec * 1000000LL + (int64_t) tv.tv_usec);
 }
 
-int	ft_usleep(size_t usec)
+int	ft_usleep(long usec)
 {
-	size_t	start;
-	size_t	now;
+	int64_t	start;
+	int64_t	now;
 
 	start = ft_gettimeofday_us();
-	if (start == (size_t)(-1))
+	if (start == -1)
 		return (usleep(usec));
 	while (true)
 	{
 		now = ft_gettimeofday_us();
-		if (now == (size_t)(-1))
+		if (now == -1)
 			return (usleep(usec));
-		if (now - start >= usec)
+		if (now - start >= (int64_t)usec)
 			break ;
-		if (usec - (now - start) > 1e3)
-			usleep((usec - (now - start)) / 2);
+		if ((int64_t)usec - (now - start) > 1000LL)
+			if(usleep(((int64_t)usec - (now - start)) / 2))
+				return (-1);
 		else
 		{
 			now = ft_gettimeofday_us();
-			while (now != (size_t)(-1) && now - start < usec)
+			while (now != -1 && now - start < (int64_t)usec)
 				now = ft_gettimeofday_us();
 			break ;
 		}
 	}
 	return (0);
 }
-
-// void	ft_usleep(size_t usec)
-// {
-// 	size_t	start;
-// 	size_t	elapsed;
-
-// 	start = ft_gettimeofday_us();
-// 	while (ft_gettimeofday_us() - start < usec)
-// 	{
-// 		elapsed = ft_gettimeofday_us() - start;
-// 		if (usec - elapsed > 1e3)
-// 			usleep((usec - elapsed) / 2);
-// 		else
-// 			while (ft_gettimeofday_us() - start < usec)
-// 				;
-// 	}
-// }

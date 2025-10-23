@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/18 00:19:01 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/09/18 18:09:01 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ bool	safe_thread(pthread_t *th, void *(*f)(void *), void *data, t_th_op op)
 		ret = pthread_join(*th, NULL);
 	else if (op == DETACH)
 		ret = pthread_detach(*th);
-	else
-		op = INVALID_TH_OP;
 	return (check_error(ret, conv_to_print_code((int)op, true)));
 }
 
@@ -76,8 +74,6 @@ bool	safe_mutex(t_mtx *mutex, t_mtx_op op)
 		ret = pthread_mutex_unlock(mutex);
 	else if (op == DESTROY)
 		ret = pthread_mutex_destroy(mutex);
-	else
-		op = INVALID_MTX_OP;
 	return (check_error(ret, conv_to_print_code((int)op, false)));
 }
 
@@ -87,6 +83,9 @@ void	*safe_malloc(size_t size)
 
 	ptr = malloc(size);
 	if (!ptr)
+	{
 		print_message(MALLOC, NULL);
+		return (NULL);
+	}
 	return (ptr);
 }
