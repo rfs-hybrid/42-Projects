@@ -6,26 +6,44 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/20 13:46:46 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:44:37 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include "philo.h"
 #include "safety.h"
+#include "utils.h"
+
+void	exit_error(t_print_code code, t_data *data, long count)
+{
+	if (code != MTX_DESTROY)
+	{
+		print_message(code, NULL);
+		if (data->philos && data->forks)
+			(void)destroy_mutexes(data, count);
+	}
+	free(data->philos);
+	free(data->forks);
+	exit(EXIT_FAILURE);
+}
 
 bool	destroy_mutexes(t_data *data, long count)
 {
 	long	i;
 
-	i = -1;
 	if (!safe_mutex(&data->writing, DESTROY))
+	{
+		print_message(MTX_DESTROY, NULL);
 		return (false);
+	}
+	i = -1;
 	while (++i < count)
 	{
 		if (!safe_mutex(&data->forks[i], DESTROY)
 			|| !safe_mutex(&data->philos[i].meal_mtx, DESTROY))
+		{
+			print_message(MTX_DESTROY, NULL);
 			return (false);
+		}
 	}
 	return (true);
 }
@@ -77,7 +95,7 @@ int	ft_usleep(long usec)
 		if (now - start >= (int64_t)usec)
 			break ;
 		if ((int64_t)usec - (now - start) > 1000LL)
-			if(usleep(((int64_t)usec - (now - start)) / 2))
+			if (usleep(((int64_t)usec - (now - start)) / 2))
 				return (-1);
 		else
 		{

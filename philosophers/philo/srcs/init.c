@@ -6,31 +6,26 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/20 13:54:18 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:35:23 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
 #include "utils.h"
+#include "printer.h"
 #include "safety.h"
 
-static bool	mutexes_init(t_data *data)
+static void	mutexes_init(t_data *data)
 {
 	long	i;
-	t_philo	*philo;
 
-	philo = data->philos;
+	if (!(safe_mutex(&data->writing, INIT)))
+		exit_error(MTX_INIT, data, 0);
 	i = -1;
-	if (!(safe_mutex(&data->writing, INIT)))	
-		return (false);
 	while (++i < data->total_philos)
 		if (!safe_mutex(&data->forks[i], INIT)
-			|| !safe_mutex(&philo[i].meal_mtx, INIT))
-	{
-		(void)destroy_mutexes(data, i);
-		return (false);
-	}	
-	return (true);
+			|| !safe_mutex(&data->philos[i].meal_mtx, INIT))
+			exit_error(MTX_INIT, data, i);
 }
 
 static void	philo_data(t_data *data, t_philo *philo, long index, long total)
@@ -43,7 +38,7 @@ static void	philo_data(t_data *data, t_philo *philo, long index, long total)
 	philo->data = data;
 }
 
-bool	philo_init(t_data *data, char **argv)
+void	philo_init(t_data *data, char **argv)
 {
 	long	i;
 
@@ -57,11 +52,9 @@ bool	philo_init(t_data *data, char **argv)
 	data->philos = safe_malloc(sizeof(t_philo) * data->total_philos);
 	data->forks = safe_malloc(sizeof(t_mtx) * data->total_philos);
 	if (!data->philos || !data->forks)
-		return (free(data->philos), free(data->forks), false);
+		exit_error(MALLOC, data, 0);
 	i = -1;
 	while (++i < data->total_philos)
 		philo_data(data, &data->philos[i], i, data->total_philos);
-	if (!mutexes_init(data))
-		return (free(data->philos), free(data->forks), false);
-	return (true);
+	mutexes_init(data);
 }

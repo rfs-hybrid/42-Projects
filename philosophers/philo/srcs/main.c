@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/09/18 22:18:20 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/24 16:35:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "init.h"
 #include "printer.h"
 
-static bool	args_valid(int argc, char **argv)
+static void	check_args(int argc, char **argv)
 {
 	size_t	i;
 
 	if (argc < 5 || argc > 6)
 	{
 		print_message(NUM_ARGS, NULL);
-		return (false);
+		exit(EXIT_FAILURE);
 	}
 	i = 0;
 	while (argv[++i])
@@ -29,19 +29,17 @@ static bool	args_valid(int argc, char **argv)
 		if (ft_atol(argv[i]) <= 0)
 		{
 			print_message(POS_ARGS, NULL);
-			return (false);
-		}	
+			exit(EXIT_FAILURE);
+		}
 	}
 	return (true);
 }
 
 int	main(int argc, char **argv)
 {
-	// t_data	data;
+	t_data	data;
 
-	if (!args_valid(argc, argv))
-		return (EXIT_FAILURE);
-	
-	// philo_init(&data, &argv[1]);
+	check_args(argc, argv);
+	philo_init(&data, &argv[1]);
 	return (EXIT_SUCCESS);
 }
