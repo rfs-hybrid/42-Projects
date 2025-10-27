@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:24:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/23 19:21:58 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/27 15:20:03 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "philo.h"
 # include "printer.h"
+# include "safety.h"
 # include <stdbool.h>
 # include <stdint.h>
 
