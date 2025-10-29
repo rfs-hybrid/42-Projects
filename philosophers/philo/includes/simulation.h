@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simulation.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:27 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/27 15:19:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/28 15:21:54 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define SIMULATION_H
 
 # include "philo.h"
-# include "utils.h"
 
 void	philo_sim(t_data *data);
 

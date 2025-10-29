@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   monitor.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 01:24:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/29 03:56:31 by maaugust         ###   ########.fr       */
+/*   Created: 2025/10/28 15:19:01 by maaugust          #+#    #+#             */
+/*   Updated: 2025/10/28 15:19:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef MONITOR_H
+# define MONITOR_H
 
-# include "philo.h"
-# include "printer.h"
-# include "safety.h"
-# include <stdbool.h>
-# include <stdint.h>
-
-void	exit_error(t_print_code code, t_data *data, long count);
-void	destroy_mutexes(t_data *data, long count);
-long	ft_atol(char *str);
-int64_t	ft_gettimeofday_us(void);
-int		ft_usleep(long usec);
+void	*monitor(void *arg);
 
 #endif

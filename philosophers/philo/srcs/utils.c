@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/27 15:20:05 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/29 04:02:58 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,27 @@
 
 void	exit_error(t_print_code code, t_data *data, long count)
 {
-	if (code != MTX_DESTROY)
-	{
-		print_message(code, NULL);
-		if (data->philos && data->forks)
-			(void)destroy_mutexes(data, count);
-	}
+	print_message(code, NULL);
+	if (data->philos && data->forks_mtx && code != MTX_DESTROY)
+		destroy_mutexes(data, count);
 	free(data->philos);
-	free(data->forks);
+	free(data->forks_mtx);
 	exit(EXIT_FAILURE);
 }
 
-bool	destroy_mutexes(t_data *data, long count)
+void	destroy_mutexes(t_data *data, long count)
 {
 	long	i;
 
-	if (!safe_mutex(&data->writing, DESTROY))
-	{
-		print_message(MTX_DESTROY, NULL);
-		return (false);
-	}
+	safe_mutex(&data->write_mtx, DESTROY, data, count);
+	safe_mutex(&data->status_mtx, DESTROY, data, count);
+	safe_mutex(&data->ready_mtx, DESTROY, data, count);
 	i = -1;
 	while (++i < count)
 	{
-		if (!safe_mutex(&data->forks[i], DESTROY)
-			|| !safe_mutex(&data->philos[i].meal_mtx, DESTROY))
-		{
-			print_message(MTX_DESTROY, NULL);
-			return (false);
-		}
+		safe_mutex(&data->forks_mtx[i], DESTROY, data, count);
+		safe_mutex(&data->philos[i].meal_mtx, DESTROY, data, count);
 	}
-	return (true);
 }
 
 long	ft_atol(char *str)

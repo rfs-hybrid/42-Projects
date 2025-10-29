@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/24 16:35:23 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/10/29 04:39:25 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ static void	mutexes_init(t_data *data)
 {
 	long	i;
 
-	if (!(safe_mutex(&data->writing, INIT)))
-		exit_error(MTX_INIT, data, 0);
+	safe_mutex(&data->write_mtx, INIT, data, 0);
+	safe_mutex(&data->status_mtx, INIT, data, 0);
+	safe_mutex(&data->ready_mtx, INIT, data, 0);
 	i = -1;
 	while (++i < data->total_philos)
-		if (!safe_mutex(&data->forks[i], INIT)
-			|| !safe_mutex(&data->philos[i].meal_mtx, INIT))
-			exit_error(MTX_INIT, data, i);
+	{
+		safe_mutex(&data->forks_mtx[i], INIT, data, data->total_philos);
+		safe_mutex(&data->philos[i].meal_mtx, INIT, data, data->total_philos);
+	}
 }
 
 static void	philo_data(t_data *data, t_philo *philo, long index, long total)
@@ -47,11 +49,13 @@ void	philo_init(t_data *data, char **argv)
 	data->time_to_eat = ft_atol(*argv++);
 	data->time_to_sleep = ft_atol(*argv++);
 	data->total_meals = -1;
+	data->is_over = false;
 	if (*argv)
 		data->total_meals = ft_atol(*argv);
+	data->philos_ready = 0;
 	data->philos = safe_malloc(sizeof(t_philo) * data->total_philos);
-	data->forks = safe_malloc(sizeof(t_mtx) * data->total_philos);
-	if (!data->philos || !data->forks)
+	data->forks_mtx = safe_malloc(sizeof(t_mtx) * data->total_philos);
+	if (!data->philos || !data->forks_mtx)
 		exit_error(MALLOC, data, 0);
 	i = -1;
 	while (++i < data->total_philos)
