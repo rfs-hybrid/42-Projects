@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/27 19:53:02 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/02 03:23:00 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 #include "printer.h"
 #include "simulation.h"
 #include "utils.h"
+
+static void	cleanup(t_data *data)
+{
+	if (ft_usleep(1000))
+		exit_error(SLEEP, data, data->total_philos);
+	destroy_mutexes(data, data->total_philos);
+	free(data->philos);
+	free(data->forks_mtx);
+}
 
 static void	check_args(int argc, char **argv)
 {
@@ -42,5 +51,6 @@ int	main(int argc, char **argv)
 	check_args(argc, argv);
 	philo_init(&data, &argv[1]);
 	philo_sim(&data);
+	cleanup(&data);
 	return (EXIT_SUCCESS);
 }

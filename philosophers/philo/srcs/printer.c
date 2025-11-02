@@ -6,13 +6,14 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/23 16:31:51 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/02 04:58:07 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printer.h"
+#include "utils.h"
 
-static void	thread_message(t_print_code code)
+static void	thread_mutex_message(t_print_code code)
 {
 	if (code == TH_CREATE)
 		printf("║                 FAILED TO CREATE THREAD                 ║\n");
@@ -20,13 +21,9 @@ static void	thread_message(t_print_code code)
 		printf("║                  FAILED TO JOIN THREAD                  ║\n");
 	else if (code == TH_DETACH)
 		printf("║                 FAILED TO DETACH THREAD                 ║\n");
-	else
+	else if (code == TH_INVALID)
 		printf("║                 INVALID THREAD OPERATION                ║\n");
-}
-
-static void	mutex_message(t_print_code code)
-{
-	if (code == MTX_INIT)
+	else if (code == MTX_INIT)
 		printf("║                FAILED TO INITIALIZE MUTEX               ║\n");
 	else if (code == MTX_LOCK)
 		printf("║                   FAILED TO LOCK MUTEX                  ║\n");
@@ -50,10 +47,8 @@ static void	error_message(t_print_code code)
 		printf("║                 MEMORY ALLOCATION FAILED                ║\n");
 	else if (code == SLEEP)
 		printf("║                   SLEEP ERROR DETECTED                  ║\n");
-	else if (code >= TH_CREATE && code <= TH_INVALID)
-		thread_message(code);
-	else if (code >= MTX_INIT && code <= MTX_INVALID)
-		mutex_message(code);
+	else if (code >= TH_CREATE && code <= MTX_INVALID)
+		thread_mutex_message(code);
 	printf("╚═════════════════════════════════════════════════════════╝\n");
 	printf(RESET);
 	if (code != NUM_ARGS && code != POS_ARGS)
@@ -68,15 +63,15 @@ ITALIC_ON "number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
 static void	philo_message(t_print_code code, size_t id)
 {
 	if (code == PHILO_FORK)
-		printf("Philosopher [%zu] has taken a fork\n", id);
+		printf("Philosopher %zu has taken a fork\n", id);
 	else if (code == PHILO_EAT)
-		printf("Philosopher [%zu] is eating\n", id);
+		printf("Philosopher %zu is eating\n", id);
 	else if (code == PHILO_SLEEP)
-		printf("Philosopher [%zu] is sleeping\n", id);
+		printf("Philosopher %zu is sleeping\n", id);
 	else if (code == PHILO_THINK)
-		printf("Philosopher [%zu] is thinking\n", id);
+		printf("Philosopher %zu is thinking\n", id);
 	else
-		printf("Philosopher [%zu] died\n", id);
+		printf("Philosopher %zu died\n", id);
 	printf(RESET);
 }
 
@@ -102,6 +97,7 @@ void	print_message(t_print_code code, t_philo *philo)
 		text_color = FG_RED;
 	else
 		text_color = colors[philo->philo_id % color_count];
-	printf(BOLD_ON "%s%zu\t" BOLD_OFF, text_color, philo->data->start_time); // TODO: Fix timestamp
+	printf(BOLD_ON "%s[%ld]\t" BOLD_OFF, text_color,
+		ft_gettimeofday_us() / 1000 - philo->data->start_time);
 	philo_message(code, philo->philo_id);
 }

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/29 04:02:58 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/02 16:16:38 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,18 @@ int	ft_usleep(long usec)
 	start = ft_gettimeofday_us();
 	if (start == -1)
 		return (usleep(usec));
-	while (true)
+	now = ft_gettimeofday_us();
+	if (now == -1)
+		return (usleep(usec));
+	while (now - start < usec)
 	{
 		now = ft_gettimeofday_us();
-		if (now == -1)
+		if (now == - 1)
 			return (usleep(usec));
-		if (now - start >= (int64_t)usec)
-			break ;
-		if ((int64_t)usec - (now - start) > 1000LL)
-			if (usleep(((int64_t)usec - (now - start)) / 2))
-				return (-1);
-		else
-		{
-			now = ft_gettimeofday_us();
-			while (now != -1 && now - start < (int64_t)usec)
-				now = ft_gettimeofday_us();
-			break ;
-		}
+		if (usec - (now - start) > 1000 && usleep(500))
+			return (-1);
+		else if (usleep(100))
+			return (-1);
 	}
 	return (0);
 }

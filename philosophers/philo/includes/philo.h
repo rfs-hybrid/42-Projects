@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:07:04 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/29 04:39:16 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/02 16:16:45 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <unistd.h>
 
 typedef pthread_mutex_t	t_mtx;
+typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
