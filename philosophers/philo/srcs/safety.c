@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 15:06:59 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 02:22:11 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,16 @@ void	safe_print(t_print_code code, t_philo *philo)
 	data = philo->data;
 	print_ready = false;
 	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-	if (code == PHILO_DEAD && !data->is_over)
+	if (!data->is_over)
 	{
-		data->is_over = true;
+		if (code == PHILO_DEAD)
+			data->is_over = true;
 		print_ready = true;
 	}
-	else if (code != PHILO_DEAD && !data->is_over)
-		print_ready = true;
 	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 	if (!print_ready)
 		return ;
-	safe_mutex(&data->write_mtx, LOCK, data, data->total_philos);
+	safe_mutex(&data->print_mtx, LOCK, data, data->total_philos);
 	print_message(code, philo);
-	safe_mutex(&data->write_mtx, UNLOCK, data, data->total_philos);
+	safe_mutex(&data->print_mtx, UNLOCK, data, data->total_philos);
 }

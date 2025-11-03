@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 15:09:26 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:24:57 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	wait_until_all_philos_ready(t_data *data)
 			break ;
 		}
 		safe_mutex(&data->ready_mtx, UNLOCK, data, data->total_philos);
-		if (ft_usleep(50))
+		if (usleep(50))
 			exit_error(SLEEP, data, data->total_philos);
 	}
 }
@@ -37,7 +37,7 @@ static void	initialize_timer(t_data *data)
 	long	i;
 
 	safe_mutex(&data->ready_mtx, LOCK, data, data->total_philos);
-	data->start_time = ft_gettimeofday_us() / 1000;
+	data->start_time = ft_gettimeofday_ms();
 	safe_mutex(&data->ready_mtx, UNLOCK, data, data->total_philos);
 	i = -1;
 	while (++i < data->total_philos)
@@ -73,15 +73,17 @@ static void	check_meals(t_data *data)
 static void	check_philos(t_data *data)
 {
 	long	i;
+	int64_t	now;
 	int64_t	last;
 
+	now = ft_gettimeofday_ms();
 	i = -1;
 	while (++i < data->total_philos)
 	{
 		safe_mutex(&data->philos[i].meal_mtx, LOCK, data, data->total_philos);
 		last = data->philos[i].last_meal;
 		safe_mutex(&data->philos[i].meal_mtx, UNLOCK, data, data->total_philos);
-		if (ft_gettimeofday_us() / 1000 - last > (int64_t) data->time_to_die)
+		if (now - last > (int64_t)data->time_to_die)
 		{
 			safe_print(PHILO_DEAD, &data->philos[i]);
 			return ;
@@ -108,7 +110,7 @@ void	*monitor(void *arg)
 		}
 		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 		check_philos(data);
-		if (ft_usleep(1000))
+		if (ft_usleep(1, data))
 			exit_error(SLEEP, data, data->total_philos);
 	}
 	return (NULL);

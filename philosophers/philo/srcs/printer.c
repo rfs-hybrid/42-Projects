@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 04:58:07 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:00:39 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ void	print_message(t_print_code code, t_philo *philo)
 	else
 		text_color = colors[philo->philo_id % color_count];
 	printf(BOLD_ON "%s[%ld]\t" BOLD_OFF, text_color,
-		ft_gettimeofday_us() / 1000 - philo->data->start_time);
+		ft_gettimeofday_ms() - philo->data->start_time);
 	philo_message(code, philo->philo_id);
 }

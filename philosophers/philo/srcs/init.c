@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 16:16:56 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 02:22:07 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	mutexes_init(t_data *data)
 {
 	long	i;
 
-	safe_mutex(&data->write_mtx, INIT, data, 0);
+	safe_mutex(&data->print_mtx, INIT, data, 0);
 	safe_mutex(&data->status_mtx, INIT, data, 0);
 	safe_mutex(&data->ready_mtx, INIT, data, 0);
 	i = -1;

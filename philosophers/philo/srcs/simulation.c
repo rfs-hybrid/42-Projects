@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 16:24:46 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:00:25 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,8 @@ static void	pick_forks(t_philo *philo, t_data *data)
 		first = philo->fork_b;
 		second = philo->fork_a;
 	}
-	if (philo->philo_id % 2)
-		if (ft_usleep(50))
-			exit_error(SLEEP, data, data->total_philos);
+	if (philo->philo_id % 2 && usleep(50))
+		exit_error(SLEEP, data, data->total_philos);
 	safe_mutex(&data->forks_mtx[first], LOCK, data, data->total_philos);
 	safe_print(PHILO_FORK, philo);
 	safe_mutex(&data->forks_mtx[second], LOCK, data, data->total_philos);
@@ -58,7 +57,7 @@ static void	finish_meal(t_philo *philo, t_data *data)
 			data->total_philos);
 	}
 	safe_print(PHILO_SLEEP, philo);
-	if (ft_usleep(data->time_to_sleep * 1000))
+	if (ft_usleep(data->time_to_sleep, data))
 		exit_error(SLEEP, data, data->total_philos);
 	safe_print(PHILO_THINK, philo);
 }
@@ -75,18 +74,18 @@ static bool	philo_routine(t_philo *philo, t_data *data)
 	pick_forks(philo, data);
 	if (data->total_philos == 1)
 	{
-		if (ft_usleep(data->time_to_die * 1000))
+		if (ft_usleep(data->time_to_die, data))
 			exit_error(SLEEP, data, data->total_philos);
 		safe_mutex(&data->forks_mtx[philo->fork_a], UNLOCK, data,
 			data->total_philos);
 		return (false);
 	}
 	safe_mutex(&philo->meal_mtx, LOCK, data, data->total_philos);
-	philo->last_meal = ft_gettimeofday_us() / 1000;
+	philo->last_meal = ft_gettimeofday_ms();
 	philo->meals_eaten += 1;
 	safe_print(PHILO_EAT, philo);
 	safe_mutex(&philo->meal_mtx, UNLOCK, data, data->total_philos);
-	if (ft_usleep(data->time_to_eat * 1000))
+	if (ft_usleep(data->time_to_eat, data))
 		exit_error(SLEEP, data, data->total_philos);
 	finish_meal(philo, data);
 	return (true);
@@ -111,7 +110,8 @@ static void	*dining(void *arg)
 			break ;
 		}
 		safe_mutex(&data->ready_mtx, UNLOCK, data, data->total_philos);
-		ft_usleep(50);
+		if (usleep(50))
+			exit_error(SLEEP, data, data->total_philos);
 	}
 	while (philo_routine(philo, data))
 		;

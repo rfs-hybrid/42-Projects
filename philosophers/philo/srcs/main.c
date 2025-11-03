@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 03:23:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:23:34 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static void	cleanup(t_data *data)
 {
-	if (ft_usleep(1000))
+	if (ft_usleep(1, data))
 		exit_error(SLEEP, data, data->total_philos);
 	destroy_mutexes(data, data->total_philos);
 	free(data->philos);

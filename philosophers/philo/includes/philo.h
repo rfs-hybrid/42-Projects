@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:07:04 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/02 16:16:45 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/03 02:22:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_data
 	long		philos_ready;
 	int64_t		start_time;
 	bool		is_over;
-	t_mtx		write_mtx;
+	t_mtx		print_mtx;
 	t_mtx		status_mtx;
 	t_mtx		ready_mtx;
 	t_mtx		*forks_mtx;
