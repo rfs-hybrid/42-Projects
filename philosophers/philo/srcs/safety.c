@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 16:41:51 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:23:14 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,21 @@ void	safe_print(t_print_code code, t_philo *philo)
 	print_ready = false;
 	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
 	if (!data->is_over)
-	{
-		if (code == PHILO_DEAD)
-			data->is_over = true;
 		print_ready = true;
-	}
+	if (!data->is_over && code == PHILO_DEAD)
+		data->is_over = true;
 	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 	if (!print_ready)
 		return ;
 	safe_mutex(&data->print_mtx, LOCK, data, data->total_philos);
+	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
+	if (data->is_over && code != PHILO_DEAD)
+	{
+		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
+		safe_mutex(&data->print_mtx, UNLOCK, data, data->total_philos);
+		return ;
+	}
+	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 	print_message(code, philo);
 	safe_mutex(&data->print_mtx, UNLOCK, data, data->total_philos);
 }
