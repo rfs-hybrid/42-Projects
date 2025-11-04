@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 15:02:55 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:04:34 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	*dining(void *arg)
 			exit_error(SLEEP, data, data->total_philos);
 	}
 	while (philo_routine(philo, data))
-		if (ft_usleep(data->time_to_eat, data))
+		if (ft_usleep(1, data))
 			exit_error(SLEEP, data, data->total_philos);
 	return (NULL);
 }
