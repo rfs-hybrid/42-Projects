@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/03 22:00:39 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 19:01:47 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ ITALIC_ON "number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
 static void	philo_message(t_print_code code, size_t id)
 {
 	if (code == PHILO_FORK)
-		printf("Philosopher %zu has taken a fork\n", id);
+		printf("%zu has taken a fork\n", id);
 	else if (code == PHILO_EAT)
-		printf("Philosopher %zu is eating\n", id);
+		printf("%zu is eating\n", id);
 	else if (code == PHILO_SLEEP)
-		printf("Philosopher %zu is sleeping\n", id);
+		printf("%zu is sleeping\n", id);
 	else if (code == PHILO_THINK)
-		printf("Philosopher %zu is thinking\n", id);
+		printf("%zu is thinking\n", id);
 	else
-		printf("Philosopher %zu died\n", id);
+		printf("%zu died\n", id);
 	printf(RESET);
 }
 
