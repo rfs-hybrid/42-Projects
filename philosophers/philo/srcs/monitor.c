@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 14:08:39 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:18:30 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	*monitor(void *arg)
 	while (true)
 	{
 		safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-		is_over	= data->is_over;
+		is_over = data->is_over;
 		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 		if (is_over)
 			break ;

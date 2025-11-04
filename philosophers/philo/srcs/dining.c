@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dining.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 15:04:34 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 17:16:37 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ static bool	handle_single_philo(t_philo *philo, t_data *data)
 
 static void	release_forks(t_philo *philo, t_data *data)
 {
-	safe_mutex(&data->forks_mtx[philo->fork_a], UNLOCK, data,
-		data->total_philos);
-	safe_mutex(&data->forks_mtx[philo->fork_b], UNLOCK, data,
-		data->total_philos);
+	if (data->total_philos > 1)
+	{
+		safe_mutex(&data->forks_mtx[philo->fork_a], UNLOCK, data,
+			data->total_philos);
+		safe_mutex(&data->forks_mtx[philo->fork_b], UNLOCK, data,
+			data->total_philos);
+	}
 }
 
 static bool	pick_forks(t_philo *philo, t_data *data)
