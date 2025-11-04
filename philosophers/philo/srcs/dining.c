@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 17:16:37 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 20:02:02 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,11 @@ static bool	philo_routine(t_philo *philo, t_data *data)
 
 void	*dining(void *arg)
 {
-	t_philo	*philo;
 	t_data	*data;
 
-	philo = (t_philo *)arg;
-	data = philo->data;
+	data = ((t_philo *)arg)->data;
 	safe_mutex(&data->ready_mtx, LOCK, data, data->total_philos);
-	philo->data->philos_ready++;
+	data->philos_ready++;
 	safe_mutex(&data->ready_mtx, UNLOCK, data, data->total_philos);
 	while (true)
 	{
@@ -116,8 +114,10 @@ void	*dining(void *arg)
 		if (usleep(50))
 			exit_error(SLEEP, data, data->total_philos);
 	}
-	while (philo_routine(philo, data))
-		if (ft_usleep(1, data))
+	while (philo_routine((t_philo *)arg, data))
+		if ((data->total_philos < 100 && ft_usleep(1, data))
+			|| (data->total_philos >= 100
+				&& ft_usleep(10, data)))
 			exit_error(SLEEP, data, data->total_philos);
 	return (NULL);
 }
