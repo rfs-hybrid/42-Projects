@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/03 22:24:57 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 14:08:39 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static void	check_philos(t_data *data)
 void	*monitor(void *arg)
 {
 	t_data	*data;
+	bool	is_over;
 
 	data = (t_data *)arg;
 	wait_until_all_philos_ready(data);
@@ -103,12 +104,10 @@ void	*monitor(void *arg)
 	while (true)
 	{
 		safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-		if (data->is_over)
-		{
-			safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-			break ;
-		}
+		is_over	= data->is_over;
 		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
+		if (is_over)
+			break ;
 		check_philos(data);
 		if (ft_usleep(1, data))
 			exit_error(SLEEP, data, data->total_philos);

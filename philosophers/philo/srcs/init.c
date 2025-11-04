@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/03 02:22:07 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:02:20 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	philo_data(t_data *data, t_philo *philo, long index, long total)
 	philo->data = data;
 }
 
-void	philo_init(t_data *data, char **argv)
+void	initialization(t_data *data, char **argv)
 {
 	long	i;
 

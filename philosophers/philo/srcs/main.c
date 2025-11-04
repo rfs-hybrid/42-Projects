@@ -6,13 +6,14 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/03 22:23:34 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 15:02:27 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "dining.h"
 #include "init.h"
+#include "monitor.h"
 #include "printer.h"
-#include "simulation.h"
 #include "utils.h"
 
 static void	cleanup(t_data *data)
@@ -22,6 +23,27 @@ static void	cleanup(t_data *data)
 	destroy_mutexes(data, data->total_philos);
 	free(data->philos);
 	free(data->forks_mtx);
+}
+
+static void	simulation(t_data *data)
+{
+	long	i;
+
+	i = -1;
+	while (++i < data->total_philos)
+	{
+		if (!safe_thread(&data->philos[i].thread, &dining,
+				&data->philos[i], CREATE))
+			exit_error(TH_CREATE, data, data->total_philos);
+	}
+	if (!safe_thread(&data->monitor, &monitor, data, CREATE))
+		exit_error(TH_CREATE, data, data->total_philos);
+	if (!safe_thread(&data->monitor, NULL, NULL, JOIN))
+		exit_error(TH_JOIN, data, data->total_philos);
+	i = -1;
+	while (++i < data->total_philos)
+		if (!safe_thread(&data->philos[i].thread, NULL, NULL, JOIN))
+			exit_error(TH_JOIN, data, data->total_philos);
 }
 
 static void	check_args(int argc, char **argv)
@@ -49,8 +71,8 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	check_args(argc, argv);
-	philo_init(&data, &argv[1]);
-	philo_sim(&data);
+	initialization(&data, &argv[1]);
+	simulation(&data);
 	cleanup(&data);
 	return (EXIT_SUCCESS);
 }
