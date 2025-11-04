@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safety.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/03 02:22:11 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/04 16:41:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	safe_mutex(t_mtx *mutex, t_mtx_op op, t_data *data, long count)
 {
 	int	ret;
 
+	ret = -1;
 	if (op == INIT)
 		ret = pthread_mutex_init(mutex, NULL);
 	else if (op == LOCK)
