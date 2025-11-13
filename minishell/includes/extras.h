@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   extras.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/13 15:50:43 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/13 11:29:11 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/13 15:46:17 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef EXTRAS_H
+# define EXTRAS_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
-
-# ifndef FD_SIZE
-#  define FD_SIZE 1024
-# endif
-
+# include "env.h"
+# include "get_next_line.h"
 # include "libft.h"
+# include <stdlib.h>
+# include <fcntl.h>
 
-char	*get_next_line(int fd);
+typedef struct s_info	t_info;
+
+void	get_prompt_info(t_info *info, t_env *env);
 
 #endif

@@ -1,28 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/13 15:50:43 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/13 15:23:28 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/13 15:39:08 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "env.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
+void	env_add_back(t_env **env, t_env *new)
+{
+	t_env	*tmp;
 
-# ifndef FD_SIZE
-#  define FD_SIZE 1024
-# endif
+	if (env)
+	{
+		tmp = *env;
+		if (tmp)
+		{
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
+		else
+			*env = new;
+	}
+}
 
-# include "libft.h"
+void	env_list_clear(t_env **env)
+{
+	t_env	*tmp;
 
-char	*get_next_line(int fd);
-
-#endif
+	if (!env || !*env)
+		return ;
+	while (*env)
+	{
+		tmp = (*env)->next;
+		free((*env)->key);
+		free((*env)->val);
+		free(*env);
+		*env = tmp;
+	}
+}

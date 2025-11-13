@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/13 15:50:43 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/12 14:24:58 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/13 15:27:57 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
-
-# ifndef FD_SIZE
-#  define FD_SIZE 1024
-# endif
+#ifndef ENV_H
+# define ENV_H
 
 # include "libft.h"
+# include <stdbool.h>
 
-char	*get_next_line(int fd);
+typedef struct s_mini	t_mini;
+
+typedef struct s_env
+{
+	char			*key;
+	char			*val;
+	bool			is_set;
+	struct s_env	*next;
+}	t_env;
+
+void	env_add_back(t_env **env, t_env *new);
+void	env_list_clear(t_env **env);
+void	env_init(t_mini *mini, char **envp);
 
 #endif

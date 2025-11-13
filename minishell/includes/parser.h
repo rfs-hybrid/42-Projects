@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/13 15:50:43 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/06 15:01:33 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/06 15:02:01 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
-
-# ifndef FD_SIZE
-#  define FD_SIZE 1024
-# endif
-
-# include "libft.h"
-
-char	*get_next_line(int fd);
+#ifndef PARSER_H
+# define PARSER_H
 
 #endif

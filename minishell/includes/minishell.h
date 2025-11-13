@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/09 16:38:46 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/13 15:50:43 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/06 11:21:46 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/13 15:02:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1000000
-# endif
+# include "env.h"
+# include "extras.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-# ifndef FD_SIZE
-#  define FD_SIZE 1024
-# endif
+typedef struct s_info
+{
+	char	*user;
+	char	*host;
+}	t_info;
 
-# include "libft.h"
+typedef struct s_prompt
+{
+	t_info	info;
+}	t_prompt;
 
-char	*get_next_line(int fd);
+typedef struct s_mini
+{
+	t_prompt	prompt;
+	t_env		*env;
+}	t_mini;
 
 #endif
