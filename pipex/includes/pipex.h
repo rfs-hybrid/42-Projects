@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:10:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/21 02:40:53 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/21 17:50:27 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,14 @@ typedef struct s_fd
 	int	in;
 	int	out;
 }	t_fd;
+
+typedef struct s_data
+{
+	pid_t	*pid;
+	t_fd	fd;
+	int		*p_fd[2];
+	int		n_cmds;
+	int		n_pipes;
+}	t_data;
 
 #endif
