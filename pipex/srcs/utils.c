@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:24:22 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/21 21:11:01 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:57:49 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	error_handler(t_data *data, t_error error)
 		perror("open");
 	else if (error == CLOSE)
 		perror("close");
+	else if (error == READ)
+		perror("read");
+	else if (error == WRITE)
+		perror("write");
 	else if (error == PIPE)
 		perror("pipe");
 	else if (error == FORK)
@@ -36,34 +40,32 @@ void	error_handler(t_data *data, t_error error)
 	exit(EXIT_FAILURE);
 }
 
-void	open_file(t_fd *fd, char *filename, t_redir redir)
-{
-	if (redir == READ)
-		fd->in = open(filename, O_RDONLY);
-	else if (redir == WRITE)
-		fd->out = open(filename, O_CREAT | O_RDWR | O_APPEND, 0777);
-	else
-	{
-		ft_printf("Invalid file open operation!\n");
-		exit (EXIT_FAILURE);
-	}
-}
-
 void	close_pipes(t_data *data)
 {
 	int	i;
 
+	if (!data->p_fd)
+		return ;
 	i = -1;
 	while (++i < data->n_pipes)
 	{
-		close(data->p_fd[0]);
-		close(data->p_fd[1]);
-	}	
+		if (close(data->p_fd[i][0]) < 0)
+			error_handler(data, CLOSE);
+		if (close(data->p_fd[i][1]) < 0)
+			error_handler(data, CLOSE);
+	}
 }
 
 void	free_data(t_data *data)
 {
+	int	i;
+
 	free(data->pid);
-	free(data->p_fd[0]);
-	free(data->p_fd[1]);
+	i = -1;
+	if (data->p_fd)
+	{
+		while (++i < data->n_pipes)
+			free(data->p_fd[i]);
+		free(data->p_fd);
+	}
 }

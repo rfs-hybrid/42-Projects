@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:24:17 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/21 19:27:46 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:51:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,17 @@ typedef enum e_error
 	CALLOC,
 	OPEN,
 	CLOSE,
-	PIPE,
-	FORK,
-	DUP2,
-	UNKNOWN
-}	t_error;
-
-typedef enum e_redir
-{
 	READ,
 	WRITE,
-	INVALID
-}	t_redir;
+	PIPE,
+	FORK,
+	WAIT,
+	DUP2,
+	EXECVE
+}	t_error;
 
 void	error_handler(t_data *data, t_error error);
-void	open_file(t_fd *fd, char *filename, t_redir redir);
+void	close_pipes(t_data *data);
 void	free_data(t_data *data);
 
 #endif

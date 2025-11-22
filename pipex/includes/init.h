@@ -1,41 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/21 02:10:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/22 17:19:02 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/22 00:37:57 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/22 00:38:59 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef INIT_H
+# define INIT_H
 
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include <errno.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/types.h>
+# include "pipex.h"
+# include "utils.h"
 
-typedef struct s_fd
-{
-	int	in;
-	int	out;
-}	t_fd;
-
-typedef struct s_data
-{
-	pid_t	*pid;
-	t_fd	fd;
-	int		**p_fd;
-	int		n_cmds;
-	int		n_pipes;
-	bool	here_doc;
-}	t_data;
+void	init(t_data *data, int argc, char **argv);
 
 #endif

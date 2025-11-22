@@ -3,20 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:11:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/21 21:12:41 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:53:01 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "init.h"
 #include "utils.h"
 
-static void	pipex(t_data *data, int n_cmds, char **argv, char **envp)
+static void	execute(t_data *data, char **argv, char **envp)
+{
+	return ;
+}
+
+static void	child(t_data *data, int idx, char **argv, char **envp)
+{
+	if (idx == 0 && dup2(data->fd.in, STDIN_FILENO) < 0)
+		error_handler(data, DUP2);
+	else if (idx > 0 && dup2(data->p_fd[idx - 1][0], STDIN_FILENO) < 0)
+		error_handler(data, DUP2);
+	if (idx < data->n_cmds - 1 && dup2(data->p_fd[idx][1], STDOUT_FILENO) < 0)
+		error_handler(data, DUP2);
+	else if (idx == data->n_cmds - 1 && dup2(data->fd.out, STDOUT_FILENO) < 0)
+		error_handler(data, DUP2);
+	close_pipes(data);
+	if (close(data->fd.in) < 0 || close(data->fd.out) < 0)
+		error_handler(data, CLOSE);
+	execute(data, &argv[idx], envp);
+	error_handler(data, EXECVE);
+}
+
+static void	here_doc(t_data *data, char *limiter)
+{
+	char	*line;
+	int		hdoc_fd[2];
+	size_t	limiter_len;
+
+	if (pipe(hdoc_fd) == -1)
+		error_handler(data, PIPE);
+	limiter_len = ft_strlen(limiter);
+	line = get_next_line(STDIN_FILENO);
+	while (line)
+	{
+		if (!ft_strncmp(line, limiter, limiter_len)
+			&& (line[limiter_len] == '\n' || line[limiter_len] == '\0'))
+			break ;
+		if (write(hdoc_fd[1], line, ft_strlen(line)) < 0)
+			error_handler(data, WRITE);
+		free(line);
+		line = get_next_line(STDIN_FILENO);
+	}
+	free(line);
+	close(hdoc_fd[1]);
+	data->fd.in = hdoc_fd[0];
+}
+
+static void	pipex(t_data *data, char **argv, char **envp)
 {
 	int	i;
-	int j;
 
 	i = -1;
 	while (++i < data->n_cmds)
@@ -25,47 +72,27 @@ static void	pipex(t_data *data, int n_cmds, char **argv, char **envp)
 		if (data->pid[i] < 0)
 			error_handler(data, FORK);
 		if (!data->pid[i])
-		{
-			if ((i == 0 && dup2(data->fd.in, STDIN_FILENO) < 0)
-				|| (i < data->n_cmds - 1 && dup2(data->p_fd[i][1],
-				STDOUT_FILENO) < 0) || (i > 0 && dup2(data->p_fd[i - 1][0],
-				STDIN_FILENO) < 0) || (i == data->n_cmds - 1
-				&& dup2(data->fd.out, STDOUT_FILENO) < 0))
-				error_handler(data, DUP2);
-		}
-		close_pipes(data);
+			child(data, i, argv, envp);
 	}
-}
-
-static void	init(t_data *data, int argc, char **argv, char **envp)
-{
-	int	i;
-
-	if (argc != 5)
-		error_handler(NULL, ARGS);
-	open_file(&data->fd, argv[1], READ);
-	open_file(&data->fd, argv[argc - 1], WRITE);
-	if (data->fd.in < 0 || data->fd.out < 0)
-		error_handler(NULL, OPEN);
-	data->n_cmds = argc - 3;
-	data->n_pipes = data->n_cmds - 1;
-	data->pid = ft_calloc(data->n_cmds, sizeof(pid_t));
-	data->p_fd[0] = ft_calloc(data->n_pipes, sizeof(int));
-	data->p_fd[1] = ft_calloc(data->n_pipes, sizeof(int));
-	if (!data->pid || !data->p_fd[0] || !data->p_fd[1])
-		error_handler(data, CALLOC);
+	close_pipes(data);
+	if (close(data->fd.in) < 0 || close(data->fd.out) < 0)
+		error_handler(data, CLOSE);
 	i = -1;
-	while (++i < data->n_pipes)
-		if (pipe(data->p_fd) == -1)
-			error_handler(data, PIPE);
+	while (++i < data->n_cmds)
+		if (waitpid(data->pid[i], NULL, 0) < 0)
+			error_handler(data, WAIT);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	init(&data, argc, argv, envp);
-	pipex(&data, argc, argv, envp);
+	if (argc < 5)
+		error_handler(NULL, ARGS);
+	init(&data, argc, argv);
+	argv += 2;
+	if (data.here_doc)
+		here_doc(&data, *argv++);
+	pipex(&data, argv, envp);
 	return (EXIT_SUCCESS);
 }
-
