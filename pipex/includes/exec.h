@@ -1,40 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/21 02:24:17 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 04:32:23 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/24 03:44:37 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/24 03:49:47 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef EXEC_H
+# define EXEC_H
 
 # include "pipex.h"
-# include <fcntl.h>
-# include <stdlib.h>
+# include "utils.h"
 
-typedef enum e_error
-{
-	CALLOC,
-	OPEN,
-	CLOSE,
-	READ,
-	WRITE,
-	PIPE,
-	FORK,
-	WAIT,
-	DUP2,
-	EXECVE,
-	NOT_FOUND
-}	t_error;
-
-char	**ft_get_path(char *var, char **envp);
-void	here_doc(t_data *data, char *limiter);
-void	error_handler(t_data *data, t_error error);
-void	free_data(t_data *data);
+void	execute(t_data *data, char *str, char **envp);
 
 #endif

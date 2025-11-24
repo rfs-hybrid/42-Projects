@@ -6,17 +6,29 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:11:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/22 17:53:01 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 05:04:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "init.h"
+#include "exec.h"
 #include "utils.h"
 
-static void	execute(t_data *data, char **argv, char **envp)
+static void	close_pipes(t_data *data)
 {
-	return ;
+	int	i;
+
+	if (!data->p_fd)
+		return ;
+	i = -1;
+	while (++i < data->n_pipes)
+	{
+		if (close(data->p_fd[i][0]) < 0)
+			error_handler(data, CLOSE);
+		if (close(data->p_fd[i][1]) < 0)
+			error_handler(data, CLOSE);
+	}
 }
 
 static void	child(t_data *data, int idx, char **argv, char **envp)
@@ -34,31 +46,6 @@ static void	child(t_data *data, int idx, char **argv, char **envp)
 		error_handler(data, CLOSE);
 	execute(data, &argv[idx], envp);
 	error_handler(data, EXECVE);
-}
-
-static void	here_doc(t_data *data, char *limiter)
-{
-	char	*line;
-	int		hdoc_fd[2];
-	size_t	limiter_len;
-
-	if (pipe(hdoc_fd) == -1)
-		error_handler(data, PIPE);
-	limiter_len = ft_strlen(limiter);
-	line = get_next_line(STDIN_FILENO);
-	while (line)
-	{
-		if (!ft_strncmp(line, limiter, limiter_len)
-			&& (line[limiter_len] == '\n' || line[limiter_len] == '\0'))
-			break ;
-		if (write(hdoc_fd[1], line, ft_strlen(line)) < 0)
-			error_handler(data, WRITE);
-		free(line);
-		line = get_next_line(STDIN_FILENO);
-	}
-	free(line);
-	close(hdoc_fd[1]);
-	data->fd.in = hdoc_fd[0];
 }
 
 static void	pipex(t_data *data, char **argv, char **envp)
@@ -88,11 +75,15 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 
 	if (argc < 5)
-		error_handler(NULL, ARGS);
+	{
+		ft_printf("Wrong number of arguments!\n");
+		ft_printf("Usage:\t./pipex file1 cmd1 cmd2 file2");
+	}
 	init(&data, argc, argv);
 	argv += 2;
 	if (data.here_doc)
 		here_doc(&data, *argv++);
 	pipex(&data, argv, envp);
+	free_data(&data);
 	return (EXIT_SUCCESS);
 }
