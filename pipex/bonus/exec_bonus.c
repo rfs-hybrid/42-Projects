@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 03:46:59 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 18:55:59 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 14:57:19 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "pipex_bonus.h"
 
 static void	free_cmd_paths(char **cmd, char **paths)
 {

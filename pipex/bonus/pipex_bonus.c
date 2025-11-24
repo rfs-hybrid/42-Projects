@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:11:40 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 19:08:36 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 22:09:02 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "init.h"
-#include "exec.h"
-#include "utils.h"
+#include "pipex_bonus.h"
 
 static void	close_pipes(t_data *data, int idx)
 {
@@ -31,7 +28,7 @@ static void	close_pipes(t_data *data, int idx)
 	}
 }
 
-static void	child(t_data *data, int idx, char **argv, char **envp)
+static void	child(t_data *data, int idx)
 {
 	if (idx == 0)
 	{
@@ -72,7 +69,7 @@ static void	pipex(t_data *data, char **argv, char **envp)
 			error_handler(data, FORK, 1);
 		if (!data->pid[i])
 		{
-			child(data, i, argv, envp);
+			child(data, i);
 			execute(data, argv[i], envp);
 		}
 	}

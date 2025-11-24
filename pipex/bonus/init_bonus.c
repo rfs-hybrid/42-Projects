@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 00:37:17 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 19:08:34 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 21:45:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "init.h"
-
-static int	safe_open(t_data *data, char *file, int flags, mode_t mode)
-{
-	int	fd;
-
-	fd = open(file, flags, mode);
-	if (fd < 0)
-	{
-		if (data->fd.in >= 0)
-			close(data->fd.in);
-		if (data->fd.out >= 0)
-			close(data->fd.out);
-		error_handler(data, OPEN, 1);
-	}
-	return (fd);
-}
+#include "pipex_bonus.h"
 
 static void	free_pipes(t_data *data, int n)
 {
