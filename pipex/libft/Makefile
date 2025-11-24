@@ -1,41 +1,50 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/11/24 15:08:44 by maaugust          #+#    #+#              #
+#    Updated: 2025/11/24 15:17:04 by maaugust         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+# ============================ PROJECT FILE NAMES ============================ #
 NAME = libft.a
+
+# ============================== COMPILER FLAGS ============================== #
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -Iincludes
 RM = rm -rf
 AR = ar rcs
-FILES =	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c \
-		ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
-		ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c \
-		ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c \
-		ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
-		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_lstnew.c \
-		ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c \
-		ft_lstclear.c ft_lstiter.c ft_lstmap.c get_next_line.c ft_printf.c \
-		ft_putchar_cnt.c ft_putstr_cnt.c ft_putptr_cnt.c ft_putnbr_cnt.c \
-		ft_putunbr_cnt.c ft_puthex_cnt.c ft_utoa_base.c ft_flags_utils.c
-SRC_PATH = ./srcs
-OBJ_PATH = ./objs
-INC_PATH = ./includes
-SRC = $(addprefix $(SRC_PATH)/, $(FILES))
-OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(CC) $(CFLAGS) -I$(INC_PATH) -c $< -o $@
+# =================================== LIBFT ================================== #
+LIBFT_SRC_PATH = ./srcs
+LIBFT_OBJ_PATH = ./objs
+LIBFT_SRC = $(shell find $(LIBFT_SRC_PATH) -name '*.c')
+LIBFT_OBJ = $(patsubst %.c, $(LIBFT_OBJ_PATH)/%.o, \
+					$(subst $(LIBFT_SRC_PATH)/,,$(LIBFT_SRC)))
 
-all: $(OBJ_PATH) $(NAME)
+# ============================== COMPILER RULES ============================== #
+$(LIBFT_OBJ_PATH)/%.o: $(LIBFT_SRC_PATH)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJ)
-	$(AR) $(NAME) $(OBJ)
+# =============================== BUILD TARGETS ============================== #
+all: $(NAME)
 
-$(OBJ_PATH):
-	mkdir -p $(OBJ_PATH)
+$(NAME): $(LIBFT_OBJ)
+	$(AR) $(NAME) $(LIBFT_OBJ)
 
+# =============================== CLEAN TARGETS ============================== #
 clean:
-	$(RM) $(OBJ) $(OBJ_PATH)
+	$(RM) $(LIBFT_OBJ) $(LIBFT_OBJ_PATH)
 
 fclean: clean
 	$(RM) $(NAME)
 
+# ============================== REBUILD TARGETS ============================= #
 re: fclean all
 
 .PHONY: all clean fclean re

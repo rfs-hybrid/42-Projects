@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/22 00:37:57 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 18:17:31 by maaugust         ###   ########.fr       */
+/*   Created: 2025/11/24 15:17:48 by maaugust          #+#    #+#             */
+/*   Updated: 2025/11/24 15:22:59 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#include "libft.h"
 
-# include "pipex.h"
-# include "utils.h"
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
 
-void	init(t_data *data, int argc, char **argv);
-
-#endif
+	i = -1;
+	while (s1[++i] && s1[i] == s2[i])
+		;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}

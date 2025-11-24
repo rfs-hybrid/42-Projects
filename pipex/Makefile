@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
+#    By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 03:42:32 by maaugust          #+#    #+#              #
-#    Updated: 2025/11/21 02:10:32 by maaugust         ###   ########.fr        #
+#    Updated: 2025/11/24 15:09:18 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ============================ PROJECT FILE NAMES ============================ #
-PIPEX = PIPEX
+PIPEX = pipex
 
 # ============================== COMPILER FLAGS ============================== #
 CC = cc

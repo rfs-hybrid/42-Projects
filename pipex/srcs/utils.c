@@ -3,31 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:24:22 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 14:20:08 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 19:08:30 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
+void	safe_close(t_data *data, int *fd)
+{
+	if (*fd >= 0)
+	{
+		if (close(*fd) < 0)
+			error_handler(data, CLOSE, 1);
+		*fd = -1;
+	}
+}
+
 char	**ft_get_path(char *var, char **envp)
 {
-	char	*path;
 	size_t	len;
 	int		i;
 
-	path = NULL;
 	if (!envp)
 		return (NULL);
 	len = ft_strlen(var);
 	i = -1;
 	while (envp[++i])
 	{
-		path = ft_strchr(envp[i], '=');
-		if (path && (path - envp[i] == len) && !ft_strncmp(envp[i], var, len))
-			return (ft_split(path + 1, ':'));
+		if (!ft_strncmp(envp[i], var, len) && envp[i][len] == '=')
+			return (ft_split(envp[i] + len + 1, ':'));
 	}
 	return (NULL);
 }
@@ -48,13 +55,16 @@ void	here_doc(t_data *data, char *limiter)
 			&& (line[limiter_len] == '\n' || line[limiter_len] == '\0'))
 			break ;
 		if (write(hdoc_fd[1], line, ft_strlen(line)) < 0)
+		{
+			free(line);
+			safe_close(data, &hdoc_fd[1]);
 			error_handler(data, WRITE, 1);
+		}
 		free(line);
 		line = get_next_line(STDIN_FILENO);
 	}
 	free(line);
-	if (close(hdoc_fd[1]) < 0)
-		error_handler(data, CLOSE, 1);
+	safe_close(data, &hdoc_fd[1]);
 	data->fd.in = hdoc_fd[0];
 }
 
@@ -89,16 +99,25 @@ void	free_data(t_data *data)
 {
 	int	i;
 
-	if (data->fd.in >= 0)
-		close(data->fd.in);
-	if (data->fd.out >= 0)
-		close(data->fd.out);
+	safe_close(data, &data->fd.in);
+	safe_close(data, &data->fd.out);
 	free(data->pid);
+	data->pid = NULL;
 	i = -1;
 	if (data->p_fd)
 	{
 		while (++i < data->n_pipes)
-			free(data->p_fd[i]);
+		{
+			if (data->p_fd[i])
+			{
+				safe_close(data, &data->p_fd[i][0]);
+				safe_close(data, &data->p_fd[i][1]);
+				free(data->p_fd[i]);
+			}
+		}
 		free(data->p_fd);
+		data->p_fd = NULL;
 	}
+	data->n_cmds = 0;
+	data->n_pipes = 0;
 }
