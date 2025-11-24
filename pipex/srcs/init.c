@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 00:37:17 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/22 18:34:11 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 14:29:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ static void	init_pipes(t_data *data)
 	{
 		data->p_fd = ft_calloc(data->n_pipes, sizeof(int *));
 		if (!data->p_fd)
-			error_handler(data, CALLOC);
+			error_handler(data, CALLOC, 1);
 		i = -1;
 		while (++i < data->n_pipes)
 		{
 			data->p_fd[i] = ft_calloc(2, sizeof(int));
 			if (!data->p_fd[i])
-				error_handler(data, CALLOC);
+				error_handler(data, CALLOC, 1);
 		}
 		i = -1;
 		while (++i < data->n_pipes)
 			if (pipe(data->p_fd[i]) == -1)
-				error_handler(data, PIPE);
+				error_handler(data, PIPE, 1);
 	}
 }
 
@@ -42,12 +42,12 @@ static void	init_fds(t_data *data, int argc, char **argv)
 	if (data->here_doc)
 	{
 		data->fd.in = -1;
-		data->fd.out = open(argv[argc - 1], O_CREAT | O_RDWR | O_APPEND, 0777);
+		data->fd.out = open(argv[argc - 1], O_CREAT | O_RDWR | O_APPEND, 0644);
 		data->n_cmds--;
 		return ;
 	}
-	data->fd.in = open(argv[1], O_RDONLY, 0777);
-	data->fd.out = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0777);
+	data->fd.in = open(argv[1], O_RDONLY);
+	data->fd.out = open(argv[argc - 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 }
 
 void	init(t_data *data, int argc, char **argv)
@@ -58,10 +58,10 @@ void	init(t_data *data, int argc, char **argv)
 		&& argv[1][ft_strlen("here_doc")] == '\0';
 	init_fds(data, argc, argv);
 	if ((!data->here_doc && data->fd.in < 0) || data->fd.out < 0)
-		error_handler(NULL, OPEN);
+		error_handler(NULL, OPEN, 1);
 	data->n_pipes = data->n_cmds - 1;
 	data->pid = ft_calloc(data->n_cmds, sizeof(pid_t));
 	if (!data->pid)
-		error_handler(data, CALLOC);
+		error_handler(data, CALLOC, 1);
 	init_pipes(data);
 }

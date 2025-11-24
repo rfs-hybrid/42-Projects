@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:24:22 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 04:32:20 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 14:20:08 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	here_doc(t_data *data, char *limiter)
 	size_t	limiter_len;
 
 	if (pipe(hdoc_fd) == -1)
-		error_handler(data, PIPE);
+		error_handler(data, PIPE, 1);
 	limiter_len = ft_strlen(limiter);
 	line = get_next_line(STDIN_FILENO);
 	while (line)
@@ -48,17 +48,17 @@ void	here_doc(t_data *data, char *limiter)
 			&& (line[limiter_len] == '\n' || line[limiter_len] == '\0'))
 			break ;
 		if (write(hdoc_fd[1], line, ft_strlen(line)) < 0)
-			error_handler(data, WRITE);
+			error_handler(data, WRITE, 1);
 		free(line);
 		line = get_next_line(STDIN_FILENO);
 	}
 	free(line);
 	if (close(hdoc_fd[1]) < 0)
-		error_handler(data, CLOSE);
+		error_handler(data, CLOSE, 1);
 	data->fd.in = hdoc_fd[0];
 }
 
-void	error_handler(t_data *data, t_error error)
+void	error_handler(t_data *data, t_error error, unsigned char status_code)
 {
 	if (error == CALLOC)
 		perror("calloc failed");
@@ -76,19 +76,23 @@ void	error_handler(t_data *data, t_error error)
 		perror("fork failed");
 	else if (error == DUP2)
 		perror("dup2 failed");
-	else if (error == EXECVE)
-		perror("execve failed");
+	else if (error == NOT_EXEC)
+		perror("found but not executable");
 	else if (error == NOT_FOUND)
 		perror("command not found");
 	if (data)
 		free_data(data);
-	exit(EXIT_FAILURE);
+	exit(status_code);
 }
 
 void	free_data(t_data *data)
 {
 	int	i;
 
+	if (data->fd.in >= 0)
+		close(data->fd.in);
+	if (data->fd.out >= 0)
+		close(data->fd.out);
 	free(data->pid);
 	i = -1;
 	if (data->p_fd)

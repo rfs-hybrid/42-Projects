@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 03:46:59 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 05:15:13 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/24 14:11:59 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,11 @@ static void	free_cmd_paths(char **cmd, char **paths)
 
 static void	try_exec_absolute_relative(t_data *data, char **cmd, char **envp)
 {
-	if (access(cmd[0], X_OK) < 0)
-	{
-		free_cmd_paths(cmd, NULL);
-		error_handler(data, NOT_FOUND);
-	}
-	if (execve(cmd[0], cmd, envp) < 0)
-	{
-		free_cmd_paths(cmd, NULL);
-		error_handler(data, EXECVE);
-	}
+	execve(cmd[0], cmd, envp);
+	free_cmd_paths(cmd, NULL);
+	if (errno == ENOENT)
+		error_handler(data, NOT_FOUND, 127);
+	error_handler(data, NOT_EXEC, 126);
 }
 
 static char	*get_cmd_path(t_data *data, char **cmd, char **paths)
@@ -57,17 +52,27 @@ static char	*get_cmd_path(t_data *data, char **cmd, char **paths)
 	{
 		tmp = ft_strjoin(paths[i], '/');
 		full_path = ft_strjoin(tmp, cmd[0]);
-		if (!tmp || !full_path)
+		free(tmp);
+		if (!full_path)
 		{
-			free(tmp);
 			free_cmd_paths(cmd, paths);
-			error_handler(data, CALLOC);
+			error_handler(data, CALLOC, 1);
 		}
 		if (!access(full_path, X_OK))
 			return (full_path);
 		free(full_path);
 	}
 	return (NULL);
+}
+
+static void	run_cmd(t_data *data, char **cmd, char *cmd_path, char **envp)
+{
+	execve(cmd_path, cmd, envp);
+	free_cmd_paths(cmd, NULL);
+	free(cmd_path);
+	if (errno == ENOENT)
+		error_handler(data, NOT_FOUND, 127);
+	error_handler(data, NOT_EXEC, 126);
 }
 
 void	execute(t_data *data, char *str, char **envp)
@@ -78,23 +83,21 @@ void	execute(t_data *data, char *str, char **envp)
 
 	cmd = ft_parse_path(str, ' ');
 	if (!cmd)
-		error_handler(data, CALLOC);
+		error_handler(data, CALLOC, 1);
 	if (ft_strchr(cmd[0], '/'))
 		try_exec_absolute_relative(data, cmd, envp);
 	paths = ft_get_path("PATH", envp);
 	if (!paths)
 	{
 		free_cmd_paths(cmd, NULL);
-		error_handler(data, NOT_FOUND);
+		error_handler(data, NOT_FOUND, 127);
 	}
 	cmd_path = get_cmd_path(data, cmd, paths);
+	free_cmd_paths(NULL, paths);
 	if (!cmd_path)
 	{
-		free_cmd_paths(cmd, paths);
-		error_handler(data, NOT_FOUND);
+		free_cmd_paths(cmd, NULL);
+		error_handler(data, NOT_FOUND, 127);
 	}
-	free_cmd_paths(NULL, paths);
-	execve(cmd_path, cmd, envp);
-	free_cmd_paths(cmd, NULL);
-	free(cmd_path);
+	run_cmd(data, cmd, cmd_path, envp);
 }
