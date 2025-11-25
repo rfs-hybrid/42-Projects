@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.h                                      :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 02:10:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 22:44:02 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/25 03:09:28 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+#ifndef PIPEX_H
+# define PIPEX_H
 
 /* --- External Libraries --- */
 # include "libft.h"
@@ -33,7 +33,6 @@ typedef enum e_error
 	CALLOC,
 	OPEN,
 	CLOSE,
-	WRITE,
 	PIPE,
 	FORK,
 	WAIT,
@@ -52,12 +51,9 @@ typedef struct s_fd
 /* --- Main data structure --- */
 typedef struct s_data
 {
-	pid_t	*pid;
+	pid_t	pid[2];
 	t_fd	fd;
-	int		**p_fd;
-	int		n_cmds;
-	int		n_pipes;
-	bool	here_doc;
+	int		p_fd[2];
 }	t_data;
 
 /* --- Utils --- */
@@ -66,16 +62,13 @@ void	safe_close(t_data *data, int *fd);
 void	free_data(t_data *data);
 
 /* --- Init --- */
-void	init(t_data *data, int argc, char **argv);
+void	init(t_data *data, char **argv);
 
 /* --- Parsing --- */
 char	**ft_get_path(char *var, char **envp);
 
 /* --- Execution --- */
 void	execute(t_data *data, char *str, char **envp);
-
-/* --- Here_doc --- */
-void	here_doc(t_data *data, char *limiter);
 
 /* --- Error Handling --- */
 void	error_handler(t_data *data, t_error error, unsigned char status_code);

@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 21:46:10 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 21:47:37 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/25 03:17:32 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	error_handler(t_data *data, t_error error, unsigned char status_code)
 		perror("open failed");
 	else if (error == CLOSE)
 		perror("close failed");
-	else if (error == READ)
-		perror("read failed");
 	else if (error == WRITE)
 		perror("write failed");
 	else if (error == PIPE)

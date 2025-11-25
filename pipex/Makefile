@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 03:42:32 by maaugust          #+#    #+#              #
-#    Updated: 2025/11/24 22:15:53 by maaugust         ###   ########.fr        #
+#    Updated: 2025/11/25 03:33:31 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,14 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 LIBFT_MAKE = make -C $(LIBFT_DIR)
 
 # =================================== PIPEX ================================== #
-PIPEX_SRC_PATH = ./mandatory
-PIPEX_OBJ_PATH = ./objs/mandatory
-PIPEX_SRC = $(shell find $(PIPEX_SRC_PATH) -name '*.c')
+PIPEX_SRC_PATH = ./srcs
+PIPEX_OBJ_PATH = ./objs/srcs
+PIPEX_SRC = $(shell find $(PIPEX_SRC_PATH) -maxdepth 1 -name '*.c')
 PIPEX_OBJ = $(patsubst %.c, $(PIPEX_OBJ_PATH)/%.o, \
 					$(subst $(PIPEX_SRC_PATH)/,,$(PIPEX_SRC)))
 
 # =================================== BONUS ================================== #
-BONUS_SRC_PATH = ./bonus
+BONUS_SRC_PATH = ./srcs/bonus
 BONUS_OBJ_PATH = ./objs/bonus
 BONUS_SRC = $(shell find $(BONUS_SRC_PATH) -name '*.c')
 BONUS_OBJ = $(patsubst %.c, $(BONUS_OBJ_PATH)/%.o, \
@@ -64,8 +64,7 @@ $(LIBFT_LIB):
 	
 # =============================== CLEAN TARGETS ============================== #
 clean:
-	$(RM) $(PIPEX_OBJ_PATH) $(BONUS_OBJ_PATH)
-	rmdir -p --ignore-fail-on-non-empty objs 2>/dev/null || true
+	$(RM) objs
 	$(LIBFT_MAKE) clean
 
 fclean: clean

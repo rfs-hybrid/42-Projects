@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 03:46:59 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/24 14:57:19 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/11/25 03:17:39 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ static char	*get_cmd_path(t_data *data, char **cmd, char **paths)
 
 static void	run_cmd(t_data *data, char **cmd, char *cmd_path, char **envp)
 {
+	if (!cmd_path)
+	{
+		free_cmd_paths(cmd, NULL);
+		error_handler(data, NOT_FOUND, 127);
+	}
 	errno = 0;
 	execve(cmd_path, cmd, envp);
 	free_cmd_paths(cmd, NULL);
@@ -86,7 +91,10 @@ void	execute(t_data *data, char *str, char **envp)
 
 	cmd = ft_split(str, ' ');
 	if (!cmd || !cmd[0] || !*cmd[0])
+	{
+		free_cmd_paths(cmd, NULL);
 		error_handler(data, NOT_FOUND, 127);
+	}
 	if (ft_strchr(cmd[0], '/'))
 		try_exec_absolute_relative(data, cmd, envp);
 	paths = ft_get_path("PATH", envp);
@@ -97,10 +105,5 @@ void	execute(t_data *data, char *str, char **envp)
 	}
 	cmd_path = get_cmd_path(data, cmd, paths);
 	free_cmd_paths(NULL, paths);
-	if (!cmd_path)
-	{
-		free_cmd_paths(cmd, NULL);
-		error_handler(data, NOT_FOUND, 127);
-	}
 	run_cmd(data, cmd, cmd_path, envp);
 }
