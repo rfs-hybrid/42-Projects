@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/17 03:42:32 by maaugust          #+#    #+#              #
-#    Updated: 2025/11/25 18:53:34 by maaugust         ###   ########.fr        #
+#    Updated: 2025/11/26 11:37:28 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,11 @@ CC         := cc
 CFLAGS     := -Wall -Wextra -Werror -Iincludes -Ilibft/includes
 RM         := rm -rf
 
-# =================================== LIBFT ================================== #
+# ================================== LIBFT =================================== #
 LIBFT_DIR  := libft
 LIBFT_LIB  := $(LIBFT_DIR)/libft.a
 
-# ================================ COLORS ==================================== #
+# ================================== COLORS ================================== #
 GREEN      := \033[32m
 RED        := \033[31m
 YELLOW     := \033[33m
@@ -31,7 +31,7 @@ CYAN       := \033[36m
 RESET      := \033[0m
 BOLD       := \033[1m
 
-# ============================ SOURCE FILES ================================== #
+# =============================== SOURCE FILES =============================== #
 PIPEX_SRC_PATH   := ./srcs
 BONUS_SRC_PATH   := ./srcs/bonus
 
@@ -55,7 +55,7 @@ $(BONUS_OBJ_PATH)/%.o: $(BONUS_SRC_PATH)/%.c
 	@printf "$(CYAN)Compiling:$(RESET) $(YELLOW)$<$(RESET)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# =============================== BUILD TARGETS ============================== #
+# ============================== BUILD TARGETS =============================== #
 all: $(PIPEX)
 
 bonus: $(BONUS)
@@ -75,7 +75,7 @@ $(LIBFT_LIB):
 	@$(MAKE) -C $(LIBFT_DIR) >/dev/null || { printf "$(RED)✖ Libft build failed!$(RESET)\n"; exit 1; }
 	@printf "$(GREEN)✔ Libft built.$(RESET)\n"
 
-# =============================== CLEAN TARGETS ============================== #
+# ============================== CLEAN TARGETS =============================== #
 clean:
 	@$(RM) $(PIPEX_OBJ_PATH) $(BONUS_OBJ_PATH)
 	@rmdir -p --ignore-fail-on-non-empty objs 2>/dev/null || true
@@ -89,5 +89,5 @@ fclean: clean
 
 re: fclean all
 
-# ============================ PHONY TARGETS ================================ #
+# ============================== PHONY TARGETS =============================== #
 .PHONY: all bonus clean fclean re
