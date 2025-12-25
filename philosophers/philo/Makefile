@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 01:07:17 by maaugust          #+#    #+#              #
-#    Updated: 2025/12/25 14:56:17 by maaugust         ###   ########.fr        #
+#    Updated: 2025/12/25 16:32:03 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ PHILO             = philo
 # ============================== COMPILER FLAGS ============================== #
 CC                = cc
 CFLAGS            = -Wall -Wextra -Werror -pthread
-INCLUDES          = -Iincludes -Ilibft/includes
+INCLUDES          = -Iincludes
 RM                = rm -rf
 
 # ================================== COLORS ================================== #
