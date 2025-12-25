@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 15:02:20 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:46:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "printer.h"
 #include "safety.h"
 
+/**
+ * @fn static void mutexes_init(t_data *data)
+ * @brief Initializes all mutexes used in the simulation.
+ * @details Initializes global mutexes (print, status, ready) and individual
+ * mutexes for forks and philosopher meal data.
+ * @param data Pointer to the main data structure.
+ */
 static void	mutexes_init(t_data *data)
 {
 	long	i;
@@ -30,6 +37,17 @@ static void	mutexes_init(t_data *data)
 	}
 }
 
+/**
+ * @fn static void	philo_data(t_data *data, t_philo *philo, long index,
+ * long total)
+ * @brief Sets initial values for a single philosopher.
+ * @details Assigns ID, meal counters, and determines the left/right fork
+ * indices.
+ * @param data Pointer to the shared data structure.
+ * @param philo Pointer to the specific philosopher structure to initialize.
+ * @param index The index of the philosopher (0 to total-1).
+ * @param total Total number of philosophers (used for fork logic).
+ */
 static void	philo_data(t_data *data, t_philo *philo, long index, long total)
 {
 	memset(philo, 0, sizeof(t_philo));
@@ -41,6 +59,15 @@ static void	philo_data(t_data *data, t_philo *philo, long index, long total)
 	philo->data = data;
 }
 
+/**
+ * @fn void initialization(t_data *data, char **argv)
+ * @brief Parses arguments and initializes the main data structure.
+ * @details Converts arguments to integers, allocates memory for philosophers and
+ * mutexes, and calls sub-initialization functions. Handles memory allocation
+ * errors.
+ * @param data Pointer to the main data structure.
+ * @param argv Argument vector (shifted by 1 to skip program name).
+ */
 void	initialization(t_data *data, char **argv)
 {
 	long	i;

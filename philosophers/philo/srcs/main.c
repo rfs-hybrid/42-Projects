@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 15:02:27 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:42:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,31 @@
 #include "printer.h"
 #include "utils.h"
 
+/**
+ * @fn static void cleanup(t_data *data)
+ * @brief Cleans up resources before the program exits.
+ * @details Waits for a brief moment to ensure threads have settled, then
+ * destroys all mutexes and frees allocated memory for philosophers and fork
+ * locks.
+ * @param data Pointer to the main data structure containing all resources.
+ */
 static void	cleanup(t_data *data)
 {
-	if (ft_usleep(1, data))
+	if (ft_msleep(1, data) != 0)
 		exit_error(SLEEP, data, data->total_philos);
 	destroy_mutexes(data, data->total_philos);
 	free(data->philos);
 	free(data->forks_mtx);
 }
 
+/**
+ * @fn static void simulation(t_data *data)
+ * @brief Launches the simulation threads.
+ * @details Creates a thread for each philosopher to run the `dining` routine.
+ * Then creates the monitor thread. Finally, it joins the monitor thread
+ * (waiting for it to finish) and then joins all philosopher threads.
+ * @param data Pointer to the main data structure.
+ */
 static void	simulation(t_data *data)
 {
 	long	i;
@@ -46,6 +62,15 @@ static void	simulation(t_data *data)
 			exit_error(TH_JOIN, data, data->total_philos);
 }
 
+/**
+ * @fn static void check_args(int argc, char **argv)
+ * @brief Validates command-line arguments.
+ * @details Checks if the argument count is 5 or 6 and ensures all arguments
+ * are positive integers. If validation fails, it prints an error message
+ * and exits.
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ */
 static void	check_args(int argc, char **argv)
 {
 	size_t	i;
@@ -66,6 +91,15 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
+/**
+ * @fn int main(int argc, char **argv)
+ * @brief Main entry point of the Philosophers program.
+ * @details Orchestrates the flow: validates arguments, initializes
+ * data/mutexes, runs the simulation, and performs cleanup upon completion.
+ * @param argc Argument count.
+ * @param argv Argument vector.
+ * @return EXIT_SUCCESS on success, EXIT_FAILURE on error.
+ */
 int	main(int argc, char **argv)
 {
 	t_data	data;

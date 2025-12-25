@@ -3,16 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   printer.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 19:01:47 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:51:20 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printer.h"
 #include "utils.h"
 
+/**
+ * @fn static void thread_mutex_message(t_print_code code)
+ * @brief Prints error messages specific to thread or mutex failures.
+ * @param code The error code representing the specific failure type.
+ */
 static void	thread_mutex_message(t_print_code code)
 {
 	if (code == TH_CREATE)
@@ -35,6 +40,13 @@ static void	thread_mutex_message(t_print_code code)
 		printf("║                 INVALID MUTEX OPERATION                 ║\n");
 }
 
+/**
+ * @fn static void error_message(t_print_code code)
+ * @brief Main error reporting function.
+ * @details Prints a formatted error box based on the error code provided.
+ * Also prints usage examples if the error is related to arguments.
+ * @param code The error code.
+ */
 static void	error_message(t_print_code code)
 {
 	printf(BOLD_ON FG_RED BLINK_ON);
@@ -60,6 +72,14 @@ ITALIC_ON "number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
 \t./philo 5 800 200 200 7\n\n" RESET);
 }
 
+/**
+ * @fn static void philo_message(t_print_code code, size_t id)
+ * @brief Prints a state change message for a philosopher.
+ * @details Handles formatting for Taken Fork, Eating, Sleeping, Thinking, and
+ * Died.
+ * @param code The state code.
+ * @param id The ID of the philosopher.
+ */
 static void	philo_message(t_print_code code, size_t id)
 {
 	if (code == PHILO_FORK)
@@ -75,6 +95,15 @@ static void	philo_message(t_print_code code, size_t id)
 	printf(RESET);
 }
 
+/**
+ * @fn void print_message(t_print_code code, t_philo *philo)
+ * @brief Thread-safe function to print simulation messages.
+ * @details Checks the error code range to delegate to `error_message` if
+ * necessary. Otherwise, calculates the timestamp and prints the philosopher's
+ * state with color coding.
+ * @param code The type of message to print.
+ * @param philo Pointer to the philosopher (or NULL for generic errors).
+ */
 void	print_message(t_print_code code, t_philo *philo)
 {
 	static const char	*colors[] = {

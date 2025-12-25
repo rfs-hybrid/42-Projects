@@ -6,47 +6,64 @@
 #    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 01:07:17 by maaugust          #+#    #+#              #
-#    Updated: 2025/09/18 00:26:27 by maaugust         ###   ########.fr        #
+#    Updated: 2025/12/25 14:56:17 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ============================ PROJECT FILE NAMES ============================ #
-PHILO = philo
+PHILO             = philo
 
 # ============================== COMPILER FLAGS ============================== #
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -Iincludes
-RM = rm -rf
-AR = ar rcs
+CC                = cc
+CFLAGS            = -Wall -Wextra -Werror -pthread
+INCLUDES          = -Iincludes -Ilibft/includes
+RM                = rm -rf
 
-# =================================== PHILO ================================== #
-PHILO_SRC_PATH = ./srcs
-PHILO_OBJ_PATH = ./objs
-PHILO_SRC = $(shell find $(PHILO_SRC_PATH) -name '*.c')
-PHILO_OBJ = $(patsubst %.c, $(PHILO_OBJ_PATH)/%.o, \
-					$(subst $(PHILO_SRC_PATH)/,,$(PHILO_SRC)))
+# ================================== COLORS ================================== #
+GREEN             := \033[32m
+RED               := \033[31m
+YELLOW            := \033[33m
+CYAN              := \033[36m
+RESET             := \033[0m
+BOLD              := \033[1m
 
-# ============================== COMPILER RULES ============================== #
+# =============================== SOURCE FILES =============================== #
+PHILO_SRC_PATH    = ./srcs
+PHILO_SRC         = $(shell find $(PHILO_SRC_PATH) -name '*.c')
+
+PHILO_OBJ_PATH    = ./objs
+PHILO_OBJ         = $(patsubst $(PHILO_SRC_PATH)/%.c, \
+                          $(PHILO_OBJ_PATH)/%.o, $(PHILO_SRC))
+
+# ============================ COMPILATION RULES ============================= #
 $(PHILO_OBJ_PATH)/%.o: $(PHILO_SRC_PATH)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@printf "$(CYAN)Compiling:$(RESET) $(YELLOW)$<$(RESET)\n"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 # =============================== BUILD TARGETS ============================== #
 all: $(PHILO)
 
-$(PHILO): $(PHILO_OBJ)
-	$(CC) $(CFLAGS) $(PHILO_OBJ) -o $(PHILO)
-
-bonus: all
+$(PHILO): $(LIBFT_LIB) $(PHILO_OBJ)
+	@printf "$(GREEN)✔ Mandatory objects built successfully.$(RESET)\n"
+	@$(CC) $(CFLAGS) $(PHILO_OBJ) -o $(PHILO)
+	@printf "$(GREEN)$(BOLD)✔ Build complete → $(PHILO)$(RESET)\n"
 	
-# =============================== CLEAN TARGETS ============================== #
+# ============================== CLEAN TARGETS =============================== #
 clean:
-	$(RM) $(PHILO_OBJ_PATH)
+	@$(RM) $(PHILO_OBJ_PATH)
+	@rmdir -p --ignore-fail-on-non-empty objs 2>/dev/null || true
+	@printf "$(YELLOW)• Cleaned object files.$(RESET)\n"
 
 fclean: clean
-	$(RM) $(PHILO)
+	@$(RM) $(PHILO)
+	@printf "$(RED)• Full clean complete.$(RESET)\n"
 
-# ============================== REBUILD TARGETS ============================= #
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+# ================================= VALGRIND ================================= #
+valgrind: all
+	valgrind --leak-check=full --show-leak-kinds=all -s ./PHILO
+
+# ============================== PHONY TARGETS =============================== #
+.PHONY: all clean fclean re valgrind

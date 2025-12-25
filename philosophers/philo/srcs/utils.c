@@ -6,12 +6,21 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/03 22:25:14 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:55:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
+/**
+ * @fn void exit_error(t_print_code code, t_data *data, long count)
+ * @brief Handles fatal errors by printing a message and cleaning up.
+ * @details Destroys mutexes, frees memory, and exits the program with failure
+ * status.
+ * @param code Error code.
+ * @param data Pointer to data structure.
+ * @param count Number of initialized items (for partial cleanup).
+ */
 void	exit_error(t_print_code code, t_data *data, long count)
 {
 	print_message(code, NULL);
@@ -22,6 +31,12 @@ void	exit_error(t_print_code code, t_data *data, long count)
 	exit(EXIT_FAILURE);
 }
 
+/**
+ * @fn void destroy_mutexes(t_data *data, long count)
+ * @brief Destroys all initialized mutexes.
+ * @param data Pointer to data structure.
+ * @param count Number of fork/meal mutexes to destroy.
+ */
 void	destroy_mutexes(t_data *data, long count)
 {
 	long	i;
@@ -37,6 +52,13 @@ void	destroy_mutexes(t_data *data, long count)
 	}
 }
 
+/**
+ * @fn long ft_atol(char *str)
+ * @brief Converts a string to a long integer.
+ * @details Robust conversion that handles spacing and signs.
+ * @param str The string to convert.
+ * @return The converted value, or -1 if invalid/overflow.
+ */
 long	ft_atol(char *str)
 {
 	long	res;
@@ -59,16 +81,31 @@ long	ft_atol(char *str)
 	return (res);
 }
 
+/**
+ * @fn int64_t ft_gettimeofday_ms(void)
+ * @brief Gets the current time of day in milliseconds.
+ * @return Current timestamp in ms, or -1 on error.
+ */
 int64_t	ft_gettimeofday_ms(void)
 {
 	struct timeval	tv;
 
-	if (gettimeofday(&tv, NULL))
+	if (gettimeofday(&tv, NULL) != 0)
 		return (-1);
 	return ((int64_t)tv.tv_sec * 1000LL + (int64_t)tv.tv_usec / 1000LL);
 }
 
-int	ft_usleep(long msec, t_data *data)
+/**
+ * @fn int ft_msleep(long msec, t_data *data)
+ * @brief Precise sleep function.
+ * @details Sleeps for the specified duration in milliseconds. Instead of a
+ * single long `usleep`, it loops with short sleeps to periodically check if
+ * the simulation has ended, ensuring responsive exit on death.
+ * @param msec Duration to sleep in milliseconds.
+ * @param data Pointer to data (to check `is_over` status).
+ * @return 0 on success.
+ */
+int	ft_msleep(long msec, t_data *data)
 {
 	int64_t	start;
 	int64_t	now;

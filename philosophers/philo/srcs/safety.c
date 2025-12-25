@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   safety.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maaugust <maaugust@student.42.fr>          +#+  +:+       +#+        */
+/*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/11/04 19:23:14 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/25 15:53:04 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "safety.h"
 #include "utils.h"
 
+/**
+ * @fn bool safe_thread(pthread_t *th, void *(*f)(void *), void *arg,
+ * t_th_op op)
+ * @brief Wrapper for pthread functions to handle errors.
+ * @details Abstraction for create, join, and detach operations.
+ * @param th Pointer to the pthread_t variable.
+ * @param f Function pointer for thread routine (create only).
+ * @param arg Argument for the thread routine (create only).
+ * @param op Operation type (CREATE, JOIN, DETACH).
+ * @return true on success, false on failure.
+ */
 bool	safe_thread(pthread_t *th, void *(*f)(void *), void *arg, t_th_op op)
 {
 	int	ret;
@@ -27,6 +38,16 @@ bool	safe_thread(pthread_t *th, void *(*f)(void *), void *arg, t_th_op op)
 	return (ret == 0);
 }
 
+/**
+ * @fn void safe_mutex(t_mtx *mutex, t_mtx_op op, t_data *data, long count)
+ * @brief Wrapper for mutex functions with error handling.
+ * @details Handles INIT, LOCK, UNLOCK, and DESTROY operations. Exits the program
+ * if a mutex operation fails.
+ * @param mutex Pointer to the mutex.
+ * @param op Operation type.
+ * @param data Pointer to data (for cleanup on error).
+ * @param count Count for cleanup (number of philos initialized so far).
+ */
 void	safe_mutex(t_mtx *mutex, t_mtx_op op, t_data *data, long count)
 {
 	int	ret;
@@ -55,6 +76,13 @@ void	safe_mutex(t_mtx *mutex, t_mtx_op op, t_data *data, long count)
 	}
 }
 
+/**
+ * @fn void *safe_malloc(size_t size)
+ * @brief Safe memory allocation wrapper.
+ * @details Calls malloc and checks for NULL return.
+ * @param size Bytes to allocate.
+ * @return Pointer to allocated memory, or NULL on failure.
+ */
 void	*safe_malloc(size_t size)
 {
 	void	*ptr;
@@ -65,6 +93,15 @@ void	*safe_malloc(size_t size)
 	return (ptr);
 }
 
+/**
+ * @fn void safe_print(t_print_code code, t_philo *philo)
+ * @brief Thread-safe wrapper for printing simulation events.
+ * @details Locks the `print_mtx` to ensure messages don't overlap.
+ * Also checks `is_over` status to prevent printing after death (unless it is
+ * the death message).
+ * @param code Message code.
+ * @param philo Pointer to the philosopher.
+ */
 void	safe_print(t_print_code code, t_philo *philo)
 {
 	t_data	*data;

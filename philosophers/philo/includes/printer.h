@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/10/23 16:28:56 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/25 16:17:46 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,9 @@
 # include <stdlib.h>
 
 /*
-──────────────────────────────────────────────────────────────────────
- ATTRIBUTE BEHAVIOR TABLE
-──────────────────────────────────────────────────────────────────────
-| Attribute         |  Set Code(s)   | Unset Code  | Affects Colors? |
-|-------------------|----------------|-------------|-----------------|
-| Bold / Dim        | 1 / 2          | 22          | ❌ No           |
-| Italic            | 3              | 23          | ❌ No           |
-| Underline         | 4              | 24          | ❌ No           |
-| Blink (slow/fast) | 5 / 6          | 25          | ❌ No           |
-| Reverse (inverse) | 7              | 27          | ❌ No           |
-| Hidden            | 8              | 28          | ❌ No           |
-| Strikethrough     | 9              | 29          | ❌ No           |
-| Foreground color  | 30–37, 90–97   | 39          | ✅ Yes          |
-| Background color  | 40–47, 100–107 | 49          | ✅ Yes          |
-| Full Reset        | 0              | —           | ✅ All          |
-──────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
+ ANSI COLOR CODES
+────────────────────────────────────────────────────────────────────────────────
 */
 
 // === RESET ===
@@ -100,6 +87,10 @@
 # define BBG_CYAN			"\x1b[106m"
 # define BBG_WHITE			"\x1b[107m"
 
+/**
+ * @brief Enumeration for all print messages.
+ * Includes errors (0-12) and Simulation status (13-17).
+ */
 typedef enum e_print_code
 {
 	NUM_ARGS,
@@ -122,6 +113,12 @@ typedef enum e_print_code
 	PHILO_DEAD
 }	t_print_code;
 
+/**
+ * @fn void print_message(t_print_code code, t_philo *philo)
+ * @brief Formats and prints a message to standard output.
+ * @param code  The code corresponding to the event or error.
+ * @param philo Pointer to the philosopher (NULL for error messages).
+ */
 void	print_message(t_print_code code, t_philo *philo);
 
 #endif
