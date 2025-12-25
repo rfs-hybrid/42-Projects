@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 01:07:17 by maaugust          #+#    #+#              #
-#    Updated: 2025/12/25 16:32:03 by maaugust         ###   ########.fr        #
+#    Updated: 2025/12/25 16:33:08 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ $(PHILO_OBJ_PATH)/%.o: $(PHILO_SRC_PATH)/%.c
 # =============================== BUILD TARGETS ============================== #
 all: $(PHILO)
 
-$(PHILO): $(LIBFT_LIB) $(PHILO_OBJ)
+$(PHILO): $(PHILO_OBJ)
 	@printf "$(GREEN)✔ Mandatory objects built successfully.$(RESET)\n"
 	@$(CC) $(CFLAGS) $(PHILO_OBJ) -o $(PHILO)
 	@printf "$(GREEN)$(BOLD)✔ Build complete → $(PHILO)$(RESET)\n"
