@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 15:46:51 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/26 14:43:58 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	mutexes_init(t_data *data)
 	i = -1;
 	while (++i < data->total_philos)
 	{
-		safe_mutex(&data->forks_mtx[i], INIT, data, data->total_philos);
-		safe_mutex(&data->philos[i].meal_mtx, INIT, data, data->total_philos);
+		safe_mutex(&data->forks_mtx[i], INIT, data, i);
+		safe_mutex(&data->philos[i].meal_mtx, INIT, data, i);
 	}
 }
 
