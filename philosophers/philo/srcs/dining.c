@@ -6,12 +6,15 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 15:46:14 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:45:21 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dining.h"
 #include "monitor.h"
+#include "philo.h"
+#include "printer.h"
+#include "safety.h"
 #include "utils.h"
 
 /**
@@ -166,11 +169,11 @@ void	*dining(void *arg)
 			break ;
 		}
 		safe_mutex(&data->ready_mtx, UNLOCK, data, data->total_philos);
-		if (usleep(50) != 0)
+		if (usleep(500) != 0)
 			exit_error(SLEEP, data, data->total_philos);
 	}
-	if (philo->philo_id % 2 == 0)
-		ft_msleep(1, data);
+	if (philo->philo_id % 2 == 0 && ft_msleep(1, data))
+		exit_error(SLEEP, data, data->total_philos);
 	while (philo_routine(philo, data))
 		;
 	return (NULL);

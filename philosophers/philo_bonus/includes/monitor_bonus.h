@@ -6,15 +6,15 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:19:01 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:27:23 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:40:59 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MONITOR_BONUS_H
 # define MONITOR_BONUS_H
 
+# include <stddef.h>
 # include <stdint.h>
-# include <stdlib.h>
 
 /**
  * @fn void *monitor_philo_status(void *arg)

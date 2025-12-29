@@ -6,15 +6,18 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:26 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 16:15:29 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:43:28 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INIT_H
 # define INIT_H
 
-# include "philo.h"
+# include <stdbool.h>
 # include <string.h>
+
+/** @brief Forward declaration of main data structure. */
+typedef struct s_data	t_data;
 
 /**
  * @fn void initialization(t_data *data, char **argv)

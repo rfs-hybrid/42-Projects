@@ -6,18 +6,26 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 16:16:41 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:46:15 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SAFETY_H
 # define SAFETY_H
 
-# include "philo.h"
-# include "printer.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include "printer.h"
+
+/** @brief Alias for pthread_mutex_t to save typing. */
+typedef pthread_mutex_t	t_mtx;
+
+/** @brief Forward declaration of philosopher structure. */
+typedef struct s_philo	t_philo;
+
+/** @brief Forward declaration of main data structure. */
+typedef struct s_data	t_data;
 
 /** @brief Operations for safe_thread wrapper. */
 typedef enum e_thread_op

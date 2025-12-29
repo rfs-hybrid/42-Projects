@@ -6,14 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 16:17:46 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:36:50 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINTER_H
 # define PRINTER_H
 
-# include "philo.h"
 # include <stdlib.h>
 
 /*
@@ -86,6 +85,9 @@
 # define BBG_MAGENTA		"\x1b[105m"
 # define BBG_CYAN			"\x1b[106m"
 # define BBG_WHITE			"\x1b[107m"
+
+/** @brief Forward declaration of philosopher structure. */
+typedef struct s_philo	t_philo;
 
 /**
  * @brief Enumeration for all print messages.

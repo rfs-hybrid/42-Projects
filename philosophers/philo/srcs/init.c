@@ -6,14 +6,15 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/26 22:23:53 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:42:43 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "init.h"
-#include "utils.h"
+#include "philo.h"
 #include "printer.h"
 #include "safety.h"
+#include "utils.h"
 
 /**
  * @fn static void mutexes_init(t_data *data)

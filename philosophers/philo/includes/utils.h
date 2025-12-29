@@ -6,18 +6,19 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:24:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 16:18:39 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:37:32 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
-# include "philo.h"
-# include "printer.h"
-# include "safety.h"
 # include <stdbool.h>
 # include <stdint.h>
+# include "printer.h"
+
+/** @brief Forward declaration of main data structure. */
+typedef struct s_data	t_data;
 
 /**
  * @fn void exit_error(t_print_code code, t_data *data, long count)

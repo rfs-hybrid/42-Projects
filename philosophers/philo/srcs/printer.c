@@ -6,11 +6,12 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 15:51:20 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:36:24 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printer.h"
+#include "philo.h"
 #include "utils.h"
 
 /**

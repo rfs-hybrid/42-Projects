@@ -6,11 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 15:55:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:35:02 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
+#include "philo.h"
+#include "safety.h"
 
 /**
  * @fn void exit_error(t_print_code code, t_data *data, long count)
@@ -74,7 +76,7 @@ long	ft_atol(char *str)
 	while (*str >= '0' && *str <= '9')
 	{
 		prev = res;
-		res = res * 10 + *str++ - '0';
+		res = res * 10 + (*str++ - '0');
 		if (res < prev)
 			return (-1);
 	}

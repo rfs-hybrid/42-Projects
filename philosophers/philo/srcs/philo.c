@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 15:42:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:38:52 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
 #include "dining.h"
 #include "init.h"
 #include "monitor.h"
 #include "printer.h"
+#include "safety.h"
 #include "utils.h"
 
 /**

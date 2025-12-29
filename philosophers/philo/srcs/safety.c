@@ -6,11 +6,12 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 15:53:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 17:35:48 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "safety.h"
+#include "philo.h"
 #include "utils.h"
 
 /**
