@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:19:01 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:40:59 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/30 15:28:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <stddef.h>
 # include <stdint.h>
+
+/** @brief Forward declaration of main data structure. */
+typedef struct s_data	t_data;
 
 /**
  * @fn void *monitor_philo_status(void *arg)
@@ -27,13 +30,12 @@
 void	*monitor_philo_status(void *arg);
 
 /**
- * @fn void *monitor_philo_meals(void *arg)
- * @brief Detached thread routine running in the parent process.
+ * @fn void monitor_philo_meals(t_data *data)
+ * @brief Routine for the standalone meal monitor process.
  * @details Waits for `full` semaphore signals equal to the number of philos.
- * If all philos eat enough, it posts the `stop` semaphore to end the simulation.
- * @param arg Void pointer to the `t_data` structure.
- * @return NULL (Standard pthread return).
+ * If all philos eat enough, it posts the `stop` semaphore and exits.
+ * @param data Pointer to the `t_data` structure.
  */
-void	*monitor_philo_meals(void *arg);
+void	monitor_philo_meals(t_data *data);
 
 #endif

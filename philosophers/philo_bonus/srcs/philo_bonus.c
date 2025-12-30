@@ -6,16 +6,15 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 16:38:45 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/30 15:25:45 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include "dining_bonus.h"
 #include "init_bonus.h"
 #include "monitor_bonus.h"
 #include "printer_bonus.h"
-#include "safety_bonus.h"
+#include "simulation_bonus.h"
 #include "utils_bonus.h"
 
 /**
@@ -29,67 +28,6 @@ static void	cleanup(t_data *data)
 {
 	destroy_semaphores(data);
 	free(data->philos);
-}
-
-/**
- * @fn static void start_processes(t_data *data)
- * @brief Creates child processes for the simulation.
- * @details Loops through the total number of philosophers and forks a new
- * process for each. Each child process runs the `dining` routine.
- * If a fork fails, it kills all previously created processes and exits.
- * @param data Pointer to the main data structure.
- */
-static void	start_processes(t_data *data)
-{
-	pid_t	pid;
-	long	i;
-
-	i = -1;
-	while (++i < data->total_philos)
-	{
-		pid = fork();
-		if (pid == -1)
-		{
-			while (--i >= 0)
-				kill(data->philos[i].pid, SIGKILL);
-			exit_error(FORK, data);
-		}
-		if (pid == 0)
-			dining(&data->philos[i]);
-		data->philos[i].pid = pid;
-	}
-}
-
-/**
- * @fn static void simulation(t_data *data)
- * @brief Orchestrates the main simulation flow in the parent process.
- * @details 1. Starts all child processes.
- * 2. If a meal limit is set, creates a detached thread to monitor meal counts.
- * 3. Waits on the `stop` semaphore (blocks until a philosopher dies or everyone
- * is full).
- * 4. Kills all child processes immediately upon waking up.
- * 5. Waits for all child processes to prevent zombie processes.
- * @param data Pointer to the main data structure.
- */
-static void	simulation(t_data *data)
-{
-	pthread_t	meal;
-	long		i;
-
-	start_processes(data);
-	if (data->total_meals != -1)
-	{
-		if (!safe_thread(&meal, &monitor_philo_meals, data, CREATE))
-			exit_error(TH_CREATE, data);
-		safe_thread(&meal, NULL, NULL, DETACH);
-	}
-	safe_sem(data->stop, WAIT, data);
-	i = -1;
-	while (++i < data->total_philos)
-		kill(data->philos[i].pid, SIGKILL);
-	i = -1;
-	while (++i < data->total_philos)
-		waitpid(data->philos[i].pid, NULL, 0);
 }
 
 /**
@@ -125,8 +63,8 @@ static void	check_args(int argc, char **argv)
  * @fn int main(int argc, char **argv)
  * @brief Main entry point of the Philosophers Bonus program.
  * @details Orchestrates the flow: validates arguments, initializes
- * data/semaphores, runs the process-based simulation, and performs cleanup
- * upon completion.
+ * data/semaphores, hands control to the simulation module, and performs
+ * cleanup.
  * @param argc Argument count.
  * @param argv Argument vector.
  * @return EXIT_SUCCESS on success, EXIT_FAILURE on error.
