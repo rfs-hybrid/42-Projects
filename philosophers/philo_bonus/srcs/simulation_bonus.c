@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:04:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/30 15:27:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/30 15:48:02 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,34 @@ static void	wait_all_philos(t_data *data)
 }
 
 /**
+ * @fn static void handle_fork_error(t_data *data, long count)
+ * @brief Handles partial cleanup if a fork fails during startup.
+ * @details Kills and waits only for the processes created so far (up to
+ * `count`), then exits the program to prevent undefined behavior.
+ * @param data Pointer to the shared data.
+ * @param count The number of processes successfully created before the
+ * failure.
+ */
+static void	handle_fork_error(t_data *data, long count)
+{
+	long	i;
+
+	i = -1;
+	while (++i < count)
+		kill(data->philos[i].pid, SIGKILL);
+	i = -1;
+	while (++i < count)
+		waitpid(data->philos[i].pid, NULL, 0);
+	exit_error(FORK, data);
+}
+
+/**
  * @fn static void start_processes(t_data *data)
  * @brief Forks a child process for each philosopher.
  * @details Loops through the total number of philosophers and forks a new
  * process for each. Each child process runs the `dining` routine.
- * If a fork fails, it cleans up all previously created processes and exits.
+ * If a fork fails, it calls `handle_fork_error` to cleanly destroy existing
+ * processes before exiting.
  * @param data Pointer to the main data structure.
  */
 static void	start_processes(t_data *data)
@@ -67,11 +90,7 @@ static void	start_processes(t_data *data)
 	{
 		philo_pid = fork();
 		if (philo_pid == -1)
-		{
-			while (--i >= 0)
-				kill(data->philos[i].pid, SIGKILL);
-			exit_error(FORK, data);
-		}
+			handle_fork_error(data, i);
 		if (philo_pid == 0)
 			dining(&data->philos[i]);
 		data->philos[i].pid = philo_pid;
