@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:36:24 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/29 22:34:40 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,15 @@ ITALIC_ON "number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
 static void	philo_message(t_print_code code, size_t id)
 {
 	if (code == PHILO_FORK)
-		printf("%zu has taken a fork\n", id);
+		printf("%zu has taken a fork" RESET "\n", id);
 	else if (code == PHILO_EAT)
-		printf("%zu is eating\n", id);
+		printf("%zu is eating" RESET "\n", id);
 	else if (code == PHILO_SLEEP)
-		printf("%zu is sleeping\n", id);
+		printf("%zu is sleeping" RESET "\n", id);
 	else if (code == PHILO_THINK)
-		printf("%zu is thinking\n", id);
+		printf("%zu is thinking" RESET "\n", id);
 	else
-		printf("%zu died\n", id);
-	printf(RESET);
+		printf("%zu died" RESET "\n", id);
 }
 
 /**

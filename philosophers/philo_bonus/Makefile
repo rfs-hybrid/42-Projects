@@ -6,7 +6,7 @@
 #    By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/11 01:07:17 by maaugust          #+#    #+#              #
-#    Updated: 2025/12/29 17:32:23 by maaugust         ###   ########.fr        #
+#    Updated: 2025/12/30 15:29:18 by maaugust         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,9 +63,5 @@ fclean: clean
 
 re: fclean all
 
-# ================================= VALGRIND ================================= #
-valgrind: all
-	valgrind --leak-check=full --show-leak-kinds=all -s ./PHILO_BONUS
-
 # ============================== PHONY TARGETS =============================== #
-.PHONY: all bonus clean fclean re valgrind
+.PHONY: all bonus clean fclean re
