@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:45:21 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/31 04:35:54 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,6 @@
 #include "printer.h"
 #include "safety.h"
 #include "utils.h"
-
-/**
- * @fn static bool handle_single_philo(t_philo *philo, t_data *data)
- * @brief Handles the specific edge case of a single philosopher.
- * @details A single philosopher takes one fork, waits for `time_to_die`, and
- * then dies. This function handles the locking, printing, and sleeping for
- * that scenario.
- * @param philo Pointer to the philosopher.
- * @param data Pointer to the shared data.
- * @return Always returns false to stop the routine.
- */
-static bool	handle_single_philo(t_philo *philo, t_data *data)
-{
-	safe_mutex(&data->forks_mtx[philo->fork_a], LOCK, data, data->total_philos);
-	safe_print(PHILO_FORK, philo);
-	if (ft_msleep(data->time_to_die, data) != 0)
-		exit_error(SLEEP, data, data->total_philos);
-	safe_mutex(&data->forks_mtx[philo->fork_a], UNLOCK, data,
-		data->total_philos);
-	return (false);
-}
 
 /**
  * @fn static void release_forks(t_philo *philo, t_data *data)
@@ -62,7 +41,7 @@ static void	release_forks(t_philo *philo, t_data *data)
  * @details Implements a resource hierarchy solution to prevent deadlocks:
  * - Odd philosophers lock fork B then A.
  * - Even philosophers lock fork A then B.
- * Also checks if the simulation is over after locking.
+ * - Delegates single philosopher logic to `handle_single_philo`.
  * @param philo Pointer to the philosopher.
  * @param data Pointer to the shared data.
  * @return true if forks were successfully picked and simulation is running,
@@ -98,36 +77,30 @@ static bool	pick_forks(t_philo *philo, t_data *data)
 }
 
 /**
- * @fn static bool philo_routine(t_philo *philo, t_data *data)
- * @brief Executes one cycle of eating, sleeping, and thinking.
- * @details 1. Checks if simulation is over.
- * 2. Picks forks.
- * 3. Updates last_meal time and meals_eaten count (protected).
- * 4. Eats (sleeps for time_to_eat).
- * 5. Releases forks.
- * 6. Sleeps (for time_to_sleep).
- * 7. Thinks.
+ * @fn static bool eating_sleeping(t_philo *philo, t_data *data)
+ * @brief Executes the eating and sleeping phases.
+ * @details CRITICAL: Checks if the philosopher died while waiting for forks
+ * *before* updating the `last_meal` timestamp. This prevents the "Aliasing"
+ * issue where a starved philosopher resets their timer and fools the monitor.
+ * 1. Checks death condition (current_time - last_meal >= time_to_die).
+ * 2. Updates `last_meal` and `meals_eaten`.
+ * 3. Prints EAT message and sleeps for `time_to_eat`.
+ * 4. Releases forks.
+ * 5. Prints SLEEP message and sleeps for `time_to_sleep`.
  * @param philo Pointer to the philosopher.
  * @param data Pointer to the shared data.
- * @return true to continue to the next cycle, false to stop.
+ * @return true if the cycle completed successfully, false if died or stopped.
  */
-static bool	philo_routine(t_philo *philo, t_data *data)
+static bool	eating_sleeping(t_philo *philo, t_data *data)
 {
-	bool	is_over;
-
-	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-	is_over = data->is_over;
-	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-	if (is_over)
-		return (false);
-	if (!pick_forks(philo, data))
-	{
-		release_forks(philo, data);
-		return (false);
-	}
 	safe_mutex(&philo->meal_mtx, LOCK, data, data->total_philos);
+	if (ft_gettimeofday_ms() - philo->last_meal >= (int64_t)data->time_to_die)
+	{
+		safe_mutex(&philo->meal_mtx, UNLOCK, data, data->total_philos);
+		return (false); 
+	}
 	philo->last_meal = ft_gettimeofday_ms();
-	philo->meals_eaten += 1;
+	philo->meals_eaten++;
 	safe_mutex(&philo->meal_mtx, UNLOCK, data, data->total_philos);
 	safe_print(PHILO_EAT, philo);
 	if (ft_msleep(data->time_to_eat, data) != 0)
@@ -136,17 +109,55 @@ static bool	philo_routine(t_philo *philo, t_data *data)
 	safe_print(PHILO_SLEEP, philo);
 	if (ft_msleep(data->time_to_sleep, data) != 0)
 		exit_error(SLEEP, data, data->total_philos);
+	return (true);
+}
+
+/**
+ * @fn static bool philo_routine(t_philo *philo, t_data *data)
+ * @brief Executes one full cycle of the philosopher's life.
+ * @details 1. Checks if simulation is over.
+ * 2. Picks forks.
+ * 3. Performs eating and sleeping (via helper).
+ * 4. Thinks (with calculated delay for odd number of philosophers to prevent
+ * starvation).
+ * @param philo Pointer to the philosopher.
+ * @param data Pointer to the shared data.
+ * @return true to continue, false to stop.
+ */
+static bool	philo_routine(t_philo *philo, t_data *data)
+{
+	bool	is_over;
+	long	time_to_think;
+
+	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
+	is_over = data->is_over;
+	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
+	if (is_over)
+		return (false);
+	if (!pick_forks(philo, data) || !eating_sleeping(philo, data))
+	{
+		release_forks(philo, data);
+		return (false);
+	}
 	safe_print(PHILO_THINK, philo);
+	if (data->total_philos % 2 != 0)
+	{
+		time_to_think = (data->time_to_eat * 2) - data->time_to_sleep;
+		if (time_to_think < 0)
+			time_to_think = 0;
+		if (ft_msleep(time_to_think * 0.42, data) != 0)
+			exit_error(SLEEP, data, data->total_philos);
+	}
 	return (true);
 }
 
 /**
  * @fn void *dining(void *arg)
- * @brief The main thread routine for a philosopher.
+ * @brief The main thread entry point for a philosopher.
  * @details 1. Signals readiness to the monitor.
- * 2. Spins/waits until the global `start_time` is set.
- * 3. Even-numbered philosophers delay slightly to prevent start contention.
- * 4. Loops through `philo_routine` until the simulation ends.
+ * 2. Waits for the global `start_time` synchronization.
+ * 3. Even-numbered philosophers delay start to desynchronize forks.
+ * 4. Loops `philo_routine` until simulation ends.
  * @param arg Void pointer to the philosopher structure.
  * @return NULL.
  */
@@ -172,7 +183,7 @@ void	*dining(void *arg)
 		if (usleep(500) != 0)
 			exit_error(SLEEP, data, data->total_philos);
 	}
-	if (philo->philo_id % 2 == 0 && ft_msleep(1, data))
+	if (philo->philo_id % 2 == 0 && ft_msleep(data->time_to_eat / 2, data))
 		exit_error(SLEEP, data, data->total_philos);
 	while (philo_routine(philo, data))
 		;

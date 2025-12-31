@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:07:04 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/25 16:14:24 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/31 04:39:07 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,14 @@ typedef struct s_data
 	t_philo		*philos;
 	pthread_t	monitor;
 }	t_data;
+
+/**
+ * @fn bool handle_single_philo(t_philo *philo, t_data *data)
+ * @brief Handles the specific edge case of a single philosopher.
+ * @param philo Pointer to the philosopher.
+ * @param data Pointer to the shared data.
+ * @return Always returns false to stop the routine.
+ */
+bool	handle_single_philo(t_philo *philo, t_data *data);
 
 #endif
