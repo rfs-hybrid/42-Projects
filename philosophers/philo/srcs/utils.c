@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/31 19:31:33 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 19:35:39 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	ft_msleep(long msec, t_data *data)
 {
 	int64_t	start;
 	int64_t	now;
-	int64_t	remaining;
 
 	start = ft_gettimeofday_ms();
 	if (start == -1)
@@ -126,37 +125,8 @@ int	ft_msleep(long msec, t_data *data)
 			return (0);
 		}
 		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-		remaining = msec - (now - start);
 		usleep(100);
 		now = ft_gettimeofday_ms();
 	}
 	return (0);
 }
-
-// int	ft_msleep(long msec, t_data *data)
-// {
-// 	int64_t	start;
-// 	int64_t	now;
-// 	int64_t	elapsed;
-
-// 	start = ft_gettimeofday_ms();
-// 	while (true)
-// 	{
-// 		safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-// 		if (data->is_over)
-// 		{
-// 			safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-// 			return (0);
-// 		}
-// 		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-// 		now = ft_gettimeofday_ms();
-// 		elapsed = now - start;
-// 		if (elapsed >= msec)
-// 			break;
-// 		else if (msec - elapsed > 10)
-// 			usleep((msec - elapsed) / 2 * 1000);
-// 		else
-// 			usleep(100);
-// 	}
-// 	return (0);
-// }
