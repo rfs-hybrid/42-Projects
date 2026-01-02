@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:11 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:35:48 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 15:21:33 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,27 +97,19 @@ void	*safe_malloc(size_t size)
 /**
  * @fn void safe_print(t_print_code code, t_philo *philo)
  * @brief Thread-safe wrapper for printing simulation events.
- * @details Locks the `print_mtx` to ensure messages don't overlap.
- * Also checks `is_over` status to prevent printing after death (unless it is
- * the death message).
+ * @details Implements a "Print Lock First" strategy.
+ * 1. Locks `print_mtx` *before* checking status. This serializes threads
+ * waiting to print, preventing them from spamming the critical `status_mtx`.
+ * 2. Locks `status_mtx` briefly to check/update the `is_over` flag.
+ * 3. Prints the message if the simulation is active (or if reporting death).
  * @param code Message code.
  * @param philo Pointer to the philosopher.
  */
 void	safe_print(t_print_code code, t_philo *philo)
 {
 	t_data	*data;
-	bool	print_ready;
 
 	data = philo->data;
-	print_ready = false;
-	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-	if (!data->is_over)
-		print_ready = true;
-	if (!data->is_over && code == PHILO_DEAD)
-		data->is_over = true;
-	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-	if (!print_ready)
-		return ;
 	safe_mutex(&data->print_mtx, LOCK, data, data->total_philos);
 	safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
 	if (data->is_over && code != PHILO_DEAD)
@@ -126,6 +118,8 @@ void	safe_print(t_print_code code, t_philo *philo)
 		safe_mutex(&data->print_mtx, UNLOCK, data, data->total_philos);
 		return ;
 	}
+	if (code == PHILO_DEAD)
+		data->is_over = true;
 	safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 	print_message(code, philo);
 	safe_mutex(&data->print_mtx, UNLOCK, data, data->total_philos);

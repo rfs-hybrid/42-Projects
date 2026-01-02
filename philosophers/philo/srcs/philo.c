@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:38:52 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/31 17:27:14 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,27 @@
 #include "printer.h"
 #include "safety.h"
 #include "utils.h"
+
+/**
+ * @fn bool handle_single_philo(t_philo *philo, t_data *data)
+ * @brief Handles the specific edge case of a single philosopher.
+ * @details A single philosopher takes one fork, waits for `time_to_die`, and
+ * then dies. This function handles the locking, printing, and sleeping for
+ * that scenario.
+ * @param philo Pointer to the philosopher.
+ * @param data Pointer to the shared data.
+ * @return Always returns false to stop the routine.
+ */
+bool	handle_single_philo(t_philo *philo, t_data *data)
+{
+	safe_mutex(&data->forks_mtx[philo->fork_a], LOCK, data, data->total_philos);
+	safe_print(PHILO_FORK, philo);
+	if (ft_msleep(data->time_to_die, data) != 0)
+		exit_error(SLEEP, data, data->total_philos);
+	safe_mutex(&data->forks_mtx[philo->fork_a], UNLOCK, data,
+		data->total_philos);
+	return (false);
+}
 
 /**
  * @fn static void cleanup(t_data *data)

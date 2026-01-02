@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/31 04:37:00 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 15:22:18 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static bool	check_full_philos(t_data *data, long full_philos)
 static bool	check_simulation_state(t_data *data)
 {
 	int64_t	now;
-	long 	full_philos;
+	long	full_philos;
 	long	i;
 
 	now = ft_gettimeofday_ms();

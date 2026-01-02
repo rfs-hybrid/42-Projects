@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:10:31 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:46:15 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 15:21:51 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	*safe_malloc(size_t size);
 /**
  * @fn void safe_print(t_print_code code, t_philo *philo)
  * @brief Thread-safe wrapper for printing simulation messages.
- * @details Prevents printing if the simulation has already ended.
+ * @details locks `print_mtx` first to reduce contention on the shared
+ * `status_mtx`, ensuring the monitor thread is not starved by printing threads.
  * @param code  The message code representing the event.
  * @param philo Pointer to the philosopher involved (or NULL for generic errors).
  */

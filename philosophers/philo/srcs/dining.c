@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/31 04:35:54 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 15:22:30 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static bool	eating_sleeping(t_philo *philo, t_data *data)
 	if (ft_gettimeofday_ms() - philo->last_meal >= (int64_t)data->time_to_die)
 	{
 		safe_mutex(&philo->meal_mtx, UNLOCK, data, data->total_philos);
-		return (false); 
+		return (false);
 	}
 	philo->last_meal = ft_gettimeofday_ms();
 	philo->meals_eaten++;
@@ -145,7 +145,9 @@ static bool	philo_routine(t_philo *philo, t_data *data)
 		time_to_think = (data->time_to_eat * 2) - data->time_to_sleep;
 		if (time_to_think < 0)
 			time_to_think = 0;
-		if (ft_msleep(time_to_think * 0.42, data) != 0)
+		if (time_to_think > 0 && ft_msleep(time_to_think * 0.95, data) != 0)
+			exit_error(SLEEP, data, data->total_philos);
+		if (usleep(500) != 0)
 			exit_error(SLEEP, data, data->total_philos);
 	}
 	return (true);
@@ -180,10 +182,10 @@ void	*dining(void *arg)
 			break ;
 		}
 		safe_mutex(&data->ready_mtx, UNLOCK, data, data->total_philos);
-		if (usleep(500) != 0)
+		if (usleep(1) != 0)
 			exit_error(SLEEP, data, data->total_philos);
 	}
-	if (philo->philo_id % 2 == 0 && ft_msleep(data->time_to_eat / 2, data))
+	if (philo->philo_id % 2 == 0 && ft_msleep(1, data))
 		exit_error(SLEEP, data, data->total_philos);
 	while (philo_routine(philo, data))
 		;
