@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:07:04 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:23:19 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 21:15:08 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // Semaphore Names
 # define SEM_STOP	"/philo_stop"
 # define SEM_PRINT	"/philo_print"
-# define SEM_MEAL	"/philo_meal"
+# define SEM_MEAL	"/philo_meal_"
 # define SEM_FULL	"/philo_full"
 # define SEM_WAITER	"/philo_waiter"
 # define SEM_FORKS	"/philo_forks"
@@ -40,6 +40,7 @@ typedef struct s_data	t_data;
  * @param meals_eaten The number of meals this philosopher has consumed.
  * @param last_meal   Timestamp (in ms) of the start of the last meal.
  * @param pid         The Process ID of the philosopher (child process).
+ * @param meal        Named semaphore unique to this philosopher (protects data).
  * @param monitor     The Thread ID of the internal death monitor thread.
  * @param data        Pointer to the shared simulation data.
  */
@@ -49,6 +50,7 @@ typedef struct s_philo
 	long		meals_eaten;
 	int64_t		last_meal;
 	pid_t		pid;
+	sem_t		*meal;
 	pthread_t	monitor;
 	t_data		*data;
 }	t_philo;
@@ -64,9 +66,9 @@ typedef struct s_philo
  * @param start_time    Timestamp (in ms) when the simulation officially begins.
  * @param stop          Semaphore used to signal the parent process to stop.
  * @param print         Semaphore used to serialize output operations.
- * @param meal          Semaphore used to protect meal data race conditions.
  * @param full          Semaphore used to count how many philosophers are full.
- * @param waiter        Semaphore used to limit concurrent diners (deadlock fix).
+ * @param waiter        Semaphore used to limit concurrent diners (deadlock
+ * prevent).
  * @param forks         Semaphore representing the pool of available forks.
  * @param philos        Array of philosopher structures.
  */
@@ -80,7 +82,6 @@ typedef struct s_data
 	int64_t		start_time;
 	sem_t		*stop;
 	sem_t		*print;
-	sem_t		*meal;
 	sem_t		*full;
 	sem_t		*waiter;
 	sem_t		*forks;

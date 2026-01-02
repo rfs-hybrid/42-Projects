@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:13:47 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:54:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,23 @@ void	exit_error(t_print_code code, t_data *data)
  */
 void	destroy_semaphores(t_data *data)
 {
+	long	i;
+
 	if (sem_close(data->stop) != 0 || sem_close(data->print) != 0
-		|| sem_close(data->meal) != 0 || sem_close(data->full) != 0
-		|| sem_close(data->waiter) != 0 || sem_close(data->forks) != 0)
+		|| sem_close(data->full) != 0 || sem_close(data->waiter) != 0
+		|| sem_close(data->forks) != 0)
 		exit_error(SEM_CLOSE, data);
+	if (data->philos)
+	{
+		i = -1;
+		while (++i < data->total_philos)
+			if (data->philos[i].meal != SEM_FAILED
+				&& sem_close(data->philos[i].meal) != 0)
+				exit_error(SEM_CLOSE, data);
+	}
 	if (sem_unlink(SEM_STOP) != 0 || sem_unlink(SEM_PRINT) != 0
-		|| sem_unlink(SEM_MEAL) != 0 || sem_unlink(SEM_FULL) != 0
-		|| sem_unlink(SEM_WAITER) != 0 || sem_unlink(SEM_FORKS) != 0)
+		|| sem_unlink(SEM_FULL) != 0 || sem_unlink(SEM_WAITER) != 0
+		|| sem_unlink(SEM_FORKS) != 0)
 		exit_error(SEM_UNLINK, data);
 }
 
@@ -110,7 +120,6 @@ int	ft_msleep(long msec)
 {
 	int64_t	start;
 	int64_t	now;
-	int64_t	remaining;
 
 	start = ft_gettimeofday_ms();
 	if (start == -1)
@@ -118,11 +127,7 @@ int	ft_msleep(long msec)
 	now = start;
 	while (now - start < (int64_t)msec)
 	{
-		remaining = msec - (now - start);
-		if (remaining > 10)
-			usleep(5000);
-		else if (remaining > 0)
-			usleep(remaining * 500);
+		usleep(100);
 		now = ft_gettimeofday_ms();
 	}
 	return (0);

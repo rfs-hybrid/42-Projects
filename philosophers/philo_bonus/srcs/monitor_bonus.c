@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/30 15:27:36 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 20:56:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ void	*monitor_philo_status(void *arg)
 	while (true)
 	{
 		now = ft_gettimeofday_ms();
-		safe_sem(philo->data->meal, WAIT, philo->data);
+		safe_sem(philo->meal, WAIT, philo->data);
 		last = philo->last_meal;
-		safe_sem(philo->data->meal, POST, philo->data);
+		safe_sem(philo->meal, POST, philo->data);
 		if (now - last > (int64_t)philo->data->time_to_die)
 		{
 			safe_print(PHILO_DEAD, philo);
 			safe_sem(philo->data->stop, POST, philo->data);
 			exit(EXIT_FAILURE);
 		}
-		if (ft_msleep(1) != 0)
+		if (usleep(500) != 0)
 			exit_error(SLEEP, philo->data);
 	}
 	return (NULL);

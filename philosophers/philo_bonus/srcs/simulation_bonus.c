@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:04:25 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/30 15:48:02 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/02 16:03:07 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ void	simulation(t_data *data)
 			monitor_philo_meals(data);
 	}
 	safe_sem(data->stop, WAIT, data);
+	if (usleep(5000) != 0)
+		exit_error(SLEEP, data);
 	kill_all_philos(data);
 	if (data->total_meals != -1 && meal_pid != -1)
 	{
