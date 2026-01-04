@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:04:25 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 16:03:07 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/04 20:35:22 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ static void	start_processes(t_data *data)
 /**
  * @fn void simulation(t_data *data)
  * @brief Orchestrates the main simulation flow in the parent process.
- * @details 1. Starts all philosopher processes.
+ * @details
+ * 1. Starts all philosopher processes.
  * 2. If a meal limit is set, forks a dedicated monitoring process.
  * 3. Waits on the `stop` semaphore (blocks until a death occurs or all eat).
  * 4. Kills and reaps all child processes (philosophers + monitor) to ensure

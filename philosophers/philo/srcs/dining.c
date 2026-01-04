@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 21:09:10 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/31 22:51:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ static bool	pick_forks(t_philo *philo, t_data *data)
 /**
  * @fn static bool eating_sleeping(t_philo *philo, t_data *data)
  * @brief Executes the eating and sleeping phases.
- * @details CRITICAL: Checks if the philosopher died while waiting for forks
- * *before* updating the `last_meal` timestamp. This prevents the "Aliasing"
- * issue where a starved philosopher resets their timer and fools the monitor.
+ * @details Checks if the philosopher died while waiting for forks *before*
+ * updating the `last_meal` timestamp. This prevents the "Aliasing" issue
+ * where a starved philosopher resets their timer and fools the monitor.
  * 1. Checks death condition (current_time - last_meal >= time_to_die).
  * 2. Updates `last_meal` and `meals_eaten`.
  * 3. Prints EAT message and sleeps for `time_to_eat`.
@@ -115,7 +115,8 @@ static bool	eating_sleeping(t_philo *philo, t_data *data)
 /**
  * @fn static bool philo_routine(t_philo *philo, t_data *data)
  * @brief Executes one full cycle of the philosopher's life.
- * @details 1. Checks if simulation is over.
+ * @details
+ * 1. Checks if simulation is over.
  * 2. Picks forks.
  * 3. Performs eating and sleeping (via helper).
  * 4. Thinks (with calculated delay for odd number of philosophers to prevent
@@ -156,7 +157,8 @@ static bool	philo_routine(t_philo *philo, t_data *data)
 /**
  * @fn void *dining(void *arg)
  * @brief The main thread entry point for a philosopher.
- * @details 1. Signals readiness to the monitor.
+ * @details
+ * 1. Signals readiness to the monitor.
  * 2. Waits for the global `start_time` synchronization.
  * 3. Even-numbered philosophers delay start to desynchronize forks.
  * 4. Loops `philo_routine` until simulation ends.

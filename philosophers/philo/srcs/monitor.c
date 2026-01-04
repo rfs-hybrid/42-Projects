@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 15:22:18 by maaugust         ###   ########.fr       */
+/*   Updated: 2025/12/31 22:50:41 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ static void	wait_until_all_philos_ready(t_data *data)
 /**
  * @fn static void initialize_timer(t_data *data)
  * @brief Synchronizes start time and initializes philosopher timers.
- * @details 1. Sets all `last_meal` timestamps to current time to prevent
- * premature death at T=0.
+ * @details
+ * 1. Sets all `last_meal` timestamps to current time to prevent premature
+ * death at T=0.
  * 2. Sets the global `start_time` to release philosopher threads.
  * 3. Waits a "Grace Period" (time_to_die / 2) to let threads stabilize.
  * @param data Pointer to the shared data.
@@ -128,10 +129,11 @@ static bool	check_simulation_state(t_data *data)
 /**
  * @fn void *monitor(void *arg)
  * @brief The main monitor thread routine.
- * @details 1. Waits for readiness.
+ * @details
+ * 1. Waits for readiness.
  * 2. Initializes timers and grace period.
  * 3. Loops with a tuned `usleep(500)` to balance responsiveness (checking
- * death) and CPU usage (allowing philosophers to run).
+ * death and meal quotas) and CPU usage (allowing philosophers to run).
  * @param arg Void pointer to the data structure.
  * @return NULL.
  */
@@ -146,13 +148,6 @@ void	*monitor(void *arg)
 	{
 		if (check_simulation_state(data))
 			break ;
-		safe_mutex(&data->status_mtx, LOCK, data, data->total_philos);
-		if (data->is_over)
-		{
-			safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
-			break ;
-		}
-		safe_mutex(&data->status_mtx, UNLOCK, data, data->total_philos);
 		if (usleep(500) != 0)
 			exit_error(SLEEP, data, data->total_philos);
 	}
