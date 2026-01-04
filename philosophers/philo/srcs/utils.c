@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 19:35:39 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/04 16:56:26 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	destroy_mutexes(t_data *data, long count)
 /**
  * @fn long ft_atol(char *str)
  * @brief Converts a string to a long integer.
- * @details Robust conversion that handles spacing and signs.
+ * @details Robust conversion that handles spacing, signs and letters.
  * @param str The string to convert.
  * @return The converted value, or -1 if invalid/overflow.
  */
@@ -80,6 +80,10 @@ long	ft_atol(char *str)
 		if (res < prev)
 			return (-1);
 	}
+	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
+		str++;
+	if (*str)
+		return (-1);
 	return (res);
 }
 
