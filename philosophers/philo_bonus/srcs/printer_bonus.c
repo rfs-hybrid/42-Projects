@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/17 14:04:47 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 22:34:11 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/04 17:05:48 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ static void	error_message(t_print_code code)
 	printf(RESET);
 	if (code != NUM_ARGS && code != POS_ARGS)
 		return ;
-	printf(BOLD_ON FG_GREEN "\nUsage:" BOLD_OFF "\t./philo " ITALIC_ON "number\
-_of_philosophers time_to_die time_to_eat time_to_sleep " ITALIC_OFF "["\
+	printf(BOLD_ON FG_GREEN "\nUsage:" BOLD_OFF "\t./philo_bonus " ITALIC_ON\
+"number_of_philosophers time_to_die time_to_eat time_to_sleep " ITALIC_OFF "["\
 ITALIC_ON "number_of_times_each_philosopher_must_eat" ITALIC_OFF "]\n");
-	printf(BOLD_ON FG_YELLOW"\nExamples:\n" BOLD_OFF "\t./philo 5 800 200 200\n\
-\t./philo 5 800 200 200 7\n\n" RESET);
+	printf(BOLD_ON FG_YELLOW"\nExamples:\n" BOLD_OFF "\t./philo_bonus 5 800 200 \
+200\n\t./philo_bonus 5 800 200 200 7\n\n" RESET);
 }
 
 /**
