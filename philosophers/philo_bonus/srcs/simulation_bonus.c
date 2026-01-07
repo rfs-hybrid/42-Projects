@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 15:04:25 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/04 20:35:22 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:52:43 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ static void	start_processes(t_data *data)
  * @details
  * 1. Starts all philosopher processes.
  * 2. If a meal limit is set, forks a dedicated monitoring process.
- * 3. Waits on the `stop` semaphore (blocks until a death occurs or all eat).
+ * 3. Blocks on `waitpid(-1)` waiting for ANY child process to terminate
+ * (due to death, full meals, or manual kill).
  * 4. Kills and reaps all child processes (philosophers + monitor) to ensure
  * a clean exit without zombies or leaks.
  * @param data Pointer to the main data structure.
@@ -125,7 +126,7 @@ void	simulation(t_data *data)
 		if (meal_pid == 0)
 			monitor_philo_meals(data);
 	}
-	safe_sem(data->stop, WAIT, data);
+	waitpid(-1, NULL, 0);
 	if (usleep(5000) != 0)
 		exit_error(SLEEP, data);
 	kill_all_philos(data);

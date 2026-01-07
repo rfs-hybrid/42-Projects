@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 20:56:26 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:49:43 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
  * @brief Thread routine that monitors the death status of a single philosopher.
  * @details Runs as a thread inside each philosopher's child process. It
  * continuously checks if the philosopher has starved. If death is detected,
- * it prints the message, signals the global `stop` semaphore, and exits the
- * process.
+ * it prints the message and exits the process with `EXIT_FAILURE`.
+ * This exit is detected by the parent's `waitpid`, triggering the global
+ * shutdown.
  * @param arg Void pointer to the philosopher structure.
  * @return NULL.
  */
@@ -42,7 +43,6 @@ void	*monitor_philo_status(void *arg)
 		if (now - last > (int64_t)philo->data->time_to_die)
 		{
 			safe_print(PHILO_DEAD, philo);
-			safe_sem(philo->data->stop, POST, philo->data);
 			exit(EXIT_FAILURE);
 		}
 		if (usleep(500) != 0)
@@ -55,8 +55,9 @@ void	*monitor_philo_status(void *arg)
  * @fn void monitor_philo_meals(t_data *data)
  * @brief Routine for the dedicated meal monitoring process.
  * @details Runs in a separate child process. Waits for `total_philos` signals
- * on the `full` semaphore. Once all philosophers have eaten enough, it posts
- * the `stop` semaphore to end the simulation and exits successfully.
+ * on the `full` semaphore. Once all philosophers have eaten enough, it exits
+ * with `EXIT_SUCCESS`. This exit is detected by the parent's `waitpid`,
+ * triggering the global shutdown.
  * @param data Pointer to the main data structure.
  */
 void	monitor_philo_meals(t_data *data)
@@ -66,6 +67,5 @@ void	monitor_philo_meals(t_data *data)
 	i = -1;
 	while (++i < data->total_philos)
 		safe_sem(data->full, WAIT, data);
-	safe_sem(data->stop, POST, data);
 	exit(EXIT_SUCCESS);
 }

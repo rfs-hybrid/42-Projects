@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:07:04 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 21:15:08 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:55:05 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <unistd.h>
 
 // Semaphore Names
-# define SEM_STOP	"/philo_stop"
 # define SEM_PRINT	"/philo_print"
 # define SEM_MEAL	"/philo_meal_"
 # define SEM_FULL	"/philo_full"
@@ -64,7 +63,6 @@ typedef struct s_philo
  * @param time_to_sleep Time (in ms) spent sleeping.
  * @param total_meals   Minimum number of meals per philosopher (-1 if infinite).
  * @param start_time    Timestamp (in ms) when the simulation officially begins.
- * @param stop          Semaphore used to signal the parent process to stop.
  * @param print         Semaphore used to serialize output operations.
  * @param full          Semaphore used to count how many philosophers are full.
  * @param waiter        Semaphore used to limit concurrent diners (deadlock
@@ -80,7 +78,6 @@ typedef struct s_data
 	long		time_to_sleep;
 	long		total_meals;
 	int64_t		start_time;
-	sem_t		*stop;
 	sem_t		*print;
 	sem_t		*full;
 	sem_t		*waiter;

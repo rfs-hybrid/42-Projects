@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 00:18:20 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 21:21:57 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:52:52 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
  * @brief Initializes all named semaphores used in the simulation.
  * @details Unlinks any existing semaphores with the same names first, then
  * opens new ones.
- * - `stop`: Main stop signal (0).
  * - `print`: Serializes output (1).
  * - `full`: Counts full philosophers (0).
  * - `waiter`: Limits concurrent eaters (total_philos - 1).
@@ -30,19 +29,16 @@
  */
 static void	semaphore_init(t_data *data)
 {
-	sem_unlink(SEM_STOP);
 	sem_unlink(SEM_PRINT);
 	sem_unlink(SEM_FULL);
 	sem_unlink(SEM_WAITER);
 	sem_unlink(SEM_FORKS);
-	data->stop = sem_open(SEM_STOP, O_CREAT, 0644, 0);
 	data->print = sem_open(SEM_PRINT, O_CREAT, 0644, 1);
 	data->full = sem_open(SEM_FULL, O_CREAT, 0644, 0);
 	data->waiter = sem_open(SEM_WAITER, O_CREAT, 0644, data->total_philos - 1);
 	data->forks = sem_open(SEM_FORKS, O_CREAT, 0644, data->total_philos);
-	if (data->stop == SEM_FAILED || data->print == SEM_FAILED
-		|| data->full == SEM_FAILED || data->waiter == SEM_FAILED
-		|| data->forks == SEM_FAILED)
+	if (data->print == SEM_FAILED || data->full == SEM_FAILED
+		|| data->waiter == SEM_FAILED || data->forks == SEM_FAILED)
 		exit_error(SEM_OPEN, data);
 }
 

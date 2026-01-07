@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 15:43:32 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/02 21:18:25 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:44:24 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ static void	eating_sleeping(t_philo *philo, t_data *data)
 		safe_sem(philo->meal, POST, data);
 		release_forks(data);
 		safe_print(PHILO_DEAD, philo);
-		safe_sem(data->stop, POST, data);
 		exit(EXIT_FAILURE);
 	}
 	philo->last_meal = ft_gettimeofday_ms();

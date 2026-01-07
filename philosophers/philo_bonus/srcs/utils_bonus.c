@@ -6,7 +6,7 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/04 16:54:44 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:47:05 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,8 @@ void	destroy_semaphores(t_data *data)
 {
 	long	i;
 
-	if (sem_close(data->stop) != 0 || sem_close(data->print) != 0
-		|| sem_close(data->full) != 0 || sem_close(data->waiter) != 0
-		|| sem_close(data->forks) != 0)
+	if (sem_close(data->print) != 0 || sem_close(data->full) != 0
+		|| sem_close(data->waiter) != 0 || sem_close(data->forks) != 0)
 		exit_error(SEM_CLOSE, data);
 	if (data->philos)
 	{
@@ -58,9 +57,8 @@ void	destroy_semaphores(t_data *data)
 				&& sem_close(data->philos[i].meal) != 0)
 				exit_error(SEM_CLOSE, data);
 	}
-	if (sem_unlink(SEM_STOP) != 0 || sem_unlink(SEM_PRINT) != 0
-		|| sem_unlink(SEM_FULL) != 0 || sem_unlink(SEM_WAITER) != 0
-		|| sem_unlink(SEM_FORKS) != 0)
+	if (sem_unlink(SEM_PRINT) != 0 || sem_unlink(SEM_FULL) != 0
+		|| sem_unlink(SEM_WAITER) != 0 || sem_unlink(SEM_FORKS) != 0)
 		exit_error(SEM_UNLINK, data);
 }
 
