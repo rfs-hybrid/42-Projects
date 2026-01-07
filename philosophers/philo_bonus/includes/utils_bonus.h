@@ -6,14 +6,13 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:24:43 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/29 17:29:04 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:51:36 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_BONUS_H
 # define UTILS_BONUS_H
 
-# include <semaphore.h>
 # include <stdint.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -25,23 +24,14 @@ typedef struct s_data	t_data;
 
 /**
  * @fn void exit_error(t_print_code code, t_data *data)
- * @brief Cleans up resources and exits the program with a failure status.
- * @details Unlinks/Closes semaphores, frees memory, and calls
- * exit(EXIT_FAILURE). Includes guards against infinite recursion during error
- * handling.
+ * @brief Cleans up local resources and exits the program with a failure
+ * status.
+ * @details Closes local semaphore descriptors, frees memory, and calls
+ * exit(EXIT_FAILURE). Safe for use in child processes.
  * @param code  The error code to display.
  * @param data  Pointer to the shared data structure to free.
  */
 void	exit_error(t_print_code code, t_data *data);
-
-/**
- * @fn void destroy_semaphores(t_data *data)
- * @brief Closes and unlinks all named semaphores used in the simulation.
- * @details Crucial for cleanup; unlinking ensures semaphores are removed from
- * the system kernel, allowing a clean restart.
- * @param data  Pointer to the shared data structure.
- */
-void	destroy_semaphores(t_data *data);
 
 /**
  * @fn long ft_atol(char *str)

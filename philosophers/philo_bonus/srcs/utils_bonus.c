@@ -6,20 +6,21 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:13:07 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/07 15:47:05 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:51:16 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_bonus.h"
+#include "cleanup_bonus.h"
 #include "philo_bonus.h"
 #include "safety_bonus.h"
 
 /**
  * @fn void exit_error(t_print_code code, t_data *data)
- * @brief Handles fatal errors by printing a message and cleaning up.
- * @details Destroys semaphores, frees memory, and exits.
- * Guards against recursion: if the error is a semaphore destruction error,
- * it skips the destroy step.
+ * @brief Handles fatal errors by printing a message and cleaning up locally.
+ * @details Closes open semaphore descriptors and frees memory before exiting.
+ * DOES NOT unlink semaphores, ensuring other processes remain unaffected.
+ * Guards against recursion during semaphore closing errors.
  * @param code Error code.
  * @param data Pointer to data structure.
  */
@@ -29,37 +30,10 @@ void	exit_error(t_print_code code, t_data *data)
 	if (data->philos)
 	{
 		if (code != SEM_CLOSE && code != SEM_UNLINK)
-			destroy_semaphores(data);
+			close_semaphores(data);
 		free(data->philos);
 	}
 	exit(EXIT_FAILURE);
-}
-
-/**
- * @fn void destroy_semaphores(t_data *data)
- * @brief Closes and unlinks all named semaphores.
- * @details Ensures that the semaphores are removed from the system so they
- * do not persist after the program ends.
- * @param data Pointer to data structure.
- */
-void	destroy_semaphores(t_data *data)
-{
-	long	i;
-
-	if (sem_close(data->print) != 0 || sem_close(data->full) != 0
-		|| sem_close(data->waiter) != 0 || sem_close(data->forks) != 0)
-		exit_error(SEM_CLOSE, data);
-	if (data->philos)
-	{
-		i = -1;
-		while (++i < data->total_philos)
-			if (data->philos[i].meal != SEM_FAILED
-				&& sem_close(data->philos[i].meal) != 0)
-				exit_error(SEM_CLOSE, data);
-	}
-	if (sem_unlink(SEM_PRINT) != 0 || sem_unlink(SEM_FULL) != 0
-		|| sem_unlink(SEM_WAITER) != 0 || sem_unlink(SEM_FORKS) != 0)
-		exit_error(SEM_UNLINK, data);
 }
 
 /**

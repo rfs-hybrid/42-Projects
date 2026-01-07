@@ -6,29 +6,17 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 01:04:33 by maaugust          #+#    #+#             */
-/*   Updated: 2025/12/30 15:25:45 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 17:16:35 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include "cleanup_bonus.h"
 #include "init_bonus.h"
 #include "monitor_bonus.h"
 #include "printer_bonus.h"
 #include "simulation_bonus.h"
 #include "utils_bonus.h"
-
-/**
- * @fn static void cleanup(t_data *data)
- * @brief Cleans up resources before the program exits.
- * @details Unlinks and closes all semaphores and frees the allocated memory
- * for the philosopher structures.
- * @param data Pointer to the main data structure containing all resources.
- */
-static void	cleanup(t_data *data)
-{
-	destroy_semaphores(data);
-	free(data->philos);
-}
 
 /**
  * @fn static void check_args(int argc, char **argv)
