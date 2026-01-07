@@ -6,11 +6,12 @@
 /*   By: maaugust <maaugust@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 15:18:03 by maaugust          #+#    #+#             */
-/*   Updated: 2026/01/07 15:49:43 by maaugust         ###   ########.fr       */
+/*   Updated: 2026/01/07 18:30:18 by maaugust         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "monitor_bonus.h"
+#include "cleanup_bonus.h"
 #include "philo_bonus.h"
 #include "printer_bonus.h"
 #include "safety_bonus.h"
@@ -67,5 +68,7 @@ void	monitor_philo_meals(t_data *data)
 	i = -1;
 	while (++i < data->total_philos)
 		safe_sem(data->full, WAIT, data);
+	close_semaphores(data);
+	free(data->philos);
 	exit(EXIT_SUCCESS);
 }
